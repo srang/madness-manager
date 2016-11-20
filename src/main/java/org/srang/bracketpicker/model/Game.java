@@ -1,5 +1,6 @@
 package org.srang.bracketpicker.model;
 
+import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.transaction.SavepointManager;
 
@@ -10,6 +11,7 @@ import java.io.Serializable;
 /**
  * Created by srang on 11/5/2016.
  */
+@Data
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 public class Game implements Serializable {

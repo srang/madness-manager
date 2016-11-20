@@ -10,6 +10,7 @@ import java.util.Date;
 /**
  * Created by srang on 11/5/2016.
  */
+@Data
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 public class BlogLink implements Serializable {
