@@ -1,0 +1,30 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/base">
+<th:block layout:fragment="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Admin Dashboard</div>
+
+                    <div class="panel-body">
+                        USERNAME is logged in as admin
+                        <div class="list-group">
+                            <div class="list-group-item">
+                                <a href="/teams">Teams</a>: view and update teams with their colors, mascot, rank and
+                                region
+                            </div>
+                            <div class="list-group-item">
+                                <a href="/brackets">Brackets</a>: view and update user and master brackets
+                            </div>
+                            <div class="list-group-item">
+                                <a href="/users">Users</a>: view and update users
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>
