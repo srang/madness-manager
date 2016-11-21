@@ -22,6 +22,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <flyway.user>madness</flyway.user>
+        <flyway.password>tourney</flyway.password>
+        <flyway.schemas>madness</flyway.schemas>
+        <flyway.url>jdbc:mysql://localhost:3306</flyway.url>
     </properties>
 
     <dependencies>
@@ -84,6 +88,20 @@
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>4.0.3</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>5.1.29</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <url>${flyway.url}</url>
+                    <outOfOrder>true</outOfOrder>
+                    <locations>
+                        <location>db/migration/</location>
+                    </locations>
+                </configuration>
             </plugin>
 
         </plugins>
