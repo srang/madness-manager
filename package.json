@@ -1,0 +1,44 @@
+{
+  "name": "madness-manager",
+  "version": "0.0.1",
+  "description": "Bracket competition site",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/srang/madness-manager.git"
+  },
+  "keywords": [
+    "march",
+    "madness",
+    "bracket",
+    "basketball",
+    "java",
+    "spring",
+    "bootstrap",
+    "picker"
+  ],
+  "author": "srang",
+  "license": "ApacheV2",
+  "bugs": {
+    "url": "https://github.com/srang/madness-manager/issues"
+  },
+  "devDependencies": {
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-clean-css": "^2.0.13",
+    "gulp-concat": "^2.6.1",
+    "gulp-less": "^3.3.0",
+    "gulp-uglify": "^2.0.0"
+  },
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.1.1",
+    "pick-a-color": "^1.2.3",
+    "select2": "^4.0.3",
+    "summernote": "^0.8.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "gulp"
+  }
+}
