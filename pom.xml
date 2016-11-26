@@ -143,16 +143,16 @@
                             <arguments>install</arguments>
                         </configuration>
                     </execution>
-                    <!--<execution>-->
-                        <!--<id>grunt-test</id>-->
-                        <!--<goals>-->
-                            <!--<goal>grunt</goal>-->
-                        <!--</goals>-->
-                        <!--<phase>test</phase>-->
-                        <!--<configuration>-->
-                            <!--<arguments>test &#45;&#45;phantomPath=${phantomjs.binary}</arguments>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
+                    <execution>
+                        <id>gulp clean</id>
+                        <goals>
+                            <goal>gulp</goal>
+                        </goals>
+                        <phase>clean</phase>
+                        <configuration>
+                            <arguments>clean</arguments>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
 

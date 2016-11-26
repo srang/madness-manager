@@ -2,21 +2,28 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     concat = require('gulp-concat'),
     less = require('gulp-less'),
+    path = require('path'),
     css = require('gulp-clean-css'),
-    autoprefixer = require('gulp-autoprefixer'),
+    notify = require('gulp-notify'),
+    LessAutoprefixer = require('less-plugin-autoprefix'),
+    rename = require('gulp-rename'),
     del = require('del');
+var autoprefixer = new LessAutoprefixer({ browsers: ['last 2 versions'] });
 
-gulp.task('styles', function() {
-    return less('src/main/resources/static/less/frontend.less', { style: 'expanded' })
-        .pipe(autoprefixer('last 2 version'))
-        .pipe(gulp.dest('dist/styles'))
+gulp.task('style', function() {
+    return gulp.src('src/main/resources/static/styles/**/*.{less,css}')
+        .pipe(less({
+            paths: [path.join(__dirname, 'less', 'includes')],
+            plugins: [autoprefixer]
+        }))
+        .pipe(gulp.dest('src/main/resources/static/dist'))
         .pipe(rename({ suffix: '.min' }))
-        .pipe(cssnano())
-        .pipe(gulp.dest('dist/styles'))
+        .pipe(css())
+        .pipe(gulp.dest('src/main/resources/static/dist'))
         .pipe(notify({ message: 'Styles task complete' }));
 });
 gulp.task('clean', function() {
-    return del(['dist/styles', 'dist/scripts', 'dist/images']);
+    return del(['src/main/resources/static/dist']);
 });
 // gulp.task('default', ['clean'], function() {
 //     gulp.start('styles', 'scripts', 'images');
