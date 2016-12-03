@@ -52,6 +52,7 @@ gulp.task('js-setup', function () {
 gulp.task('style', ['setup'], function () {
     return gulp.src([
         'src/main/resources/static/less/base.less',
+        'src/main/resources/static/less/frontend.less',
         'src/main/resources/static/css/**/*.css'
     ])
         .pipe(iff(/less/, less({
