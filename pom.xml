@@ -150,7 +150,7 @@
                         </goals>
                         <phase>clean</phase>
                         <configuration>
-                            <arguments>clean</arguments>
+                        <arguments>clean</arguments>
                         </configuration>
                     </execution>
                 </executions>

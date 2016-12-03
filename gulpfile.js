@@ -5,13 +5,38 @@ var gulp = require('gulp'),
     path = require('path'),
     css = require('gulp-clean-css'),
     notify = require('gulp-notify'),
+    iff = require('gulp-if'),
     LessAutoprefixer = require('less-plugin-autoprefix'),
     rename = require('gulp-rename'),
+    replace = require('gulp-replace'),
     del = require('del');
-var autoprefixer = new LessAutoprefixer({ browsers: ['last 2 versions'] });
+var autoprefixer = new LessAutoprefixer({browsers: ['last 2 versions']});
 
-gulp.task('setup', function() {
-    gulp.src([
+gulp.task('setup', ['less-setup', 'js-setup', 'css-setup']);
+gulp.task('less-setup',['less-one','less-two','less-three']);
+gulp.task('less-one', function () {
+    return gulp.src(['node_modules/bootstrap/less/**'])
+        .pipe(gulp.dest('src/main/resources/static/less/bootstrap'));
+});
+gulp.task('less-two', function () {
+    return gulp.src(['node_modules/font-awesome/less/**'])
+        .pipe(gulp.dest('src/main/resources/static/less/font-awesome'));
+});
+gulp.task('less-three', function () {
+    return gulp.src(['node_modules/pick-a-color/src/less/*.less'])
+        .pipe(replace('bootstrap-src/', '../'))
+        .pipe(gulp.dest('src/main/resources/static/less/pick-a-color'));
+});
+gulp.task('css-setup',function () {
+    return gulp.src([
+        'node_modules/datatables/media/css/jquery.dataTables.min.css',
+        'node_modules/summernote/dist/summernote.css'
+    ])
+        .pipe(gulp.dest('src/main/resources/static/dist/css'));
+})
+
+gulp.task('js-setup', function () {
+    return gulp.src([
         'node_modules/bootstrap/dist/js/bootstrap.min.js',
         'node_modules/jquery/dist/jquery.min.js',
         'node_modules/select2/dist/js/select2.min.js',
@@ -22,32 +47,29 @@ gulp.task('setup', function() {
     ])
         .pipe(gulp.dest('src/main/resources/static/dist/js'));
 
-    gulp.src([
-    ])
-        .pipe(gulp.dest('src/main/resources/static/dist/css'));
+})
 
-    gulp.src([
-        'node_modules/bootstrap/less/**/*.less',
-        'node_modules/font-awesome/less/*.less'
+gulp.task('style', ['setup'], function () {
+    return gulp.src([
+        'src/main/resources/static/less/base.less',
+        'src/main/resources/static/css/**/*.css'
     ])
-        .pipe(gulp.dest('src/main/resources/less'))
-});
-
-gulp.task('style', ['setup'], function() {
-    return gulp.src('src/main/resources/static/less/**/*.{less,css}')
-        .pipe(less({
+        .pipe(iff(/less/, less({
             paths: [path.join(__dirname, 'less', 'includes')],
             plugins: [autoprefixer]
-        }))
-        .pipe(gulp.dest('src/main/resources/static/dist/css'))
-        .pipe(rename({ suffix: '.min' }))
+        })))
+        .pipe(rename({suffix: '.min'}))
         .pipe(css())
         .pipe(gulp.dest('src/main/resources/static/dist/css'));
 });
-gulp.task('clean', function() {
+gulp.task('clean', function () {
     return del(['src/main/resources/static/dist']);
 });
 
-gulp.task('default', function() {
-    gulp.start('clean');
+gulp.task('default', function () {
+    return gulp.start('clean');
+});
+
+gulp.task('go', ['clean'],function () {
+    return gulp.start('style');
 })
