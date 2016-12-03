@@ -1,8 +1,7 @@
-package org.srang.madness.manager.model;
+package org.srang.madness.manager.model.entities;
 
 import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.transaction.SavepointManager;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -15,16 +14,10 @@ import java.io.Serializable;
 @Data
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Game implements Serializable {
+public class Rule implements Serializable {
     @Id
-    Integer gameId;
-    Integer teamAId;
-    Integer teamBId;
-    Integer scoreA;
-    Integer scoreB;
-    Boolean isMaster;
-    Integer winner;
+    Integer ruleId;
+    Integer rulesetId;
     Integer roundId;
-    Integer childGameA;
-    Integer childGameB;
+    String value;
 }

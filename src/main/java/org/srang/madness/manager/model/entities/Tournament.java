@@ -1,4 +1,4 @@
-package org.srang.madness.manager.model;
+package org.srang.madness.manager.model.entities;
 
 import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -6,7 +6,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.Id;
-import java.io.Serializable;
 
 /**
  * Created by srang on 11/5/2016.
@@ -14,9 +13,10 @@ import java.io.Serializable;
 @Data
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class BlogLink implements Serializable {
+public class Tournament {
     @Id
-    Integer linkId;
-    Integer blogId;
-    LinkType type;
+    Integer tournamentId;
+    String name;
+    Integer stateId;
+    Boolean active;
 }

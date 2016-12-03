@@ -1,4 +1,5 @@
-package org.srang.madness.manager.model;
+package org.srang.madness.manager.model.entities;
+
 
 import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -14,8 +15,11 @@ import java.io.Serializable;
 @Data
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class LinkType implements Serializable {
+public class Bracket implements Serializable {
     @Id
-    Integer linkTypeId;
-    String type;
+    Integer bracketId;
+    Integer userId;
+    Integer rootGame;
+    String name;
+    Boolean isMaster;
 }

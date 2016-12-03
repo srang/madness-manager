@@ -1,4 +1,4 @@
-package org.srang.madness.manager.model;
+package org.srang.madness.manager.model.entities;
 
 import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -13,12 +13,9 @@ import javax.persistence.Id;
 @Data
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Task {
+public class UserRole {
     @Id
-    Integer taskId;
-    String name;
+    Integer userRoleId;
     Integer userId;
-    Integer bracketId;
-    Long start;
-
+    Integer roleId;
 }

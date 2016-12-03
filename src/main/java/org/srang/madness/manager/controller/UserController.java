@@ -1,6 +1,8 @@
 package org.srang.madness.manager.controller;
 
+import lombok.extern.java.Log;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -8,5 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/user")
+@Log
 public class UserController {
+    @RequestMapping("")
+    public String index(Model model) {
+        return "user/index";
+    }
+
 }

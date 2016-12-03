@@ -1,4 +1,4 @@
-package org.srang.madness.manager.model;
+package org.srang.madness.manager.model.entities;
 
 import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -13,9 +13,14 @@ import javax.persistence.Id;
 @Data
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class UserRole {
+public class Team {
     @Id
-    Integer userRoleId;
-    Integer userId;
-    Integer roleId;
+    Integer teamId;
+    String name;
+    Integer rank;
+    Integer regionId;
+    String mascot;
+    String iconPath;
+    String primaryColor;
+    String accentColor;
 }

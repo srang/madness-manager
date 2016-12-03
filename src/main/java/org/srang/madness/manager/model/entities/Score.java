@@ -1,4 +1,4 @@
-package org.srang.madness.manager.model;
+package org.srang.madness.manager.model.entities;
 
 import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -14,10 +14,10 @@ import java.io.Serializable;
 @Data
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Rule implements Serializable {
+public class Score implements Serializable {
     @Id
-    Integer ruleId;
-    Integer rulesetId;
-    Integer roundId;
-    String value;
+    Integer scoreId;
+    Integer ruelsetId;
+    Integer bracketId;
+    Integer score;
 }

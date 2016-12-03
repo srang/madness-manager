@@ -1,4 +1,4 @@
-package org.srang.madness.manager.model;
+package org.srang.madness.manager.model.entities;
 
 import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -6,6 +6,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 /**
  * Created by srang on 11/5/2016.
@@ -13,14 +14,10 @@ import javax.persistence.Id;
 @Data
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Team {
+public class State implements Serializable {
     @Id
-    Integer teamId;
+    Integer stateId;
     String name;
-    Integer rank;
-    Integer regionId;
-    String mascot;
-    String iconPath;
-    String primaryColor;
-    String accentColor;
+    Integer nextId;
+    Integer prevId;
 }
