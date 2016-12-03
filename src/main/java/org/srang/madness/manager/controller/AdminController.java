@@ -19,6 +19,10 @@ public class AdminController {
         return "admin/index";
     }
 
+    @RequestMapping("/test")
+    public String other(Model model) {
+        return "admin/other";
+    }
 
     @RequestMapping(value = "/hello/{name}", method = RequestMethod.GET)
     public String enter(@PathVariable(required = false, value = "name")String name, Model model) {
