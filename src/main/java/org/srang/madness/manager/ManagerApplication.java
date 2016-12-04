@@ -35,13 +35,6 @@ public class ManagerApplication extends WebMvcConfigurerAdapter {
             }
             log.info("");
 
-            // fetch an individual customer by ID
-            User customer = repository.findOne(100);
-            log.info("Customer found with findOne(1):");
-            log.info("--------------------------------");
-            log.info(customer.toString());
-            log.info("");
-
             // fetch customers by last name
             log.info("Customer found with findByLastName('Bauer'):");
             log.info("--------------------------------------------");

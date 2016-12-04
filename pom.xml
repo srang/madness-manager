@@ -127,7 +127,7 @@
                     <url>${flyway.url}</url>
                     <outOfOrder>true</outOfOrder>
                     <locations>
-                        <location>db/migration/</location>
+                        <location>db/migration</location>
                         <location>db/data</location>
                     </locations>
                 </configuration>
@@ -137,14 +137,14 @@
                         <goals>
                             <goal>clean</goal>
                         </goals>
-                        <phase>clean</phase>
+                        <phase>pre-clean</phase>
                     </execution>
                     <execution>
                         <id>migrate-db</id>
                         <goals>
                             <goal>migrate</goal>
                         </goals>
-                        <phase>package</phase>
+                        <phase>compile</phase>
                     </execution>
                 </executions>
             </plugin>

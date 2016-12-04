@@ -21,6 +21,7 @@ public class Rule implements Serializable {
     @GeneratedValue
     @Column(name = "rule_id", unique = true, nullable = false)
     Integer ruleId;
+    @ManyToOne
     @JoinColumn(name = "ruleset_id", nullable = false)
     Ruleset ruleset;
     @Column(name = "round_id", nullable = false)

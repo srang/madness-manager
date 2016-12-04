@@ -23,8 +23,10 @@ public class Blog implements Serializable {
     Integer blogId;
     @Column(name = "content")
     String content;
+    @ManyToOne
     @JoinColumn(name = "parent_id")
     Blog parent;
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     User user;
 

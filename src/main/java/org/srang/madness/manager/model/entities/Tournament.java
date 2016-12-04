@@ -22,6 +22,7 @@ public class Tournament {
     Integer tournamentId;
     @Column(name = "name", nullable = false)
     String name;
+    @ManyToOne
     @JoinColumn(name = "state_id", nullable = false)
     State state;
     @Column(name = "active", nullable = false)

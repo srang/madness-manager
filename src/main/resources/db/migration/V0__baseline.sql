@@ -282,7 +282,7 @@ CREATE TABLE `rulesets` (
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `desc` text COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`ruleset_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

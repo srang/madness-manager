@@ -1,7 +1,7 @@
 SET FOREIGN_KEY_CHECKS = 0;
 
 INSERT INTO states
-  (state_id, state, next_id, prev_id)
+  (state_id, name, next_id, prev_id)
 VALUES
   (1,'setup',2,NULL),
   (2,'submission',3,1),
@@ -37,11 +37,12 @@ VALUES
 ;
 
 INSERT INTO rulesets
-  (name, desc)
+  (name, description)
 VALUES
   ('Bull Moose','The bull moose rule set')
 ;
-SELECT @rs_id = ruleset_id FROM rulesets WHERE name = 'Bull Moose';
+
+SELECT @rs_id := ruleset_id FROM rulesets WHERE name = 'Bull Moose';
 
 INSERT INTO rules
   (ruleset_id, round_id, rule)

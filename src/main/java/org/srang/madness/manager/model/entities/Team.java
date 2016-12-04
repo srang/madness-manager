@@ -25,6 +25,7 @@ public class Team implements Serializable {
     String name;
     @Column(name = "rank")
     Integer rank;
+    @ManyToOne
     @JoinColumn(name = "region_id")
     Region region;
     @Column(name = "mascot")

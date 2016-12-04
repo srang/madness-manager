@@ -26,6 +26,7 @@ public class User {
     String lastName;
     @Column(name = "email", unique = true, nullable = false)
     String email;
+    @ManyToOne
     @JoinColumn(name = "status_id", nullable = false)
     Status status;
     @Column(name = "password", nullable = false)

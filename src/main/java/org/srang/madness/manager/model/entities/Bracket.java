@@ -22,8 +22,10 @@ public class Bracket implements Serializable {
     @GeneratedValue
     @Column(name = "bracket_id", unique = true, nullable = false)
     Integer bracketId;
+    @ManyToOne
     @JoinColumn(name = "user_id")
     User user;
+    @ManyToOne
     @JoinColumn(name = "root_game", nullable = false)
     Game rootGame;
     @Column(name = "name", nullable = false)

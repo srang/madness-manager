@@ -21,8 +21,10 @@ public class Score implements Serializable {
     @GeneratedValue
     @Column(name = "score_id", unique = true, nullable = false)
     Integer scoreId;
+    @ManyToOne
     @JoinColumn(name = "ruleset_id", nullable = false)
     Ruleset ruleset;
+    @ManyToOne
     @JoinColumn(name = "bracket_id", nullable = false)
     Bracket bracket;
     @Column(name = "score", nullable = false)

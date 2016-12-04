@@ -22,6 +22,7 @@ public class VerificationToken implements Serializable {
     @GeneratedValue
     @Column(name = "verfication_id", unique = true, nullable = false)
     Integer verificationId;
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     User user;
     @Column(name = "token", nullable = false)

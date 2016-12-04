@@ -21,8 +21,10 @@ public class Game implements Serializable {
     @GeneratedValue
     @Column(name = "game_id", unique = true, nullable = false)
     Integer gameId;
+    @ManyToOne
     @JoinColumn(name = "team_a", nullable = false)
     Team teamAlpha;
+    @ManyToOne
     @JoinColumn(name = "team_b", nullable = false)
     Team teamBravo;
     @Column(name = "score_a")
@@ -31,6 +33,7 @@ public class Game implements Serializable {
     Integer scoreBravo;
     @Column(name = "master", nullable = false)
     Boolean isMaster;
+    @ManyToOne
     @JoinColumn(name = "winner")
     Team winner;
     @Column(name = "round_id", nullable = false)
