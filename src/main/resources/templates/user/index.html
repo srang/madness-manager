@@ -14,15 +14,8 @@
                     <div class="panel-body">
                         USERNAME is logged in as admin
                         <div class="list-group">
-                            <div class="list-group-item">
-                                <a href="/teams">Teams</a>: view and update teams with their colors, mascot, rank and
-                                region
-                            </div>
-                            <div class="list-group-item">
-                                <a href="/brackets">Brackets</a>: view and update user and master brackets
-                            </div>
-                            <div class="list-group-item">
-                                <a href="/users">Users</a>: view and update users
+                            <div th:each="user : ${users}" class="list-group-item">
+                                <span th:text='${user.firstName + " " + user.lastName}'></span>: <span th:text='${user.email}'></span>
                             </div>
                         </div>
                     </div>
