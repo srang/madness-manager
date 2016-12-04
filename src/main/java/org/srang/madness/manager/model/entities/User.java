@@ -1,6 +1,6 @@
 package org.srang.madness.manager.model.entities;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -12,25 +12,35 @@ import javax.persistence.*;
  */
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "user_id", unique = true, nullable = false)
     Integer userId;
     @Column(name = "first_name")
     String firstName;
     @Column(name = "last_name")
     String lastName;
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", unique = true, nullable = false)
     String email;
-    @Column(name = "status_id")
-    Integer statusId;
-    @Column(name = "password")
+    @JoinColumn(name = "status_id", nullable = false)
+    Status status;
+    @Column(name = "password", nullable = false)
     String password;
     @Column(name = "remember_token")
     String rememberToken;
+
+    @Builder
+    public User(Integer userId, String firstName, String lastName, String email, Status status, String password, String rememberToken) {
+        this.userId = userId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.status = status;
+        this.password = password;
+        this.rememberToken = rememberToken;
+    }
 }
