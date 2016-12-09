@@ -1,7 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layouts/base">
 <th:block layout:fragment="custom-css">
-    <link rel="stylesheet" th:href="@{/css/printbracket.css}" />
     <link rel="stylesheet" th:href="@{/dist/css/summernote.css}" />
 </th:block>
 <th:block layout:fragment="content">
@@ -12,11 +11,15 @@
                     <div class="panel-heading">Admin Dashboard</div>
 
                     <div class="panel-body">
+                        <div th:text="#{password.reset}"></div>
                         USERNAME is logged in as admin
                         <div class="list-group">
-                            <div th:each="user : ${users}" class="list-group-item">
-                                <span th:text='${user.firstName + " " + user.lastName}'></span>: <span th:text='${user.email}'></span>
+                            <div th:each="user : ${users}" >
+                                <div th:replace="fragments/bracket_item :: namething(${user})"></div>
                             </div>
+                            <!--<div th:each="user : ${users}" class="list-group-item">-->
+                                <!--<span th:text='${user.firstName + " " + user.lastName}'></span>: <span th:text='${user.email}'></span>-->
+                            <!--</div>-->
                         </div>
                     </div>
                 </div>

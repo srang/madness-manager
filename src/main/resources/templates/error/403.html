@@ -1,0 +1,10 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/error">
+<th:block layout:fragment="title">
+    <title th:text="#{page.title}"></title>
+</th:block>
+<th:block layout:fragment="error-message">
+    <div class="title">You Didn't Say the Magic Word</div>
+    <div class="message">You are not authorized to view this page.</div>
+</th:block>
+</html>

@@ -1,0 +1,10 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/error">
+<th:block layout:fragment="title">
+    <title th:text="#{page.title}"></title>
+</th:block>
+<th:block layout:fragment="error-message">
+    <div class="title">Turn Back.</div>
+    <div class="message">You have hit a dead end and have reached a page that does not exist.</div>
+</th:block>
+</html>
