@@ -1,14 +1,16 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
       layout:decorator="layouts/base">
 <th:block layout:fragment="content">
     <div class="container">
         <div class="jumbotron">
-            <h2>Welcome, <span th:text="#{user.name}">stranger!</span></h2>
+            <!--<h2 th:inline="text">Welcome, [[${#httpServletRequest.remoteUser}]]!</h2>-->
+            <h2>Welcome <span sec:authentication="name"></span> </h2>
             <p>
                 Welcome to our new site! We hope you are as exited as we are for our
                 leap into the digital age. With these changes there will undoubtedly
                 be growing pains but if you come across a problem please click the
-                <a th:href="@{/feedback}">Feedback</a> link here or in the footer
+                <a th:href="@{/app/feedback}">Feedback</a> link here or in the footer
                 and we will work to rectify things as quickly as possible! Also feel
                 free to just let us know what you think, good or bad. With that out of
                 the way, go ahead and play around!

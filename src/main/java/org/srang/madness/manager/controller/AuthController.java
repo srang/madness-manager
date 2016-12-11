@@ -45,6 +45,11 @@ public class AuthController {
         return "hello";
     }
 
+    @RequestMapping("/password/reset")
+    public String reset() {
+        return "auth/login";
+    }
+
     @RequestMapping("/login")
     public String login() {
         return "auth/login";
@@ -60,7 +65,7 @@ public class AuthController {
         if (result.hasErrors()) {
             return "auth/register";
         }
-        return "redirect:/home";
+        return "redirect:/app/home";
     }
 
 }

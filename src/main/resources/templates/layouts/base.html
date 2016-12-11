@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -29,7 +30,7 @@
             </button>
 
             <!-- Branding Image -->
-            <a class="navbar-brand" th:href="@{/}" th:text="#{tourney.name}">Tourney</a>
+            <a class="navbar-brand" th:href="@{/app/home}" th:text="#{tourney.name}">Tourney</a>
         </div>
 
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -37,7 +38,7 @@
             <ul class="nav navbar-nav">
                 <!--@if (Auth::check() && Auth::user()->confirmed())-->
                 <!--@if (Auth::user()->hasRole('user'))-->
-                <li><a href="/home" th:href="@{/home}">Home</a></li>
+                <li><a href="/home" th:href="@{/app/home}">Home</a></li>
                 <li><a href="/brackets" th:href="@{/brackets}">Brackets</a></li>
                 <!--@if (Auth::user()->hasRole('admin'))-->
                 <li><a href="/admin" th:href="@{/admin}">Admin</a></li>
@@ -49,16 +50,16 @@
                 <!--@endif {{&#45;&#45; is auth &#45;&#45;}}-->
             </ul>
             <!-- Right Side Of Navbar -->
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right" >
                 <!-- Authentication Links -->
                 <!--@if (Auth::check())-->
-                <li class="dropdown">
+                <li class="dropdown" sec:authorize="isAuthenticated()">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                         <span th:text="#{user.name} ">USERNAME </span><span class="caret"></span>
                     </a>
 
                     <ul class="dropdown-menu" role="menu">
-                        <li><a th:href="@{/logout}"><i class="fa fa-btn fa-sign-out"></i><span th:text="#{logout}">Logout</span></a></li>
+                        <li><a th:href="@{/auth/logout}"><i class="fa fa-btn fa-sign-out"></i><span th:text="#{logout}">Logout</span></a></li>
                     </ul>
                 </li>
                 <!--@else-->
@@ -69,7 +70,6 @@
         </div>
     </div>
 </nav>
-
 <th:block layout:fragment="content"></th:block>
 
 <!-- Footer -->

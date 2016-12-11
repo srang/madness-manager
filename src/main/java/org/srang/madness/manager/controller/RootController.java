@@ -8,8 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class RootController {
-    @RequestMapping({"","/","/home"})
+
+    @RequestMapping("/app/home")
     public String home() {
         return "home";
+    }
+
+    @RequestMapping({"", "/"})
+    public String takeHome() {
+        return "redirect:/app/home";
     }
 }
