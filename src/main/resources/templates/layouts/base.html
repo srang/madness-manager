@@ -43,15 +43,19 @@
             </ul>
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right" >
-                <!-- Authentication Links -->
-                <!--@if (Auth::check())-->
-                <li class="dropdown" sec:authorize="isAuthenticated()">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                <!--<li class="dropdown" sec:authorize="isAuthenticated()">-->
+                <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                         <span th:text="#{user.name} ">USERNAME </span><span class="caret"></span>
                     </a>
 
                     <ul class="dropdown-menu" role="menu">
-                        <li><a th:href="@{/auth/logout}"><i class="fa fa-btn fa-sign-out"></i><span th:text="#{logout}">Logout</span></a></li>
+                        <li>
+                            <form th:action="@{/auth/logout}" method="post">
+                                <button class="btn btn-link btn-submit" type="submit"><i class="fa fa-btn fa-sign-out"></i><span th:text="#{logout}">Logout</span></button>
+                            </form>
+
+                        </li>
                     </ul>
                 </li>
                 <!--@else-->
