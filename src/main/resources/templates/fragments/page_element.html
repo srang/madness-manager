@@ -1,28 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <body>
-    <div th:fragment="back_button(backLink)" class="pull-left">
-        <a class="btn btn-primary" th:href="${backLink}">
-            <i class="fa fa-btn fa-arrow-left"></i> Back
-        </a>
+<div th:fragment="back_button(backLink)" class="pull-left">
+    <a class="btn btn-primary" th:href="${backLink}">
+        <i class="fa fa-btn fa-arrow-left"></i> Back
+    </a>
+</div>
+<div th:fragment="alert(level,message)">
+    <div class="alert alert-dismissible" th:class="|alert alert-${level} alert-dismissible|" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+        <span th:text="${message}"></span>
     </div>
-    <div th:fragment="alert(level,message)">
-        <div class="alert alert-dismissible" th:class="|alert alert-${level} alert-dismissible|" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                    aria-hidden="true">&times;</span></button>
-            <span th:text="${message}"></span>
-        </div>
+</div>
+<div th:fragment="form_errors()">
+    <!-- Form Error List -->
+    <div class="alert alert-danger alert-dissmissable" th:if="${#fields.hasAnyErrors()}">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+        <strong>Whoops! Something went wrong!</strong>
+        <br/>
+        <ul>
+            <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+        </ul>
     </div>
-    <div th:fragment="form_errors(errors)">
-        <!-- Form Error List -->
-        <div class="alert alert-danger alert-dissmissable" th:if="${not #lists.isEmpty(errors)}">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <strong>Whoops! Something went wrong!</strong>
-            <br />
-            <ul th:each="error : ${errors}">
-                <li th:text="${error}"></li>
-            </ul>
-        </div>
-    </div>
+</div>
 </body>
 </html>

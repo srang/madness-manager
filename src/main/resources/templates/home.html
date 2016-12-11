@@ -3,7 +3,7 @@
 <th:block layout:fragment="content">
     <div class="container">
         <div class="jumbotron">
-            <h2>Welcome, <span th:text="${user.firstName}">stranger!</span></h2>
+            <h2>Welcome, <span th:text="#{user.name}">stranger!</span></h2>
             <p>
                 Welcome to our new site! We hope you are as exited as we are for our
                 leap into the digital age. With these changes there will undoubtedly
@@ -14,7 +14,8 @@
                 the way, go ahead and play around!
             </p>
             <p>
-            <div class="btn-group col-md-offset-4" th:if="${tourneyState.equals('active')}">
+            <div class="btn-group col-md-offset-4">
+            <!--<div class="btn-group col-md-offset-4" th:if="${tourneyState.equals('active')}">-->
                 <a class="btn btn-primary btn-lg" th:href="@{/brackets}" role="button">
                     <i class="fa fa-btn fa-sitemap"></i> Brackets </a>
                 <a class="btn btn-primary btn-lg" th:href="@{/standings}" role="button">
@@ -43,8 +44,8 @@
                     <!-- Table Body -->
                     <tbody>
                         <tr th:each="bracket : ${brackets}">
+                            <td th:text="${bracket.name}"></td>
                             <!-- Bracket Info -->
-                            @include('brackets.list_item')
                         </tr>
                     </tbody>
                 </table>

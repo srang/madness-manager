@@ -16,7 +16,7 @@
                         <!--@endif-->
 
                         <form class="form-horizontal" role="form" method="POST" th:action="@{/password/email}">
-                            {!! csrf_field() !!}
+                            <!--{!! csrf_field() !!}-->
 
                             <div th:class="|form-group ${ errors.contains('email') ? ' has-error' : '' }|">
                                 <label class="col-md-4 control-label">E-Mail Address</label>
