@@ -18,4 +18,9 @@ public class RootController {
     public String takeHome() {
         return "redirect:/app/home";
     }
+
+    @RequestMapping("/welcome")
+    public String welcome() {
+        return "welcome";
+    }
 }

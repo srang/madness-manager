@@ -35,7 +35,7 @@ INSERT INTO users
 VALUES
   ('Sam','Rang','test@email.com','srang',2,'$2a$10$7V5CS7l722dToKQzD.6Ti.jBlh2Ijr.mXTIevwk0HRPCDr2d22UF2'),
   ('Test','User','test@email.com','tuser',2,'$2a$10$Iwfs/S/4Dd5UZKWnBvZgw.jjXMRzLsoPOixuuWiTW6uCrsGSc7ojW'),
-  ('Bad','User','test@email.com','buser',3,'$2a$10$1VrZm7oWvuAKgokD5GNyiOmMf5vDR9yCjhdl0leI1iJHCOjm6dwGO')
+  ('Bad','User','test@email.com','buser',3,'$2a$10$3blm2pRAk0qqWVUohovZ3OuP2aFhhAC6xfPUlp1QnQINR6FfsT7XC')
 ;
 
 

@@ -4,5 +4,6 @@ VALUES
   ('srang', 'ROLE_ADMIN'),
   ('srang', 'ROLE_USER'),
   ('srang', 'ROLE_SUPER'),
-  ('tuser', 'ROLE_USER')
+  ('tuser', 'ROLE_USER'),
+  ('buser', 'ROLE_USER')
 ;

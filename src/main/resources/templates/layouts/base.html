@@ -36,18 +36,10 @@
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav">
-                <!--@if (Auth::check() && Auth::user()->confirmed())-->
-                <!--@if (Auth::user()->hasRole('user'))-->
-                <li><a th:href="@{/app/home}">Home</a></li>
-                <li><a th:href="@{/brackets}">Brackets</a></li>
-                <!--@if (Auth::user()->hasRole('admin'))-->
-                <li><a th:href="@{/admin}">Admin</a></li>
-                <!--@endif {{&#45;&#45; is admin &#45;&#45;}}-->
-                <!--@if (Auth::user()->hasRole('superuser'))-->
-                <li><a th:href="@{/super}">Super</a></li>
-                <!--@endif {{&#45;&#45; is superuser &#45;&#45;}}-->
-                <!--@endif {{&#45;&#45; is user &#45;&#45;}}-->
-                <!--@endif {{&#45;&#45; is auth &#45;&#45;}}-->
+                <li sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/app/home}">Home</a></li>
+                <li sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/brackets}">Brackets</a></li>
+                <li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/admin}">Admin</a></li>
+                <li sec:authorize="hasRole('ROLE_SUPER')"><a th:href="@{/super}">Super</a></li>
             </ul>
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right" >
@@ -63,8 +55,8 @@
                     </ul>
                 </li>
                 <!--@else-->
-                <li><a th:href="@{/login}">Login</a></li>
-                <li><a th:href="@{/register}">Register</a></li>
+                <li><a th:href="@{/auth/login}">Login</a></li>
+                <li><a th:href="@{/auth/register}">Register</a></li>
                 <!--@endif-->
             </ul>
         </div>
