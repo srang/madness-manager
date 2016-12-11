@@ -1,0 +1,10 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/error">
+<th:block layout:fragment="title">
+    <title th:text="#{page.title}"></title>
+</th:block>
+<th:block layout:fragment="error-message">
+    <div class="title">Come Back Soon</div>
+    <div class="message">The site is under scheduled maintenance and should be back up in a jiffy.</div>
+</th:block>
+</html>

@@ -1,0 +1,47 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/base">
+<th:block layout:fragment="custom-css">
+    <link rel="stylesheet" th:href="@{/css/printbracket.css}"/>
+    <link rel="stylesheet" th:href="@{/dist/css/summernote.css}"/>
+</th:block>
+<th:block layout:fragment="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading" th:text="#{password.reset}">Reset Password</div>
+                    <div class="panel-body">
+                        <!--@if (session('status'))-->
+                        <div th:replace="fragments/page_element :: alert(success, status)"></div>
+                        <!--@endif-->
+
+                        <form class="form-horizontal" role="form" method="POST" th:action="@{/password/email}">
+                            <!--{!! csrf_field() !!}-->
+
+                            <div th:class="|form-group ${ errors.contains('email') ? ' has-error' : '' }|">
+                                <label class="col-md-4 control-label">E-Mail Address</label>
+
+                                <div class="col-md-6">
+                                    <input type="email" class="form-control" name="email" th:value="${email}">
+
+                                    <span class="help-block" th:if="${errors.contains('email')}">
+                                        <strong th:text="${errors.get('email')}"></strong>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fa fa-btn fa-envelope"></i><span th:text="#{password.reset.link}">Send Password Reset Link</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>
