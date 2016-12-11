@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by srang on 11/5/2016.
@@ -35,6 +36,8 @@ public class User {
     String password;
     @Column(name = "remember_token")
     String rememberToken;
+    @OneToMany(mappedBy = "username")
+    List<UserRole> roles;
 
     @Builder
     public User(String username, String firstName, String lastName, String email, Status status, String password, String rememberToken) {
