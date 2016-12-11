@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
+import org.srang.madness.manager.model.validation.UniqueUsername;
 
 import javax.validation.constraints.NotNull;
 
@@ -18,6 +19,9 @@ public class RegisterForm {
     @NotNull(message = "Email is a required field")
     @Email(message = "Please enter a valid email address")
     String email;
+    @NotNull(message="Username is a required field")
+    @UniqueUsername(message = "Username must be unique")
+    String username;
     @NotNull(message = "First name is a required field")
     String firstName;
     @NotNull(message = "Last name is a required field")

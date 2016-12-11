@@ -43,24 +43,22 @@
             </ul>
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right" >
-                <!--<li class="dropdown" sec:authorize="isAuthenticated()">-->
-                <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        <span th:text="#{user.name} ">USERNAME </span><span class="caret"></span>
-                    </a>
+                <li class="dropdown" sec:authorize="isAuthenticated()">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <span th:text="#{user.name} ">USERNAME </span><span class="caret"></span>
+                        </a>
 
                     <ul class="dropdown-menu" role="menu">
                         <li>
                             <form th:action="@{/auth/logout}" method="post">
-                                <button class="btn btn-link btn-submit" type="submit"><i class="fa fa-btn fa-sign-out"></i><span th:text="#{logout}">Logout</span></button>
+                                <button class="btn btn-link btn-submit" type="submit"><i class="fa fa-btn fa-sign-out"></i><span th:text="#{logout}"></span></button>
                             </form>
 
                         </li>
                     </ul>
                 </li>
-                <!--@else-->
-                <li><a th:href="@{/auth/login}">Login</a></li>
-                <li><a th:href="@{/auth/register}">Register</a></li>
+                <li sec:authorize="isAnonymous()"><a th:href="@{/auth/login}">Login</a></li>
+                <li sec:authorize="isAnonymous()"><a th:href="@{/auth/register}">Register</a></li>
                 <!--@endif-->
             </ul>
         </div>

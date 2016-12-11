@@ -20,11 +20,13 @@ public class User {
     @GeneratedValue
     @Column(name = "user_id", unique = true, nullable = false)
     Integer userId;
+    @Column(name = "username", unique = true, nullable = false)
+    String username;
     @Column(name = "first_name")
     String firstName;
     @Column(name = "last_name")
     String lastName;
-    @Column(name = "email", unique = true, nullable = false)
+    @Column(name = "email", nullable = false)
     String email;
     @ManyToOne
     @JoinColumn(name = "status_id", nullable = false)
@@ -35,8 +37,8 @@ public class User {
     String rememberToken;
 
     @Builder
-    public User(Integer userId, String firstName, String lastName, String email, Status status, String password, String rememberToken) {
-        this.userId = userId;
+    public User(String username, String firstName, String lastName, String email, Status status, String password, String rememberToken) {
+        this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

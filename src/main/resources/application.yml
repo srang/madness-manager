@@ -12,5 +12,5 @@ spring:
 
 hibernate:
   dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-  show_sql: false
+  show_sql: true
 entitymanager.packages.to.scan: org.srang.madness.manager
