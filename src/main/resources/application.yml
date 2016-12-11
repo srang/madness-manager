@@ -5,11 +5,12 @@ spring:
     url: ${DB_URL:jdbc:mysql://localhost:3306/madness}
     username: ${DB_USER:madness}
     password: ${DB_PASS:tourney}
+    tomcat.max-active: 50
   messages:
     basename: locale/messages
   thymeleaf.cache: false
 
 hibernate:
   dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-  show_sql: true
+  show_sql: false
 entitymanager.packages.to.scan: org.srang.madness.manager

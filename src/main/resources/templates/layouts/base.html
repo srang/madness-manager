@@ -38,13 +38,13 @@
             <ul class="nav navbar-nav">
                 <!--@if (Auth::check() && Auth::user()->confirmed())-->
                 <!--@if (Auth::user()->hasRole('user'))-->
-                <li><a href="/home" th:href="@{/app/home}">Home</a></li>
-                <li><a href="/brackets" th:href="@{/brackets}">Brackets</a></li>
+                <li><a th:href="@{/app/home}">Home</a></li>
+                <li><a th:href="@{/brackets}">Brackets</a></li>
                 <!--@if (Auth::user()->hasRole('admin'))-->
-                <li><a href="/admin" th:href="@{/admin}">Admin</a></li>
+                <li><a th:href="@{/admin}">Admin</a></li>
                 <!--@endif {{&#45;&#45; is admin &#45;&#45;}}-->
                 <!--@if (Auth::user()->hasRole('superuser'))-->
-                <li><a href="/super" th:href="@{/super}">Super</a></li>
+                <li><a th:href="@{/super}">Super</a></li>
                 <!--@endif {{&#45;&#45; is superuser &#45;&#45;}}-->
                 <!--@endif {{&#45;&#45; is user &#45;&#45;}}-->
                 <!--@endif {{&#45;&#45; is auth &#45;&#45;}}-->
