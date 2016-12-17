@@ -12,7 +12,7 @@ var gulp = require('gulp'),
     del = require('del');
 var autoprefixer = new LessAutoprefixer({browsers: ['last 2 versions']});
 
-gulp.task('setup', ['less-setup', 'js-setup', 'css-setup']);
+gulp.task('setup', ['less-setup', 'js-setup', 'css-setup', 'custom-js']);
 gulp.task('less-setup',['less-one','less-two','less-three']);
 gulp.task('less-one', function () {
     return gulp.src(['node_modules/bootstrap/less/**'])
@@ -30,10 +30,11 @@ gulp.task('less-three', function () {
 gulp.task('css-setup',function () {
     return gulp.src([
         'node_modules/datatables/media/css/jquery.dataTables.min.css',
-        'node_modules/summernote/dist/summernote.css'
+        'node_modules/summernote/dist/summernote.css',
+        'node_modules/select2/dist/css/select2.min.css'
     ])
         .pipe(gulp.dest('src/main/resources/static/dist/css'));
-})
+});
 
 gulp.task('js-setup', function () {
     return gulp.src([
@@ -47,7 +48,14 @@ gulp.task('js-setup', function () {
     ])
         .pipe(gulp.dest('src/main/resources/static/dist/js'));
 
-})
+});
+
+gulp.task('custom-js', function () {
+    return gulp.src('src/main/resources/static/js/*.js')
+        .pipe(uglify())
+        .pipe(rename({suffix: '.min'}))
+        .pipe(gulp.dest('src/main/resources/static/dist/js'));
+});
 
 gulp.task('style', ['setup'], function () {
     return gulp.src([
@@ -73,4 +81,4 @@ gulp.task('default', function () {
 
 gulp.task('go', ['clean'],function () {
     return gulp.start('style');
-})
+});

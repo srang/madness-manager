@@ -37,9 +37,9 @@
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav">
                 <li sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/app/home}">Home</a></li>
-                <li sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/brackets}">Brackets</a></li>
-                <li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/admin}">Admin</a></li>
-                <li sec:authorize="hasRole('ROLE_SUPER')"><a th:href="@{/super}">Super</a></li>
+                <li sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/app/brackets}">Brackets</a></li>
+                <li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/app/admin}">Admin</a></li>
+                <li sec:authorize="hasRole('ROLE_SUPER')"><a th:href="@{/app/super}">Super</a></li>
             </ul>
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right" >
