@@ -40,14 +40,20 @@
                                 <input type="text" class="form-control" th:field="*{username}" placeholder="jdoe"/>
                             </div>
                         </div>
-                        <div class="form-group" th:classappend="${#fields.hasErrors('favoriteTeam')} ? 'has-error' : '' ">
-                            <label class="col-md-4 control-label">Favorite Team</label>
+                        <div class="form-group" th:classappend="${#fields.hasErrors('password')} ? 'has-error' : '' ">
+                            <label class="col-md-4 control-label">Password</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control" th:field="*{favoriteTeam}" placeholder="Duke" />
+                                <input type="password" class="form-control" th:field="*{password}" />
                             </div>
                         </div>
+                        <div class="form-group" th:classappend="${#fields.hasErrors('matchingPassword')} ? 'has-error' : '' ">
+                            <label class="col-md-4 control-label">Matching Password</label>
 
+                            <div class="col-md-6">
+                                <input type="password" class="form-control" th:field="*{matchingPassword}" />
+                            </div>
+                        </div>
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
