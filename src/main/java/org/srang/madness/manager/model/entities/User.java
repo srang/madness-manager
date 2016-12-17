@@ -7,6 +7,7 @@ import lombok.Singular;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "users")
-public class User {
+public class User implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "user_id", unique = true, nullable = false)
@@ -39,7 +40,7 @@ public class User {
     String password;
     @Column(name = "remember_token")
     String rememberToken;
-    @OneToMany(mappedBy = "username")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     List<UserRole> userRoles;
 
     @Builder
@@ -67,5 +68,10 @@ public class User {
 
     public List<String> getRoles() {
         return this.getUserRoles().stream().map(UserRole::getRole).collect(Collectors.toList());
+    }
+
+    public void addRole(String role) {
+        UserRole userRole = new UserRole(this, role);
+        this.userRoles.add(userRole);
     }
 }

@@ -16,9 +16,9 @@ public class UserTest {
     public void testUserGetRoles() {
         String username = "jdoe";
         User u = User.builder().username(username)
-                .userRole(new UserRole(username, "ROLE_USER"))
-                .userRole(new UserRole(username, "ROLE_ADMIN"))
                 .build();
+        u.addRole("ROLE_USER");
+        u.addRole("ROLE_ADMIN");
         List<String> roles = u.getRoles();
         assertThat(roles, is(Arrays.asList("ROLE_USER", "ROLE_ADMIN")));
     }

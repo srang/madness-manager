@@ -16,8 +16,6 @@ import java.io.Serializable;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "regions")
 public class Region implements Serializable {
-    /* TODO define enum */
-
     @Id
     @GeneratedValue
     @Column(name = "region_id", unique = true, nullable = false)

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by srang on 11/5/2016.
@@ -15,7 +16,7 @@ import javax.persistence.*;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "tournaments")
-public class Tournament {
+public class Tournament implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "tournament_id", unique = true, nullable = false)

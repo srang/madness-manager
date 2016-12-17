@@ -7,11 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.srang.madness.manager.model.entities.Status;
 import org.srang.madness.manager.model.entities.User;
-import org.srang.madness.manager.model.entities.UserRole;
 import org.srang.madness.manager.model.forms.RegisterForm;
 import org.srang.madness.manager.model.repositories.UserRepository;
-
-import java.util.List;
 
 /**
  * Created by srang on 12/10/16.
@@ -25,10 +22,6 @@ public class UserService {
     @Autowired
     BCryptPasswordEncoder encoder;
 
-    public User addRolesToUser(User user, List<String> roles) {
-        return user;
-    }
-
     @Transactional
     public User registerUser(RegisterForm form) {
         User user = User.builder()
@@ -38,8 +31,8 @@ public class UserService {
                 .password(hashPassword(form.getPassword()))
                 .username(form.getUsername())
                 .status(Status.StatusType.ACTIVE.status())
-                .userRole(new UserRole(form.getUsername(), "ROLE_USER"))
                 .build();
+        user.addRole("ROLE_USER");
         return userRepository.save(user);
     }
 
