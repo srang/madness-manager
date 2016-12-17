@@ -27,8 +27,7 @@ public class UserRole {
     String role;
 
     @Builder
-    public UserRole(Integer userRoleId, String username, String role) {
-        this.userRoleId = userRoleId;
+    public UserRole(String username, String role) {
         this.username = username;
         this.role = role;
     }

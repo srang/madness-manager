@@ -24,4 +24,45 @@ public class Region implements Serializable {
     Integer regionId;
     @Column(name = "region", nullable = false)
     String name;
+
+    private Region(Integer id, String name) {
+        this.regionId = id;
+        this.name = name;
+    }
+    public enum RegionType {
+
+        EAST(1, "East"),
+        WEST(2, "West"),
+        SOUTH(3, "South"),
+        MIDWEST(4, "Midwest"),
+        UNSPECIFIED(5, "");
+        private int id;
+
+        private String value;
+
+        private RegionType(int id, String value) {
+            this.id = id;
+            this.value = value;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public Integer getIntegerId() {
+            return Integer.valueOf(id);
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public Region region() {
+            return new Region(this.getIntegerId(), this.value);
+        }
+
+        public boolean isEqual(Region Region) {
+            return region().getRegionId().equals(this.getIntegerId());
+        }
+    }
 }

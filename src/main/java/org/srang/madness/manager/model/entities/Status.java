@@ -38,23 +38,31 @@ public class Status implements Serializable {
 
         private int id;
 
-        private String description;
+        private String value;
 
-        private StatusType(int id, String description) {
+        private StatusType(int id, String value) {
             this.id = id;
-            this.description = description;
+            this.value = value;
         }
 
         public int getId() {
             return id;
         }
 
-        public String getDescription() {
-            return description;
+        public Integer getIntegerId() {
+            return Integer.valueOf(id);
+        }
+
+        public String getValue() {
+            return value;
         }
 
         public Status status() {
-            return new Status(this.id, this.description);
+            return new Status(this.id, this.value);
+        }
+
+        public boolean isEqual(Status status) {
+            return status.getStatusId().equals(this.getIntegerId());
         }
     }
 }
