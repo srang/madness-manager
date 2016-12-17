@@ -1,6 +1,7 @@
 package org.srang.madness.manager.controller;
 
 import lombok.extern.java.Log;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.srang.madness.manager.model.forms.RegisterForm;
+import org.srang.madness.manager.service.UserService;
 
 import javax.validation.Valid;
 
@@ -18,6 +20,9 @@ import javax.validation.Valid;
 @Log
 @RequestMapping("/auth")
 public class AuthController {
+    @Autowired
+    UserService userService;
+
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
@@ -45,7 +50,12 @@ public class AuthController {
         return "hello";
     }
 
-    @RequestMapping("/login")
+    @RequestMapping("/password/reset")
+    public String reset() {
+        return "auth/login";
+    }
+
+    @GetMapping("/login")
     public String login() {
         return "auth/login";
     }
@@ -60,7 +70,8 @@ public class AuthController {
         if (result.hasErrors()) {
             return "auth/register";
         }
-        return "redirect:/home";
+        userService.registerUser(registerForm);
+        return "redirect:/app/home";
     }
 
 }

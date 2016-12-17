@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
+import org.srang.madness.manager.model.validation.PasswordMatches;
+import org.srang.madness.manager.model.validation.UniqueUsername;
 
 import javax.validation.constraints.NotNull;
 
@@ -14,16 +16,21 @@ import javax.validation.constraints.NotNull;
  */
 @Getter
 @Setter
+@PasswordMatches(message = "Passwords must match")
 public class RegisterForm {
     @NotNull(message = "Email is a required field")
     @Email(message = "Please enter a valid email address")
     String email;
+    @NotNull(message="Username is a required field")
+    @UniqueUsername(message = "Username must be unique")
+    String username;
     @NotNull(message = "First name is a required field")
     String firstName;
     @NotNull(message = "Last name is a required field")
     String lastName;
-    @NotNull(message = "Favorite Team is a required field")
-    @Length(min = 2, max = 44, message = "Please keep team name between 2 and 44 characters")
-    String favoriteTeam;
-
+    @NotNull(message = "Password is a required field")
+    @Length(min = 2, max = 44, message = "Please keep password between 2 and 44 characters")
+    String password;
+    @NotNull(message = "Matching password is a requred field")
+    String matchingPassword;
 }

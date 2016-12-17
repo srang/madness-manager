@@ -16,7 +16,6 @@ import java.io.Serializable;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "statuses")
 public class Status implements Serializable {
-    /* TODO define enum */
 
     @Id
     @GeneratedValue
@@ -24,4 +23,48 @@ public class Status implements Serializable {
     Integer statusId;
     @Column(name = "status", nullable = false)
     String status;
+
+    private Status(Integer id, String desc) {
+        this.statusId = id;
+        this.status = desc;
+    }
+
+    public enum StatusType {
+
+        UNVERIFIED(1, "Unverified"),
+        ACTIVE(2, "Active"),
+        DISABLED(3, "Disabled"),
+        EXPIRED(4, "Expired");
+
+        private int id;
+
+        private String value;
+
+        private StatusType(int id, String value) {
+            this.id = id;
+            this.value = value;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public Integer getIntegerId() {
+            return Integer.valueOf(id);
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public Status status() {
+            return new Status(this.id, this.value);
+        }
+
+        public boolean isEqual(Status status) {
+            return status.getStatusId().equals(this.getIntegerId());
+        }
+    }
 }
+
+

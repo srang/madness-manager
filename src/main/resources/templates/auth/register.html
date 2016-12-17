@@ -15,14 +15,14 @@
                             <label class="col-md-4 control-label">First Name</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control" th:field="*{firstName}" placeholder="First Name"/>
+                                <input type="text" class="form-control" th:field="*{firstName}" placeholder="John"/>
                             </div>
 
                         </div>
                         <div class="form-group" th:classappend="${#fields.hasErrors('lastName')} ? 'has-error' : '' ">
                             <label class="col-md-4 control-label">Last Name</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" th:field="*{lastName}" placeholder="Last Name"/>
+                                <input type="text" class="form-control" th:field="*{lastName}" placeholder="Doe"/>
                             </div>
 
                         </div>
@@ -30,21 +30,30 @@
                             <label class="col-md-4 control-label">E-Mail Address</label>
 
                             <div class="col-md-6">
-                                <input type="email4" class="form-control" th:field="*{email}" placeholder="E-mail"/>
+                                <input type="email" class="form-control" th:field="*{email}" placeholder="johndoe@email.com"/>
                             </div>
                         </div>
-                        <div class="form-group" th:classappend="${#fields.hasErrors('favoriteTeam')} ? 'has-error' : '' ">
-                            <label class="col-md-4 control-label">Favorite Team</label>
+                        <div class="form-group" th:classappend="${#fields.hasErrors('username')} ? 'has-error' : '' ">
+                            <label class="col-md-4 control-label">Username</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control" th:field="*{favoriteTeam}" placeholder="Duke" />
+                                <input type="text" class="form-control" th:field="*{username}" placeholder="jdoe"/>
                             </div>
                         </div>
-                        <!--<div class="turing">-->
-                            <!--<label class="control-label" for="t">r08oT s4y5 wUt</label>-->
-                            <!--<input type="text" class="form-control" name="t" id="t" />-->
-                        <!--</div>-->
+                        <div class="form-group" th:classappend="${#fields.hasErrors('password')} ? 'has-error' : '' ">
+                            <label class="col-md-4 control-label">Password</label>
 
+                            <div class="col-md-6">
+                                <input type="password" class="form-control" th:field="*{password}" />
+                            </div>
+                        </div>
+                        <div class="form-group" th:classappend="${#fields.hasErrors('matchingPassword')} ? 'has-error' : '' ">
+                            <label class="col-md-4 control-label">Matching Password</label>
+
+                            <div class="col-md-6">
+                                <input type="password" class="form-control" th:field="*{matchingPassword}" />
+                            </div>
+                        </div>
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
