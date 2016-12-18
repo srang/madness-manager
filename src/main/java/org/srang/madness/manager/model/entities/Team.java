@@ -47,4 +47,15 @@ public class Team implements Serializable {
         this.primaryColor = primaryColor;
         this.accentColor = accentColor;
     }
+
+    public Team clone() {
+        return Team.builder()
+                .name(this.name)
+                .rank(this.rank)
+                .region(this.region)
+                .mascot(this.mascot)
+                .primaryColor(this.primaryColor)
+                .accentColor(this.accentColor)
+                .build();
+    }
 }

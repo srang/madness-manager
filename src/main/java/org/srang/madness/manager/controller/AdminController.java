@@ -8,8 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.srang.madness.manager.model.entities.Bracket;
+import org.srang.madness.manager.model.entities.Region;
 import org.srang.madness.manager.model.forms.CreateMasterBracketForm;
-import org.srang.madness.manager.model.repositories.BracketRepository;
+import org.srang.madness.manager.service.BracketService;
+
+import java.util.Arrays;
+
+import static java.util.stream.Collectors.toList;
+import static org.srang.madness.manager.model.entities.Region.RegionType.*;
 
 /**
  * Created by samuelrang on 11/5/2016.
@@ -20,7 +26,7 @@ import org.srang.madness.manager.model.repositories.BracketRepository;
 @Log
 public class AdminController {
     @Autowired
-    BracketRepository bracketRepository;
+    BracketService bracketService;
 
     @RequestMapping("")
     public String index(Model model) {
@@ -29,9 +35,13 @@ public class AdminController {
 
     @GetMapping("/brackets/master")
     public String showMaster(Model model) {
-        Bracket master = bracketRepository.findMasterBracket();
+        Bracket master = bracketService.repository().findMasterBracket();
         if (master == null) {
             model.addAttribute("bracketForm", new CreateMasterBracketForm());
+            model.addAttribute("regions", Arrays.asList(EAST,WEST,SOUTH,MIDWEST).stream()
+                .map(Region.RegionType::region).collect(toList()));
+            model.addAttribute("matchups", bracketService.generateMatchups());
+
             return "bracket/create_master";
             /*
             //need to set up master bracket
