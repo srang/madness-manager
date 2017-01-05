@@ -28,20 +28,18 @@
                         <h3 class="region-header" th:text="${region.name}"></h3>
                         <div th:each="first : ${matchups}"
                         th:with="
-                            blah=${17-first},
-                            firstId='|region-${region.name}-rank-${first}|',
-                            secondId='|region-${region.name}-rank-${blah}|'
+                            index=${17-first},
+                            firstId='region-'+${region.name}+'-rank-'+${first},
+                            firstName=${bracketForm.rankedTeams[region.name][first]},
+                            secondId='region-'+${region.name}+'-rank-'+${index},
+                            secondName=${bracketForm.rankedTeams[region.name][index]}
                                 ">
-                        <!--{{&#45;&#45;*/ $firstid='region-'.$region->region.'-rank-'.$first /*&#45;&#45;}}-->
-                        <!--{{&#45;&#45;*/ $firstname='team['.$region->region.']['.$first.']' /*&#45;&#45;}}-->
-                        <!--{{&#45;&#45;*/ $secondid='region-'.$region->region.'-rank-'.($region_size+1-$first) /*&#45;&#45;}}-->
-                        <!--{{&#45;&#45;*/ $secondname='team['.$region->region.']['.($region_size+1-$first).']' /*&#45;&#45;}}-->
                             <div class="form-group">
                                 <div class="row">
                                     <span class="rank-info text-right col-md-3" th:text="${first} "></span>
                                     <div class="text-left col-md-9">
 
-                                        <label th:for="${firstId}" class="control-label master-label">
+                                        <label th:for="'|region-${region.name}-rank-${first}|'" class="control-label master-label">
                                             <!--&lt;!&ndash;@if (!empty($old_val=old($firstname)))&ndash;&gt;-->
                                             <!--&lt;!&ndash;{{ $old_val }}&ndash;&gt;asdf-->
                                         <!--</label>-->
@@ -55,17 +53,17 @@
                                         <!--@else-->
                                         <span class="placeholder" th:text="|Team ${first}|"></span>
                                         </label>
-                                        <input type="text" th:name="${firstId}" th:id="${firstId}" class="form-control master-input hide" />
+                                        <input type="text" th:field="${bracketForm.rankedTeams[region.name][index]}" th:id="${firstId}" class="form-control master-input hide" />
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <span class="rank-info text-right col-md-3" th:text="${blah}"></span>
+                                    <span class="rank-info text-right col-md-3" th:text="${index}"></span>
                                     <div class="text-left col-md-9">
                                         <label th:for="${secondId}" class="control-label master-label">
 
-                                        <span class="placeholder" th:text="|Team ${blah}|"></span>
+                                        <span class="placeholder" th:text="|Team ${index}|"></span>
                                         </label>
-                                        <input type="text" th:name="${secondId}" th:id="${secondId}" class="form-control master-input hide" />
+                                        <select th:field="${bracketForm.rankedTeams[region.name][index]}" th:id="${secondId}" class="form-control master-input hide" ></select>
                                     </div>
                                 </div>
                             </div>
@@ -79,5 +77,10 @@
 <th:block layout:fragment="custom-js">
     <script th:src="@{/dist/js/select2.min.js}" />
     <script th:src="@{/dist/js/master_bracket.min.js}" />
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var teams = /*[[${teams}]]*/ '';
+        /*]]>*/
+    </script>
 </th:block>
 </html>

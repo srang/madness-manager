@@ -34,7 +34,7 @@ public class Team implements Serializable {
     String iconPath;
     @Column(name = "primary_color", nullable = false)
     String primaryColor;
-    @Column(name = "secondary_color", nullable = false)
+    @Column(name = "accent_color", nullable = false)
     String accentColor;
 
     @Builder

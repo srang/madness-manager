@@ -22,7 +22,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <flyway.schemas>madness</flyway.schemas>
         <frontend.mvn.plugin.version>1.3</frontend.mvn.plugin.version>
         <mysql.connector.version>5.1.29</mysql.connector.version>
     </properties>
@@ -30,19 +29,21 @@
         <profile>
             <id>local</id>
             <properties>
+                <flyway.schemas>madness</flyway.schemas>
                 <flyway.user>madness</flyway.user>
                 <flyway.password>tourney</flyway.password>
                 <flyway.url>jdbc:mysql://localhost:3306</flyway.url>
             </properties>
         </profile>
-        <!--<profile>-->
-        <!--<id>other</id>-->
-        <!--<properties>-->
-        <!--<flyway.user>${env.DB_USER}</flyway.user>-->
-        <!--<flyway.password>${env.DB_PASS}</flyway.password>-->
-        <!--<flyway.url>${env.DB_URL}</flyway.url>-->
-        <!--</properties>-->
-        <!--</profile>-->
+        <profile>
+            <id>other</id>
+            <properties>
+                <flyway.schemas>tourney</flyway.schemas>
+                <flyway.user>${env.DB_USER}</flyway.user>
+                <flyway.password>${env.DB_PASS}</flyway.password>
+                <flyway.url>${env.DB_URL}</flyway.url>
+            </properties>
+        </profile>
     </profiles>
     <dependencies>
         <dependency>
