@@ -6,6 +6,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.srang.madness.manager.model.entities.Bracket;
 import org.srang.madness.manager.model.entities.Region;
@@ -80,5 +81,22 @@ public class AdminController {
         ]);
          */
         return "home";
+    }
+
+    @GetMapping("/brackets/test")
+    public String somethingTest(Model model) {
+        model.addAttribute("bracketForm", new CreateMasterBracketForm());
+        model.addAttribute("regions", Arrays.asList(EAST,WEST,SOUTH,MIDWEST).stream()
+                .map(Region.RegionType::region).collect(toList()));
+        model.addAttribute("otherRegions", Arrays.asList(EAST,WEST,SOUTH,MIDWEST).stream()
+                .map(Region.RegionType::region).collect(toList()));
+        return "bracket/test_master";
+
+    }
+
+    @PostMapping("/brackets/test")
+    public String somethingDifferent(CreateMasterBracketForm bracketForm) {
+        String blah = bracketForm.toString();
+        return "redirect:/app/home";
     }
 }

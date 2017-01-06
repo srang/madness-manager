@@ -30,9 +30,7 @@
                         th:with="
                             index=${17-first},
                             firstId='region-'+${region.name}+'-rank-'+${first},
-                            firstName=${bracketForm.rankedTeams[region.name][first]},
-                            secondId='region-'+${region.name}+'-rank-'+${index},
-                            secondName=${bracketForm.rankedTeams[region.name][index]}
+                            secondId='region-'+${region.name}+'-rank-'+${index}
                                 ">
                             <div class="form-group">
                                 <div class="row">
@@ -40,6 +38,10 @@
                                     <div class="text-left col-md-9">
 
                                         <label th:for="'|region-${region.name}-rank-${first}|'" class="control-label master-label">
+                                            <!--<div>-->
+                                                <!--firstName=${bracketForm.rankedTeams[region.name][first]},-->
+                                                <!--secondName=${bracketForm.rankedTeams[region.name][index]}-->
+                                            <!--</div>-->
                                             <!--&lt;!&ndash;@if (!empty($old_val=old($firstname)))&ndash;&gt;-->
                                             <!--&lt;!&ndash;{{ $old_val }}&ndash;&gt;asdf-->
                                         <!--</label>-->
@@ -53,7 +55,7 @@
                                         <!--@else-->
                                         <span class="placeholder" th:text="|Team ${first}|"></span>
                                         </label>
-                                        <input type="text" th:field="${bracketForm.rankedTeams[region.name][index]}" th:id="${firstId}" class="form-control master-input hide" />
+                                        <input type="text" th:field="*{rankedTeams[__${region.name}__][__${index}__]}" th:id="${firstId}" class="form-control master-input hide" />
                                     </div>
                                 </div>
                                 <div class="row">
@@ -63,7 +65,7 @@
 
                                         <span class="placeholder" th:text="|Team ${index}|"></span>
                                         </label>
-                                        <select th:field="${bracketForm.rankedTeams[region.name][index]}" th:id="${secondId}" class="form-control master-input hide" ></select>
+                                        <select th:field="*{rankedTeams[__${region.name}__][__${index}__]}" th:id="${secondId}" class="form-control master-input hide" ></select>
                                     </div>
                                 </div>
                             </div>

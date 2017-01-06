@@ -3,6 +3,7 @@ package org.srang.madness.manager.model.forms;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,20 @@ import java.util.Map;
 @Setter
 public class CreateMasterBracketForm {
     Map<String, List<String>> rankedTeams;
+    Map<String, List<String>> testList;
     public CreateMasterBracketForm() {
-        rankedTeams = new HashMap<>();
+        rankedTeams = new RegionMap();
+        testList = new RegionMap();
+    }
+    private class RegionMap extends HashMap<String, List<String>> {
+        @Override
+        public List<String> get(Object key) {
+            List<String> vals = super.get(key);
+            if (vals == null) {
+                vals = new ArrayList<>();
+                this.put((String) key, vals);
+            }
+            return vals;
+        }
     }
 }
