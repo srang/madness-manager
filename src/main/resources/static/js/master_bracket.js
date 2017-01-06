@@ -4,6 +4,7 @@ $(document).ready(function () {
         obj.text = obj.name;
         return obj;
     });
+    // teamMap.unshift({id: '0', text:''});
     // initialize all tooltips
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();
@@ -29,6 +30,7 @@ $(document).ready(function () {
     $('label.master-label').on('click', function () {
         $(this).addClass('hide');
         var input = $('select.master-input[id=' + $(this).attr('for') + ']');
+        var realInput = $('input[id=' + $(this).attr('for') + '-actual]');
         input.removeClass('hide');
         input.select2({
             placeholder: "select a team",
@@ -56,16 +58,26 @@ $(document).ready(function () {
         //                 }
         //     }
         // });
-        // input.on('select', function(event, selection) {
-        //     $(this).typeahead('val',selection.name);
-        //     $(this).typeahead('destroy');
-        //     $(this).val(selection.name);
-        //     $(this).addClass('hide');
-        //     var label = $('label.master-label[for='+$(this).attr('id')+']');
-        //     label.text(selection.name);
-        //     label.removeClass('hide');
-        //     label.addClass('unsaved');
-        // });
+        function clear(label, select) {
+            select.select2('destroy');
+            select.addClass('hide');
+            label.removeClass('hide');
+        }
+        input.on('select2:select', function(event) {
+            // $(this).typeahead('val',selection.name);
+            // $(this).typeahead('destroy');
+            // $(this).val(selection.name);
+            // $(this).addClass('hide');
+            var label = $('label.master-label[for='+$(this).attr('id')+']');
+            label.text(event.params.data.name);
+            realInput.val(event.params.data.id);
+
+            clear(label, $(this));
+
+            // label.text(selection.name);
+            // label.removeClass('hide');
+            // label.addClass('unsaved');
+        });
         //
         // input.on('blur', function() {
         //     $(this).typeahead('val','');
