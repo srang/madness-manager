@@ -83,20 +83,9 @@ public class AdminController {
         return "home";
     }
 
-    @GetMapping("/brackets/test")
-    public String somethingTest(Model model) {
-        model.addAttribute("bracketForm", new CreateMasterBracketForm());
-        model.addAttribute("regions", Arrays.asList(EAST,WEST,SOUTH,MIDWEST).stream()
-                .map(Region.RegionType::region).collect(toList()));
-        model.addAttribute("otherRegions", Arrays.asList(EAST,WEST,SOUTH,MIDWEST).stream()
-                .map(Region.RegionType::region).collect(toList()));
-        return "bracket/test_master";
-
-    }
-
-    @PostMapping("/brackets/test")
+    @PostMapping("/brackets/master")
     public String somethingDifferent(CreateMasterBracketForm bracketForm) {
         String blah = bracketForm.toString();
-        return "redirect:/app/home";
+        return "redirect:/app/admin/brackets/master";
     }
 }

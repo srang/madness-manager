@@ -37,7 +37,7 @@
                                     <span class="rank-info text-right col-md-3" th:text="${first} "></span>
                                     <div class="text-left col-md-9">
 
-                                        <label th:for="'|region-${region.name}-rank-${first}|'" class="control-label master-label">
+                                        <label th:for="${firstId}" class="control-label master-label">
                                             <!--<div>-->
                                                 <!--firstName=${bracketForm.rankedTeams[region.name][first]},-->
                                                 <!--secondName=${bracketForm.rankedTeams[region.name][index]}-->
@@ -55,7 +55,7 @@
                                         <!--@else-->
                                         <span class="placeholder" th:text="|Team ${first}|"></span>
                                         </label>
-                                        <input type="text" th:field="*{rankedTeams[__${region.name}__][__${index}__]}" th:id="${firstId}" class="form-control master-input hide" />
+                                        <select type="text" th:field="*{rankedTeams[__${region.name}__][__${index}__]}" th:id="${firstId}" class="form-control master-input hide"></select>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -65,7 +65,7 @@
 
                                         <span class="placeholder" th:text="|Team ${index}|"></span>
                                         </label>
-                                        <select th:field="*{rankedTeams[__${region.name}__][__${index}__]}" th:id="${secondId}" class="form-control master-input hide" ></select>
+                                        <select th:field="*{rankedTeams[__${region.name}__][__${index}__]}" th:id="${secondId}" class="form-control master-input hide"></select>
                                     </div>
                                 </div>
                             </div>
