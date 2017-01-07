@@ -15,10 +15,8 @@ import java.util.Map;
 @Setter
 public class CreateMasterBracketForm {
     Map<String, List<String>> rankedTeams;
-    Map<String, List<String>> testList;
     public CreateMasterBracketForm() {
         rankedTeams = new RegionMap();
-        testList = new RegionMap();
     }
     private class RegionMap extends HashMap<String, List<String>> {
         @Override

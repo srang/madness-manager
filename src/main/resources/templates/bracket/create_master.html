@@ -7,7 +7,7 @@
     <div class="container">
         <div class="panel-body">
             <!-- Master Bracket Create Form -->
-            <form th:action="@{/app/admin/brackets/master}" role="form" th:object="${bracketForm}" method="post">
+            <form th:action="@{/app/admin/brackets/master/create}" role="form" th:object="${bracketForm}" method="post">
                 <div th:replace="fragments/page_element :: form_errors"></div>
                 <div th:replace="fragments/page_element :: back_button(@{/app/admin/brackets})"></div>
                  <!--Submit Button -->
@@ -56,7 +56,7 @@
                                         <span class="placeholder" th:text="|Team ${first}|"></span>
                                         </label>
                                         <input type="text" class="hide" th:field="*{rankedTeams[__${region.name}__][__${first}__]}" th:id="__${firstId}__-actual" />
-                                        <select type="text" th:field="*{rankedTeams[__${region.name}__][__${first}__]}" th:id="${firstId}" class="form-control master-input hide">
+                                        <select th:id="${firstId}" class="form-control master-input hide">
                                             <option value=""></option>
                                         </select>
                                     </div>

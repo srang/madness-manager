@@ -24,11 +24,16 @@ $(document).ready(function () {
     });
     function format(item) {
         return item.name;
-    };
-
+    }
+    function clear(label, select) {
+        select.select2('destroy');
+        select.addClass('hide');
+        label.removeClass('hide');
+    }
 
     $('label.master-label').on('click', function () {
         $(this).addClass('hide');
+        var label = $(this);
         var input = $('select.master-input[id=' + $(this).attr('for') + ']');
         var realInput = $('input[id=' + $(this).attr('for') + '-actual]');
         input.removeClass('hide');
@@ -38,6 +43,7 @@ $(document).ready(function () {
             formatSelection: format,
             formatResult: format
         });
+        input.select2('open');
 
         // input.typeahead({
         //         minLength: 1,
@@ -58,34 +64,19 @@ $(document).ready(function () {
         //                 }
         //     }
         // });
-        function clear(label, select) {
-            select.select2('destroy');
-            select.addClass('hide');
-            label.removeClass('hide');
-        }
-        input.on('select2:select', function(event) {
-            // $(this).typeahead('val',selection.name);
-            // $(this).typeahead('destroy');
-            // $(this).val(selection.name);
-            // $(this).addClass('hide');
-            var label = $('label.master-label[for='+$(this).attr('id')+']');
-            label.text(event.params.data.name);
-            realInput.val(event.params.data.id);
 
-            clear(label, $(this));
+    });
+    $('select.master-input').on('select2:select', function(event) {
+        var label = $('label.master-label[for='+$(this).attr('id')+']');
+        var realInput = $('input[id=' + $(this).attr('id') + '-actual]');
+        label.text(event.params.data.name);
+        label.addClass('unsaved');
+        realInput.val(event.params.data.id);
+    });
 
-            // label.text(selection.name);
-            // label.removeClass('hide');
-            // label.addClass('unsaved');
-        });
-        //
-        // input.on('blur', function() {
-        //     $(this).typeahead('val','');
-        //     $(this).typeahead('destroy');
-        //     $(this).addClass('hide');
-        //     var label = $('label.master-label[for='+$(this).attr('id')+']');
-        //     label.removeClass('hide');
-        // });
+    $('select.master-input').on('select2:close', function(event){
+        var label = $('label.master-label[for='+$(this).attr('id')+']');
+        clear(label, $(this));
     });
 
 });

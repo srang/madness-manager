@@ -83,9 +83,15 @@ public class AdminController {
         return "home";
     }
 
-    @PostMapping("/brackets/master")
-    public String somethingDifferent(CreateMasterBracketForm bracketForm) {
+    @PostMapping("/brackets/master/create")
+    public String createMaster(CreateMasterBracketForm bracketForm) {
         String blah = bracketForm.toString();
+        return "redirect:/app/admin/brackets/master";
+    }
+
+    @PostMapping("/brackets/master")
+    public String updateMaster(Model model) {
+
         return "redirect:/app/admin/brackets/master";
     }
 }
