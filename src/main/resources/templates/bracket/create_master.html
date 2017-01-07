@@ -29,21 +29,17 @@
                         <div th:each="first : ${matchups}"
                         th:with="
                             index=${17-first},
-                            firstId='region-'+${region.name}+'-rank-'+${first},
-                            secondId='region-'+${region.name}+'-rank-'+${index}
+                            firstId='region-'+${region.regionId}+'-rank-'+${first},
+                            secondId='region-'+${region.regionId}+'-rank-'+${index}
                                 ">
                             <div class="form-group">
                                 <div class="row">
                                     <span class="rank-info text-right col-md-3" th:text="${first} "></span>
                                     <div class="text-left col-md-9">
 
-                                        <label th:for="${firstId}" class="control-label master-label">
-                                            <!--<div>-->
-                                                <!--firstName=${bracketForm.rankedTeams[region.name][first]},-->
-                                                <!--secondName=${bracketForm.rankedTeams[region.name][index]}-->
-                                            <!--</div>-->
-                                            <!--&lt;!&ndash;@if (!empty($old_val=old($firstname)))&ndash;&gt;-->
-                                            <!--&lt;!&ndash;{{ $old_val }}&ndash;&gt;asdf-->
+                                        <label th:for="${firstId}" class="control-label master-label" th:with="tmp=*{rankedTeams[__${region.regionId}__][__${first}__]}">
+                                            <!--@if (!empty($old_val=old($firstname)))-->
+                                            <!--{{ $old_val }}-->
                                         <!--</label>-->
                                         <!--<input type="text" th:name="${firstId}" th:id="${firstId}" class="form-control master-input hide">-->
                                         <!--@elseif (!empty($team=$teamRepo->byRankRegion($first,$region->region)))-->
@@ -53,9 +49,9 @@
                                         <!--</label>-->
                                         <!--<input type="text" name="{{ $firstname }}" id="{{ $firstid }}" class="form-control master-input hide" value="{{ $team->name }}">-->
                                         <!--@else-->
-                                        <span class="placeholder" th:text="|Team ${first}|"></span>
+                                            <span class="placeholder" th:text="${tmp != null} ?  ${teams[__${tmp}__].name} : |Team ${first}|"></span>
                                         </label>
-                                        <input type="text" class="hide" th:field="*{rankedTeams[__${region.name}__][__${first}__]}" th:id="__${firstId}__-actual" />
+                                        <input type="text" class="hide" th:field="*{rankedTeams[__${region.regionId}__][__${first}__]}" th:id="__${firstId}__-actual" />
                                         <select th:id="${firstId}" class="form-control master-input hide">
                                             <option value=""></option>
                                         </select>
@@ -64,11 +60,11 @@
                                 <div class="row">
                                     <span class="rank-info text-right col-md-3" th:text="${index}"></span>
                                     <div class="text-left col-md-9">
-                                        <label th:for="${secondId}" class="control-label master-label">
+                                        <label th:for="${secondId}" class="control-label master-label"  th:with="tmp=*{rankedTeams[__${region.regionId}__][__${index}__]}">
 
-                                        <span class="placeholder" th:text="|Team ${index}|"></span>
+                                            <span class="placeholder" th:text="${tmp != null} ?  ${teams[__${tmp}__].name} : |Team ${index}|"></span>
                                         </label>
-                                        <input type="text" class="hide" th:field="*{rankedTeams[__${region.name}__][__${index}__]}" th:id="__${secondId}__-actual" />
+                                        <input type="text" class="hide" th:field="*{rankedTeams[__${region.regionId}__][__${index}__]}" th:id="__${secondId}__-actual" />
                                         <select th:id="${secondId}" class="form-control master-input hide">
                                             <option value=""></option>
                                         </select>

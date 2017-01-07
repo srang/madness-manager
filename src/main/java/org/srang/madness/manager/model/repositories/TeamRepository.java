@@ -2,6 +2,7 @@ package org.srang.madness.manager.model.repositories;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.srang.madness.manager.model.entities.Region;
 import org.srang.madness.manager.model.entities.Team;
 
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.List;
  */
 public interface TeamRepository extends CrudRepository<Team, Integer> {
 
-    @Query("SELECT t FROM Team t WHERE t.name!='TBD'")
+    @Query("SELECT t FROM Team t WHERE t.name != 'TBD'")
     List<Team> getRealTeams();
+
+    List<Team> findByRegion(Region region);
 }

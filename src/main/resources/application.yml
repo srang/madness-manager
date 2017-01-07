@@ -1,4 +1,4 @@
-org.srang.madness.manager.test: asdf
+org.srang.madness.region.size: 16
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver

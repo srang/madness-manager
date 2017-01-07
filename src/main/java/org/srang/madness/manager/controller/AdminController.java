@@ -15,6 +15,7 @@ import org.srang.madness.manager.service.BracketService;
 import org.srang.madness.manager.service.TeamService;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 import static org.srang.madness.manager.model.entities.Region.RegionType.*;
@@ -41,10 +42,11 @@ public class AdminController {
     public String showMaster(Model model) {
         Bracket master = bracketService.repository().findMasterBracket();
         if (master == null) {
-            model.addAttribute("bracketForm", new CreateMasterBracketForm());
+            List<Region> regions = Arrays.asList(EAST,WEST,SOUTH,MIDWEST).stream()
+                    .map(Region.RegionType::region).collect(toList());
+            model.addAttribute("bracketForm", new CreateMasterBracketForm(regions, teamService));
             model.addAttribute("teams", teamService.getTeams());
-            model.addAttribute("regions", Arrays.asList(EAST,WEST,SOUTH,MIDWEST).stream()
-                .map(Region.RegionType::region).collect(toList()));
+            model.addAttribute("regions", regions);
             model.addAttribute("matchups", bracketService.generateMatchups());
 
             return "bracket/create_master";
