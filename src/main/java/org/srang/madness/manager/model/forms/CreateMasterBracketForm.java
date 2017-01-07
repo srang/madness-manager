@@ -19,8 +19,12 @@ public class CreateMasterBracketForm {
      * maps <RegionId <TeamRank, TeamId>>
      */
     Map<Integer, Map<Integer, Integer>> rankedTeams;
+    String name;
+    Boolean madnessFlag;
     public CreateMasterBracketForm(List<Region> regions, final TeamService teamService) {
         rankedTeams = new RegionMap(regions, teamService);
+        name = "Master Bracket";
+        madnessFlag = false;
     }
     public CreateMasterBracketForm() {
     }
@@ -30,14 +34,6 @@ public class CreateMasterBracketForm {
                 this.put(region.getRegionId(), teamService.getRankedRegionTeams(region));
             }
         }
-//        @Override
-//        public List<String> get(Object key) {
-//            List<String> vals = super.get(key);
-//            if (vals == null) {
-//                vals = new ArrayList<>();
-//                this.put((String) key, vals);
-//            }
-//            return vals;
-//        }
+
     }
 }

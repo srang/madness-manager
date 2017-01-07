@@ -16,8 +16,8 @@
                         <button class="btn btn-danger" id="start-madness" data-toggle="tooltip" data-placement="bottom" title="Save and Open Submissions">
                             <i class="fa fa-btn fa-warning"></i> Start
                         </button>
-                        <input type="hidden" name="start_madness" value="false" id="madness-flag" />
-                        <input type="hidden" name="name" value="Master Bracket" />
+                        <input type="hidden" th:field="*{madnessFlag}" id="madness-flag" />
+                        <input type="hidden" th:field="*{name}" />
                         <button type="submit" class="btn btn-success" id="save-button" data-toggle="tooltip" data-placement="bottom" title="Save Master Bracket">
                             <i class="fa fa-btn fa-save"></i> Save
                         </button>
@@ -38,19 +38,8 @@
                                     <div class="text-left col-md-9">
 
                                         <label th:for="${firstId}" class="control-label master-label" th:with="tmp=*{rankedTeams[__${region.regionId}__][__${first}__]}">
-                                            <!--@if (!empty($old_val=old($firstname)))-->
-                                            <!--{{ $old_val }}-->
-                                        <!--</label>-->
-                                        <!--<input type="text" th:name="${firstId}" th:id="${firstId}" class="form-control master-input hide">-->
-                                        <!--@elseif (!empty($team=$teamRepo->byRankRegion($first,$region->region)))-->
-                                        <!--<span class="team-name" style="background-color: #{{ $team->primary_color }}; color: #{{ $team->accent_color }};">-->
-                                                    <!--{{ $team->name }}-->
-                                                <!--</span>-->
-                                        <!--</label>-->
-                                        <!--<input type="text" name="{{ $firstname }}" id="{{ $firstid }}" class="form-control master-input hide" value="{{ $team->name }}">-->
-                                        <!--@else-->
                                             <span class="placeholder" th:if="${tmp == null}" th:text="|Team ${first}|"></span>
-                                            <span class="placeholder" th:unless="${tmp == null}" th:with="team=${teams[__${tmp}__]}"
+                                            <span class="team-name" th:unless="${tmp == null}" th:with="team=${teams[__${tmp}__]}"
                                                   th:style="|background-color: #${team.primaryColor};color: #${team.accentColor}|"
                                                   th:text="${team.name}"></span>
                                         </label>
@@ -66,8 +55,9 @@
                                         <label th:for="${secondId}" class="control-label master-label"  th:with="tmp=*{rankedTeams[__${region.regionId}__][__${index}__]}">
 
                                             <span class="placeholder" th:if="${tmp == null}" th:text="|Team ${index}|"></span>
-                                            <span class="placeholder" th:unless="${tmp == null}" th:text="${teams[__${tmp}__].name}"></span>
-                                        </label>
+                                            <span class="team-name" th:unless="${tmp == null}" th:with="team=${teams[__${tmp}__]}"
+                                                  th:style="|background-color: #${team.primaryColor};color: #${team.accentColor}|"
+                                                  th:text="${team.name}"></span>                                        </label>
                                         <input type="text" class="hide" th:field="*{rankedTeams[__${region.regionId}__][__${index}__]}" th:id="__${secondId}__-actual" />
                                         <select th:id="${secondId}" class="form-control master-input hide">
                                             <option value=""></option>
