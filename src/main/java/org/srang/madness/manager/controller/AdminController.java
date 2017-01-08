@@ -83,7 +83,6 @@ public class AdminController {
             setCreateMasterModel(model);
             model.addAttribute("bracketForm", bracketForm);
             model.addAttribute("result", result);
-            model.addAttribute("alert", "Bracket Submission Error");
             log.warning(result.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(toList()).toString());
             return "bracket/create_master";
         }
