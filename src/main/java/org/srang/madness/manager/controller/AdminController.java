@@ -7,10 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.srang.madness.manager.model.entities.Bracket;
+import org.srang.madness.manager.model.ephemeral.Alert;
 import org.srang.madness.manager.model.forms.CreateMasterBracketForm;
 import org.srang.madness.manager.service.BracketService;
 import org.srang.madness.manager.service.TeamService;
@@ -18,6 +19,8 @@ import org.srang.madness.manager.service.TeamService;
 import javax.validation.Valid;
 
 import static java.util.stream.Collectors.toList;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
  * Created by samuelrang on 11/5/2016.
@@ -39,7 +42,7 @@ public class AdminController {
         return "admin/index";
     }
 
-    @GetMapping("/brackets/master")
+    @RequestMapping(value = "/brackets/master", method = GET)
     public String showMaster(Model model) {
         Bracket master = bracketService.getMaster();
         if (master == null) {
@@ -69,7 +72,7 @@ public class AdminController {
         model.addAttribute("matchups", bracketService.generateMatchups());
     }
 
-    @GetMapping("/brackets/master/create")
+    @RequestMapping(value = "/brackets/master/create", method = GET)
     public String createMaster(Model model) {
         setCreateMasterModel(model);
         model.addAttribute("bracketForm", new CreateMasterBracketForm(bracketService.regions(), teamService));
@@ -77,14 +80,14 @@ public class AdminController {
         return "bracket/create_master";
     }
 
-    @PostMapping("/brackets/master/create")
-    public String createMaster(@Valid CreateMasterBracketForm bracketForm, BindingResult result, Model model) {
+    @RequestMapping(value = "/brackets/master/create", method = POST)
+    public ModelAndView createMaster(@Valid CreateMasterBracketForm bracketForm, BindingResult result, Model model, RedirectAttributes attributes) {
         if (result.hasErrors()) {
             setCreateMasterModel(model);
             model.addAttribute("bracketForm", bracketForm);
             model.addAttribute("result", result);
             log.warning(result.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(toList()).toString());
-            return "bracket/create_master";
+            return new ModelAndView("bracket/create_master", model.asMap());
         }
         bracketForm.getRankedTeams().forEach((regionId, teams) -> {
             teams.forEach((rank, teamId) -> {
@@ -93,10 +96,18 @@ public class AdminController {
                 }
             });
         });
-        return "redirect:/app/admin/brackets/master";
+        String redirect = "redirect:/app/admin/brackets/master/create";
+        if (bracketForm.getMadnessFlag()) {
+            // change application state
+            // redirect = "redirect:/brackets/master";
+        } else {
+            attributes.addFlashAttribute("alerts", new Alert[] {new Alert("Master Bracket Saved", "success")});
+            log.warning("alert added");
+        }
+        return new ModelAndView(redirect, attributes.asMap());
     }
 
-    @PostMapping("/brackets/master")
+    @RequestMapping(value = "/brackets/master", method = POST)
     public String updateMaster(Model model) {
         return "redirect:/app/admin/brackets/master";
     }

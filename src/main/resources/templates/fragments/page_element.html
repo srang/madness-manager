@@ -6,6 +6,15 @@
         <i class="fa fa-btn fa-arrow-left"></i> Back
     </a>
 </div>
+<div th:fragment="alerts(alerts)">
+    <div th:unless="${#arrays.isEmpty(alerts)}"><div th:each="alert : ${alerts}">
+        <div class="alert alert-dismissible" th:class="|alert alert-${alert.level} alert-dismissible|" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+            <span th:text="${alert.message}"></span>
+        </div></div>
+    </div>
+</div>
 <div th:fragment="alert(level,message)">
     <div class="alert alert-dismissible" th:class="|alert alert-${level} alert-dismissible|" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
@@ -21,7 +30,7 @@
         <strong>Whoops! Something went wrong!</strong>
         <br/>
         <ul>
-            <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+            <li th:each="err : ${#fields.allErrors()}" th:text="${err}"/>
         </ul>
     </div>
 </div>

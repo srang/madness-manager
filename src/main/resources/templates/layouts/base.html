@@ -4,16 +4,16 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <title th:text="#{page.title}">Placeholder Title</title>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
-    <link href="https://fonts.googleapis.com/css?family=Corben:700|Pacifico" rel="stylesheet" />
-    <link rel="stylesheet" th:href="@{/dist/css/frontend.min.css}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Corben:700|Pacifico" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/dist/css/frontend.min.css}"/>
     <th:block layout:fragment="custom-css"></th:block>
 </head>
 <body id="app-layout">
@@ -22,7 +22,8 @@
         <div class="navbar-header">
 
             <!-- Collapsed Hamburger -->
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#app-navbar-collapse">
                 <span class="sr-only">Toggle Navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -42,16 +43,17 @@
                 <li sec:authorize="hasRole('ROLE_SUPER')"><a th:href="@{/app/super}">Super</a></li>
             </ul>
             <!-- Right Side Of Navbar -->
-            <ul class="nav navbar-nav navbar-right" >
+            <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown" sec:authorize="isAuthenticated()">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            <span sec:authentication="name"></span> <span class="caret"></span>
-                        </a>
+                        <span sec:authentication="name"></span> <span class="caret"></span>
+                    </a>
 
                     <ul class="dropdown-menu" role="menu">
                         <li>
                             <form th:action="@{/auth/logout}" method="post">
-                                <button class="btn btn-link btn-submit" type="submit"><i class="fa fa-btn fa-sign-out"></i><span th:text="#{logout}"></span></button>
+                                <button class="btn btn-link btn-submit" type="submit"><i
+                                        class="fa fa-btn fa-sign-out"></i><span th:text="#{logout}"></span></button>
                             </form>
 
                         </li>
@@ -64,7 +66,11 @@
         </div>
     </div>
 </nav>
-<th:block layout:fragment="content"></th:block>
+<div class="container">
+    <div th:replace="fragments/page_element :: alerts(${alerts})"></div>
+
+    <th:block layout:fragment="content"></th:block>
+</div>
 
 <!-- Footer -->
 
