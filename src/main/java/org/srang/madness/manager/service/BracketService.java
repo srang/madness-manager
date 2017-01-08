@@ -3,14 +3,16 @@ package org.srang.madness.manager.service;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.srang.madness.manager.model.entities.Region;
 import org.srang.madness.manager.model.repositories.BracketRepository;
 import org.srang.madness.manager.model.repositories.GameRepository;
 import org.srang.madness.manager.model.repositories.TeamRepository;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
+import static org.srang.madness.manager.model.entities.Region.RegionType.*;
 
 /**
  * Created by srang on 12/17/16.
@@ -25,59 +27,34 @@ public class BracketService {
     @Autowired
     TeamRepository teamRepository;
 
-//    public Map<Region, List<Game>> generateMatchups() {
-//        List<Region> regions = Arrays.asList(EAST,WEST,SOUTH,MIDWEST).stream()
-//                .map(Region.RegionType::region).collect(toList());
-//
-//        Map<Region, List<Game>> master = new HashMap<>();
-//        for (Region r : regions) {
-//            List<Game> games = new ArrayList<>();
-//            for (int i = 1; i < 9; i++) {
-//                games.add(Game.builder()
-//                        .isMaster(true)
-//                        .round(1)
-//                        .teamAlpha()
-//                        .build()
-//                );
+
+    //    public List<Integer> generateMatchups() {
+//        List<Integer> firstTeams = new LinkedList<>(Arrays.asList(1,2,3,4,5,6,7,8));
+//        List<Integer> ret = new ArrayList<>();
+//        int count = firstTeams.size();
+//        while(count > 1) {
+//            if((count + 1 ) % 2 == 1) {
+//                ret.add(0, firstTeams.remove(1));
+//            } else {
+//                ret.add(0, firstTeams.remove(count - 2));
 //            }
-//            master.put(r, games);
+//            count -= 1;
+//            log.warning("count: " + count);
 //        }
-//        return master;
+//        ret.add(0, firstTeams.remove(0));
+//
+//        return ret;
+//    }
     public List<Integer> generateMatchups() {
-        List<Integer> firstTeams = new LinkedList<>(Arrays.asList(1,2,3,4,5,6,7,8));
-        List<Integer> ret = new ArrayList<>();
-        int count = firstTeams.size();
-        while(count > 1) {
-            if((count + 1 ) % 2 == 1) {
-                ret.add(0, firstTeams.remove(1));
-            } else {
-                ret.add(0, firstTeams.remove(count - 2));
-            }
-            count -= 1;
-            log.warning("count: " + count);
-        }
-        ret.add(0, firstTeams.remove(0));
-        /*
-        $first_teams = collect(range(1,8));
-        $ret = collect([]);
-        while (($c=$first_teams->count()) > 1) {
-            if (($c + 1) % 2) {
-                $hold = $first_teams->shift();
-                $ret->prepend($first_teams->shift());
-                $first_teams->prepend($hold);
-            } else {
-                $hold = $first_teams->pop();
-                $ret->prepend($first_teams->pop());
-                $first_teams->push($hold);
-            }
-        }
-        $r = $first_teams->pop();
-        $ret->prepend($r);
-         */
-        return ret;
+        return Arrays.asList(1, 8, 5, 4, 6, 3, 7, 2);
     }
 
     public final BracketRepository repository() {
         return this.bracketRepository;
+    }
+
+    public List<Region> regions() {
+        return Arrays.asList(EAST, WEST, SOUTH, MIDWEST).stream()
+                .map(Region.RegionType::region).collect(toList());
     }
 }

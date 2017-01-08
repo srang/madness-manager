@@ -5,20 +5,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.srang.madness.manager.model.entities.Bracket;
-import org.srang.madness.manager.model.entities.Region;
 import org.srang.madness.manager.model.forms.CreateMasterBracketForm;
 import org.srang.madness.manager.service.BracketService;
 import org.srang.madness.manager.service.TeamService;
 
-import java.util.Arrays;
-import java.util.List;
-
-import static java.util.stream.Collectors.toList;
-import static org.srang.madness.manager.model.entities.Region.RegionType.*;
+import javax.validation.Valid;
 
 /**
  * Created by samuelrang on 11/5/2016.
@@ -28,6 +24,8 @@ import static org.srang.madness.manager.model.entities.Region.RegionType.*;
 @Secured("ROLE_ADMIN")
 @Log
 public class AdminController {
+
+
     @Autowired
     BracketService bracketService;
     @Autowired
@@ -42,30 +40,7 @@ public class AdminController {
     public String showMaster(Model model) {
         Bracket master = bracketService.repository().findMasterBracket();
         if (master == null) {
-            List<Region> regions = Arrays.asList(EAST,WEST,SOUTH,MIDWEST).stream()
-                    .map(Region.RegionType::region).collect(toList());
-            model.addAttribute("bracketForm", new CreateMasterBracketForm(regions, teamService));
-            model.addAttribute("teams", teamService.getTeams());
-            model.addAttribute("regions", regions);
-            model.addAttribute("matchups", bracketService.generateMatchups());
-
-            return "bracket/create_master";
-            /*
-            //need to set up master bracket
-            $teams = Team::where('name','<>','TBD')->select('name','team_id')->get();
-            $regions = Region::orderedRegions();
-            $game_nums = BracketFactory::generateMatchups();
-            JavaScript::put([
-                    'teams' => $teams,
-            ]);
-            return view('admin.create_master',[
-                    'matchups' => $game_nums,
-            'teamRepo' => $this->teamRepo,
-                    'teams' => $teams,
-                    'regions' => $regions,
-                    'region_size' => 16,
-            ]);
-            */
+            return "redirect:/app/admin/brackets/master/create";
         }
         /*
         $games = BracketFactory::reverseBracket($bracket,new ReverseBaseBracketStrategy());
@@ -85,15 +60,34 @@ public class AdminController {
         return "home";
     }
 
+    private void setCreateMasterModel(Model model) {
+        model.addAttribute("teams", teamService.getTeams());
+        model.addAttribute("regions", bracketService.regions());
+        model.addAttribute("matchups", bracketService.generateMatchups());
+    }
+
+    @GetMapping("/brackets/master/create")
+    public String createMaster(Model model) {
+        setCreateMasterModel(model);
+        model.addAttribute("bracketForm", new CreateMasterBracketForm(bracketService.regions(), teamService));
+
+        return "bracket/create_master";
+    }
+
     @PostMapping("/brackets/master/create")
-    public String createMaster(CreateMasterBracketForm bracketForm) {
-        String blah = bracketForm.toString();
+    public String createMaster(@Valid CreateMasterBracketForm bracketForm, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            setCreateMasterModel(model);
+            model.addAttribute("bracketForm", bracketForm);
+            model.addAttribute(result);
+            log.warning(result.getAllErrors().toString());
+            return "bracket/create_master";
+        }
         return "redirect:/app/admin/brackets/master";
     }
 
     @PostMapping("/brackets/master")
     public String updateMaster(Model model) {
-
         return "redirect:/app/admin/brackets/master";
     }
 }

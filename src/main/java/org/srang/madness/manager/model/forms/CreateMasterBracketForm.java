@@ -3,8 +3,12 @@ package org.srang.madness.manager.model.forms;
 import lombok.Getter;
 import lombok.Setter;
 import org.srang.madness.manager.model.entities.Region;
+import org.srang.madness.manager.model.validation.AllTeamsFilled;
+import org.srang.madness.manager.model.validation.TeamsExactlyOnce;
 import org.srang.madness.manager.service.TeamService;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,12 +18,17 @@ import java.util.Map;
  */
 @Getter
 @Setter
+@AllTeamsFilled
+@TeamsExactlyOnce
 public class CreateMasterBracketForm {
     /**
      * maps <RegionId <TeamRank, TeamId>>
      */
     Map<Integer, Map<Integer, Integer>> rankedTeams;
+    @NotNull
+    @Pattern(regexp = "asdf")
     String name;
+    @NotNull
     Boolean madnessFlag;
     public CreateMasterBracketForm(List<Region> regions, final TeamService teamService) {
         rankedTeams = new RegionMap(regions, teamService);

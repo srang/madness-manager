@@ -4,8 +4,6 @@ $(document).ready(function () {
         obj.text = obj.name;
         return obj;
     });
-    // teamMap.unshift({id: '0', text:''});
-    // initialize all tooltips
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();
     });
@@ -44,26 +42,6 @@ $(document).ready(function () {
             formatResult: format
         });
         input.select2('open');
-
-        // input.typeahead({
-        //         minLength: 1,
-        //         highlight: true
-        // },
-        // {
-        //     name: 'team-dataset',
-        //     display: 'name',
-        //     source: searchTeams,f
-        //     templates: {
-        //         empty: [
-        //             '<div class="typeahead-result">',
-        //             'No Results',
-        //             '</div>'
-        //                 ].join('\n'),
-        //         suggestion : function (val) {
-        //                     return '<p class="typeahead-result" data-value="' + val.team_id + '">' + val.name + '</p>';
-        //                 }
-        //     }
-        // });
 
     });
     $('select.master-input').on('select2:select', function(event) {
