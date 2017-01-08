@@ -87,6 +87,13 @@ public class AdminController {
             log.warning(result.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(toList()).toString());
             return "bracket/create_master";
         }
+        bracketForm.getRankedTeams().forEach((regionId, teams) -> {
+            teams.forEach((rank, teamId) -> {
+                if (teamId != null) {
+                    teamService.setTeamRegionRank(teamId, regionId, rank);
+                }
+            });
+        });
         return "redirect:/app/admin/brackets/master";
     }
 

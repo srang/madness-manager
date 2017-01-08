@@ -36,4 +36,11 @@ public class TeamService {
                 .sorted(comparing(Team::getRank))
                 .collect(toMap(Team::getRank, Team::getTeamId));
     }
+
+    public void setTeamRegionRank(Integer teamId, Integer regionId, Integer rank) {
+        Team team = teamRepository.findOne(teamId);
+        team.setRank(rank);
+        team.setRegion(Region.RegionType.valueOf(regionId));
+        teamRepository.save(team);
+    }
 }

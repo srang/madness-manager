@@ -28,7 +28,7 @@ public class BracketService {
     TeamRepository teamRepository;
 
 
-    //    public List<Integer> generateMatchups() {
+//        public List<Integer> generateMatchups() {
 //        List<Integer> firstTeams = new LinkedList<>(Arrays.asList(1,2,3,4,5,6,7,8));
 //        List<Integer> ret = new ArrayList<>();
 //        int count = firstTeams.size();
@@ -45,6 +45,7 @@ public class BracketService {
 //
 //        return ret;
 //    }
+
     public List<Integer> generateMatchups() {
         return Arrays.asList(1, 8, 5, 4, 6, 3, 7, 2);
     }

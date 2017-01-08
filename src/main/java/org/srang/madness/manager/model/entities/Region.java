@@ -6,6 +6,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * Created by srang on 11/5/2016.
@@ -61,6 +62,10 @@ public class Region implements Serializable {
 
         public boolean isEqual(Region Region) {
             return region().getRegionId().equals(this.getIntegerId());
+        }
+
+        public static Region valueOf(Integer id) {
+            return Arrays.stream(RegionType.values()).filter(r -> r.getIntegerId().equals(id)).findFirst().get().region();
         }
     }
 }
