@@ -21,9 +21,12 @@ public class TeamsExactlyOnceValidator
     @Override
     public boolean isValid(Object obj, ConstraintValidatorContext context){
         CreateMasterBracketForm masterBracketForm = (CreateMasterBracketForm) obj;
-        List<Integer> teams = masterBracketForm.getRankedTeams().values().stream().flatMap(m -> m.values().stream()).collect(toList());
+        List<Integer> teams = masterBracketForm
+                .getRankedTeams().values().stream()
+                .flatMap(m -> m.values().stream())
+                .filter(t -> t != null).collect(toList());
         long teamsCount = teams.size();
-        long reduced = teams.stream().filter(t -> t != null).distinct().count();
+        long reduced = teams.stream().distinct().count();
         return teamsCount == reduced;
     }
 }

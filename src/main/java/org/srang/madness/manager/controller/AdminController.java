@@ -6,6 +6,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,8 @@ import org.srang.madness.manager.service.BracketService;
 import org.srang.madness.manager.service.TeamService;
 
 import javax.validation.Valid;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * Created by samuelrang on 11/5/2016.
@@ -79,8 +82,9 @@ public class AdminController {
         if (result.hasErrors()) {
             setCreateMasterModel(model);
             model.addAttribute("bracketForm", bracketForm);
-            model.addAttribute(result);
-            log.warning(result.getAllErrors().toString());
+            model.addAttribute("result", result);
+            model.addAttribute("alert", "Bracket Submission Error");
+            log.warning(result.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(toList()).toString());
             return "bracket/create_master";
         }
         return "redirect:/app/admin/brackets/master";

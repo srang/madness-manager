@@ -56,5 +56,7 @@ $(document).ready(function () {
         var label = $('label.master-label[for='+$(this).attr('id')+']');
         clear(label, $(this));
     });
-
+    $('#clear-page').on('click', function () {
+        location.reload();
+    })
 });

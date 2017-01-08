@@ -8,7 +8,6 @@ import org.srang.madness.manager.model.validation.TeamsExactlyOnce;
 import org.srang.madness.manager.service.TeamService;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +25,6 @@ public class CreateMasterBracketForm {
      */
     Map<Integer, Map<Integer, Integer>> rankedTeams;
     @NotNull
-    @Pattern(regexp = "asdf")
     String name;
     @NotNull
     Boolean madnessFlag;

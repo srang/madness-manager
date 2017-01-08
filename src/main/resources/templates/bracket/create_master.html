@@ -6,8 +6,13 @@
 <th:block layout:fragment="content">
     <div class="container">
         <div class="panel-body">
+            <div th:unless="${#strings.isEmpty(alert)}">
+            </div>
             <!-- Master Bracket Create Form -->
             <form th:action="@{/app/admin/brackets/master/create}" role="form" th:object="${bracketForm}" method="post">
+                <div th:if="${result != null}">
+                    <div th:replace="fragments/page_element :: alert('danger',${result.getAllErrors().get(0).getDefaultMessage()})"></div>
+                </div>
                 <div th:replace="fragments/page_element :: form_errors"></div>
                 <div th:replace="fragments/page_element :: back_button(@{/app/admin/brackets})"></div>
                  <!--Submit Button -->
@@ -21,6 +26,9 @@
                         <button type="submit" class="btn btn-success" id="save-button" data-toggle="tooltip" data-placement="bottom" title="Save Master Bracket">
                             <i class="fa fa-btn fa-save"></i> Save
                         </button>
+                        <button type="submit" class="btn btn-warning" id="clear-page" data-toggle="tooltip" data-placement="bottom" title="Clear Unsaved Changes">
+                            <i class="fa fa-btn fa-eraser"></i> Clear
+                         </button>
                     </div>
                 </div>
                 <div class="row master-bracket">
