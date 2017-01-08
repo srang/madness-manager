@@ -2,6 +2,7 @@ package org.srang.madness.manager.config;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -19,35 +20,38 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     DataSource dataSource;
+    @Value("${org.srang.madness.debug}")
+    Boolean isDebug;
 
-    @Bean(name="passwordEncoder")
-    public PasswordEncoder passwordencoder(){
+    @Bean(name = "passwordEncoder")
+    public PasswordEncoder passwordencoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-//        http
-//            .authorizeRequests()
-//                .antMatchers("/dist/**","/welcome","/auth/register").permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//            .formLogin()
-//                .loginPage("/auth/login")
-//                .defaultSuccessUrl("/app/home")
-//                .permitAll()
-//                .and()
-//            .logout()
-//                .logoutUrl("/auth/logout")
-//                .logoutSuccessUrl("/welcome?logout=true")
-//                .permitAll();
+        if (!isDebug) {
+            http
+                    .authorizeRequests()
+                    .antMatchers("/dist/**", "/welcome", "/auth/register").permitAll()
+                    .anyRequest().authenticated()
+                    .and()
+                    .formLogin()
+                    .loginPage("/auth/login")
+                    .defaultSuccessUrl("/app/home")
+                    .permitAll()
+                    .and()
+                    .logout()
+                    .logoutUrl("/auth/logout")
+                    .logoutSuccessUrl("/welcome?logout=true")
+                    .permitAll();
+        }
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
-            .jdbcAuthentication()
+                .jdbcAuthentication()
                 .dataSource(dataSource)
                 .passwordEncoder(passwordencoder())
                 .usersByUsernameQuery("select username, password, status_id=2 as enabled from users where username=?")

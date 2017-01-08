@@ -1,4 +1,7 @@
-org.srang.madness.region.size: 16
+org.srang.madness:
+  debug: ${APP_DEBUG:false}
+  region.size: 16
+
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver

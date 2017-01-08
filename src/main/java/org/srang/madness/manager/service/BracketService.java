@@ -3,10 +3,9 @@ package org.srang.madness.manager.service;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.srang.madness.manager.model.entities.Bracket;
 import org.srang.madness.manager.model.entities.Region;
 import org.srang.madness.manager.model.repositories.BracketRepository;
-import org.srang.madness.manager.model.repositories.GameRepository;
-import org.srang.madness.manager.model.repositories.TeamRepository;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,10 +21,6 @@ import static org.srang.madness.manager.model.entities.Region.RegionType.*;
 public class BracketService {
     @Autowired
     BracketRepository bracketRepository;
-    @Autowired
-    GameRepository gameRepository;
-    @Autowired
-    TeamRepository teamRepository;
 
 
 //    public List<Integer> generateMatchups() {
@@ -50,10 +45,9 @@ public class BracketService {
         return Arrays.asList(1, 8, 5, 4, 6, 3, 7, 2);
     }
 
-    public final BracketRepository repository() {
-        return this.bracketRepository;
+    public Bracket getMaster() {
+        return bracketRepository.findMasterBracket();
     }
-
     public List<Region> regions() {
         return Arrays.asList(EAST, WEST, SOUTH, MIDWEST).stream()
                 .map(Region.RegionType::region).collect(toList());

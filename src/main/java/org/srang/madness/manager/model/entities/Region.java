@@ -64,8 +64,8 @@ public class Region implements Serializable {
             return region().getRegionId().equals(this.getIntegerId());
         }
 
-        public static Region valueOf(Integer id) {
-            return Arrays.stream(RegionType.values()).filter(r -> r.getIntegerId().equals(id)).findFirst().get().region();
+        public static RegionType valueOf(Integer id) {
+            return Arrays.stream(RegionType.values()).filter(r -> r.getIntegerId().equals(id)).findFirst().get();
         }
     }
 }

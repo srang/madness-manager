@@ -38,7 +38,8 @@ public class Team implements Serializable {
     String accentColor;
 
     @Builder
-    public Team(String name, Integer rank, Region region, String mascot, String iconPath, String primaryColor, String accentColor) {
+    public Team(Integer teamId, String name, Integer rank, Region region, String mascot, String iconPath, String primaryColor, String accentColor) {
+        this.teamId = teamId;
         this.name = name;
         this.rank = rank;
         this.region = region;

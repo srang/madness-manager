@@ -40,7 +40,7 @@ public class TeamService {
     public void setTeamRegionRank(Integer teamId, Integer regionId, Integer rank) {
         Team team = teamRepository.findOne(teamId);
         team.setRank(rank);
-        team.setRegion(Region.RegionType.valueOf(regionId));
+        team.setRegion(Region.RegionType.valueOf(regionId).region());
         teamRepository.save(team);
     }
 }

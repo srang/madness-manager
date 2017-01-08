@@ -41,7 +41,7 @@ public class AdminController {
 
     @GetMapping("/brackets/master")
     public String showMaster(Model model) {
-        Bracket master = bracketService.repository().findMasterBracket();
+        Bracket master = bracketService.getMaster();
         if (master == null) {
             return "redirect:/app/admin/brackets/master/create";
         }
