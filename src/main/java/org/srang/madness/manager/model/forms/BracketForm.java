@@ -7,9 +7,9 @@ import org.srang.madness.manager.model.entities.Game;
 import org.srang.madness.manager.service.BracketService;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+import static java.util.stream.Collectors.toMap;
 import static org.srang.madness.manager.model.types.Round.SALACIOUS;
 
 /**
@@ -26,10 +26,23 @@ public class BracketForm {
     public BracketForm(final BracketService service) {
         Bracket master = service.getMaster();
         games = new HashMap<>();
-        List<Game> firstRound = service.getRound(master, SALACIOUS);
-        games.put(null, null);
+        games.put(SALACIOUS.id(), service.getRound(master, SALACIOUS).stream().collect(toMap(
+                Game::getGameIndex,
+                game -> {
+                    GameTouple touple = new GameTouple();
+                    touple.setTeamA(game.getTeamAlpha().getTeamId());
+                    touple.setTeamB(game.getTeamBravo().getTeamId());
+                    return touple;
+                })
+        ));
     }
 
+    public BracketForm(final BracketService service, Bracket existing) {
+
+    }
+
+    @Getter
+    @Setter
     private class GameTouple {
         Integer teamA;
         Integer teamB;
