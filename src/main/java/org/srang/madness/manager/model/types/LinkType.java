@@ -1,4 +1,4 @@
-package org.srang.madness.manager.model.entities;
+package org.srang.madness.manager.model.types;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

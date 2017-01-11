@@ -36,7 +36,7 @@ public class Game implements Serializable {
     @Column(name = "game_index", nullable = false)
     Integer gameIndex;
     @ManyToOne
-    @Column(name = "bracket_id", nullable = false)
+    @JoinColumn(name = "bracket_id", referencedColumnName = "bracket_id", nullable = false)
     Bracket bracket;
 
     @Builder
