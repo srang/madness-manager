@@ -1,6 +1,7 @@
 package org.srang.madness.manager.model.entities;
 
 import org.junit.Test;
+import org.srang.madness.manager.model.types.Region;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;

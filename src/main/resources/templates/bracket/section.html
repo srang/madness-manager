@@ -117,14 +117,6 @@
     <script src="{{ elixir('js/bracket_select.js') }}"></script>
     @endpush
 </div>
-<div th:fragment="info" class="row">
-    <!-- Bracket Name -->
-    <div class="col-sm-6">
-        <div class="form-group">
-            <h4>{{ $bracket->name }}</h4>
-        </div>
-    </div>
-</div>
 <div th:fragment="first_round">
     <div class="col-md-2 bracket-round round-one">
         <h4 class="bracket-round-title">Round 1 {{ $regionl }}</h4>

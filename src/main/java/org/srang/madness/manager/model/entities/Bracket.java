@@ -8,6 +8,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by srang on 11/5/2016.
@@ -25,9 +26,8 @@ public class Bracket implements Serializable {
     @ManyToOne
     @JoinColumn(name = "user_id")
     User user;
-    @ManyToOne
-    @JoinColumn(name = "root_game", nullable = false)
-    Game rootGame;
+    @OneToMany(mappedBy = "bracket", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Game> games;
     @Column(name = "name", nullable = false)
     String name;
     @Column(name = "master", nullable = false)
@@ -36,7 +36,6 @@ public class Bracket implements Serializable {
     @Builder
     public Bracket(User user, Game rootGame, String name, Boolean isMaster) {
         this.user = user;
-        this.rootGame = rootGame;
         this.name = name;
         this.isMaster = isMaster;
     }

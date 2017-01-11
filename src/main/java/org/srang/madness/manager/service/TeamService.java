@@ -3,7 +3,7 @@ package org.srang.madness.manager.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.srang.madness.manager.model.entities.Region;
+import org.srang.madness.manager.model.types.Region;
 import org.srang.madness.manager.model.entities.Team;
 import org.srang.madness.manager.model.repositories.TeamRepository;
 

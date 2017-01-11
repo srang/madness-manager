@@ -4,14 +4,17 @@ import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.srang.madness.manager.model.entities.Bracket;
-import org.srang.madness.manager.model.entities.Region;
+import org.srang.madness.manager.model.entities.Game;
+import org.srang.madness.manager.model.entities.Team;
 import org.srang.madness.manager.model.repositories.BracketRepository;
+import org.srang.madness.manager.model.types.Region;
+import org.srang.madness.manager.model.types.Round;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
-import static org.srang.madness.manager.model.entities.Region.RegionType.*;
+import static org.srang.madness.manager.model.types.Region.RegionType.*;
 
 /**
  * Created by srang on 12/17/16.
@@ -51,5 +54,13 @@ public class BracketService {
     public List<Region> regions() {
         return Arrays.asList(EAST, WEST, SOUTH, MIDWEST).stream()
                 .map(Region.RegionType::region).collect(toList());
+    }
+
+    public List<Game> getRound(Bracket bracket, Round round) {
+        return null;
+    }
+
+    public Team getWinner(Game game) {
+        return null;
     }
 }

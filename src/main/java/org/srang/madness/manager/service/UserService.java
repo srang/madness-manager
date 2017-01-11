@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.srang.madness.manager.model.entities.Status;
+import org.srang.madness.manager.model.types.Status;
 import org.srang.madness.manager.model.entities.User;
 import org.srang.madness.manager.model.forms.RegisterForm;
 import org.srang.madness.manager.model.repositories.UserRepository;

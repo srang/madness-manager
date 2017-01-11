@@ -20,3 +20,10 @@ hibernate:
   dialect: org.hibernate.dialect.MySQL5InnoDBDialect
   show_sql: false
 entitymanager.packages.to.scan: org.srang.madness.manager
+#server:
+#  port: 8443
+#  ssl:
+#    key-store: classpath:identity.p12
+#    key-store-password: genfare
+#    key-store-type: PKCS12
+#    key-alias: tomcat

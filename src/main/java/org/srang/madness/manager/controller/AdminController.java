@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.srang.madness.manager.model.entities.Bracket;
 import org.srang.madness.manager.model.ephemeral.Alert;
+import org.srang.madness.manager.model.forms.BracketForm;
 import org.srang.madness.manager.model.forms.CreateMasterBracketForm;
 import org.srang.madness.manager.service.BracketService;
 import org.srang.madness.manager.service.TeamService;
@@ -48,6 +49,9 @@ public class AdminController {
         if (master == null) {
             return "redirect:/app/admin/brackets/master/create";
         }
+        model.addAttribute("bracketForm", new BracketForm(bracketService));
+        model.addAttribute("backLink", "/app/admin/brackets");
+        model.addAttribute("formLink", "/app/admin/brackets/master");
         /*
         $games = BracketFactory::reverseBracket($bracket,new ReverseBaseBracketStrategy());
         $regions = Region::orderedRegions();
@@ -63,7 +67,13 @@ public class AdminController {
             'back_link' => url('admin/brackets')
         ]);
          */
-        return "home";
+        return "bracket/display";
+    }
+
+
+    @RequestMapping(value = "/brackets/master", method = POST)
+    public String updateMaster(Model model) {
+        return "redirect:/app/admin/brackets/master";
     }
 
     private void setCreateMasterModel(Model model) {
@@ -99,6 +109,7 @@ public class AdminController {
         String redirect = "redirect:/app/admin/brackets/master/create";
         if (bracketForm.getMadnessFlag()) {
             // change application state
+            // create master "bracket"
             // redirect = "redirect:/brackets/master";
         } else {
             attributes.addFlashAttribute("alerts", new Alert[] {new Alert("Master Bracket Saved", "success")});
@@ -107,8 +118,4 @@ public class AdminController {
         return new ModelAndView(redirect, attributes.asMap());
     }
 
-    @RequestMapping(value = "/brackets/master", method = POST)
-    public String updateMaster(Model model) {
-        return "redirect:/app/admin/brackets/master";
-    }
 }

@@ -2,7 +2,7 @@ package org.srang.madness.manager.model.repositories;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.srang.madness.manager.model.entities.Region;
+import org.srang.madness.manager.model.types.Region;
 import org.srang.madness.manager.model.entities.Team;
 
 import java.util.List;

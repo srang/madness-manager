@@ -2,7 +2,7 @@ package org.srang.madness.manager.model.forms;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.srang.madness.manager.model.entities.Region;
+import org.srang.madness.manager.model.types.Region;
 import org.srang.madness.manager.model.validation.AllTeamsFilled;
 import org.srang.madness.manager.model.validation.TeamsExactlyOnce;
 import org.srang.madness.manager.service.TeamService;

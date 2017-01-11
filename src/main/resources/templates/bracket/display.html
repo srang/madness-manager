@@ -1,15 +1,14 @@
-@extends('layouts.app')
-
-@section('content')
-<div class="container">
-    @include('common.alerts')
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/base">
+<th:block layout:fragment="content">
     <!-- Bracket Form -->
     <div class="row">
-        @include('brackets.team_info')
-        <form action="{{ $bracket_link }}" method="POST">
-            {!! method_field('PUT') !!}
-            @include('brackets.bracket_form')
-            @include('common.back_button')
+        <!--@include('brackets.team_info')-->
+        <form th:action="@{__${formLink}__}" method="POST" th:object="${bracketForm}">
+            <!--@include('brackets.bracket_form')-->
+            <div th:include="bracket/section :: team_info()"></div>
+            <div th:replace="fragments/page_element :: back_button(@{__${backLink}__}})"></div>
+
             <!-- Save Bracket -->
             <div class="form-group">
                 <div class="pull-right">
@@ -17,14 +16,14 @@
                         <button type="submit" class="btn btn-success">
                             <i class="fa fa-btn fa-pencil"></i> Save
                         </button>
-                        <a class="btn btn-info" href="{{ Request::url() }}">
+                        <a class="btn btn-info" th:href="@{__${formLink}__}">
                             <i class="fa fa-btn fa-refresh"></i> Reset
                         </a>
-                        @if(strpos($bracket_link,'new') === false)
-                        <a class="btn btn-primary" href="{{ $bracket_link.'/print' }}" target="_blank">
-                            <i class="fa fa-btn fa-print"></i> Print
-                        </a>
-                        @endif
+                        <!--@if(strpos($bracket_link,'new') === false)-->
+                        <!--<a class="btn btn-primary" href="{{ $bracket_link.'/print' }}" target="_blank">-->
+                            <!--<i class="fa fa-btn fa-print"></i> Print-->
+                        <!--</a>-->
+                        <!--@endif-->
                     </div>
                 </div>
             </div>
