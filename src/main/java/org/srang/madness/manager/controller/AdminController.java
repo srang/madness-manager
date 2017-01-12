@@ -16,6 +16,7 @@ import org.srang.madness.manager.model.forms.BracketForm;
 import org.srang.madness.manager.model.forms.CreateMasterBracketForm;
 import org.srang.madness.manager.service.BracketService;
 import org.srang.madness.manager.service.TeamService;
+import org.srang.madness.manager.service.TournamentService;
 
 import javax.validation.Valid;
 
@@ -32,7 +33,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @Log
 public class AdminController {
 
-
+    @Autowired
+    TournamentService tournamentService;
     @Autowired
     BracketService bracketService;
     @Autowired
@@ -108,11 +110,12 @@ public class AdminController {
         });
         String redirect = "redirect:/app/admin/brackets/master/create";
         if (bracketForm.getMadnessFlag()) {
-            // change application state
-            // create master "bracket"
-            // redirect = "redirect:/brackets/master";
+            Bracket master = bracketService.createMaster(bracketForm);
+//            tournamentService.next();
+            attributes.addFlashAttribute("alerts", new Alert[]{new Alert("Master Bracket Created", "success")});
+            redirect = "redirect:/app/admin/brackets";
         } else {
-            attributes.addFlashAttribute("alerts", new Alert[] {new Alert("Master Bracket Saved", "success")});
+            attributes.addFlashAttribute("alerts", new Alert[]{new Alert("Master Bracket Saved", "success")});
             log.warning("alert added");
         }
         return new ModelAndView(redirect, attributes.asMap());

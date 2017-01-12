@@ -7,6 +7,7 @@ import org.srang.madness.manager.model.types.Region;
 import org.srang.madness.manager.model.entities.Team;
 import org.srang.madness.manager.model.repositories.TeamRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +32,9 @@ public class TeamService {
 
     public Map<Integer, Integer> getRankedRegionTeams(Region region) {
         List<Team> teams = teamRepository.findByRegion(region);
+        if (teams == null) {
+            teams = new ArrayList<>();
+        }
         return teams.stream()
                 .filter(t -> t.getRank() != null)
                 .sorted(comparing(Team::getRank))

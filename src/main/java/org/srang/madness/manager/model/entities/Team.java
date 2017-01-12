@@ -60,4 +60,13 @@ public class Team implements Serializable {
                 .accentColor(this.accentColor)
                 .build();
     }
+
+    @Override
+    public String toString() {
+        return "Team{" +
+                "name='" + name + '\'' +
+                ", rank=" + rank +
+                ", region=" + region +
+                '}';
+    }
 }

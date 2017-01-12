@@ -1,3 +1,5 @@
+delete from games;
+delete from brackets;
 update teams set region_id=5, rank = (team_id-1)%16+1;
 update teams set region_id=1 where team_id >  96 AND team_id <113;
 update teams set region_id=2 where team_id > 112 AND team_id <129;

@@ -49,4 +49,14 @@ public class Game implements Serializable {
         this.gameIndex = gameIndex;
         this.bracket = bracket;
     }
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "teamAlpha=" + teamAlpha +
+                ", teamBravo=" + teamBravo +
+                ", round=" + round +
+                ", gameIndex=" + gameIndex +
+                '}';
+    }
 }
