@@ -54,6 +54,7 @@ public class AdminController {
         model.addAttribute("bracketForm", new BracketForm(bracketService));
         model.addAttribute("backLink", "/app/admin/brackets");
         model.addAttribute("formLink", "/app/admin/brackets/master");
+        model.addAttribute("mode", "master");
         /*
         $games = BracketFactory::reverseBracket($bracket,new ReverseBaseBracketStrategy());
         $regions = Region::orderedRegions();
@@ -75,6 +76,7 @@ public class AdminController {
 
     @RequestMapping(value = "/brackets/master", method = POST)
     public String updateMaster(Model model) {
+        //save something
         return "redirect:/app/admin/brackets/master";
     }
 
@@ -101,17 +103,11 @@ public class AdminController {
             log.warning(result.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(toList()).toString());
             return new ModelAndView("bracket/create_master", model.asMap());
         }
-        bracketForm.getRankedTeams().forEach((regionId, teams) -> {
-            teams.forEach((rank, teamId) -> {
-                if (teamId != null) {
-                    teamService.setTeamRegionRank(teamId, regionId, rank);
-                }
-            });
-        });
+        teamService.saveTeamsRanks(bracketForm);
         String redirect = "redirect:/app/admin/brackets/master/create";
         if (bracketForm.getMadnessFlag()) {
             Bracket master = bracketService.createMaster(bracketForm);
-//            tournamentService.next();
+            tournamentService.next();
             attributes.addFlashAttribute("alerts", new Alert[]{new Alert("Master Bracket Created", "success")});
             redirect = "redirect:/app/admin/brackets";
         } else {

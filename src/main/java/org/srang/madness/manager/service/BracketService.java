@@ -9,6 +9,7 @@ import org.srang.madness.manager.model.entities.Game;
 import org.srang.madness.manager.model.entities.Team;
 import org.srang.madness.manager.model.forms.CreateMasterBracketForm;
 import org.srang.madness.manager.model.repositories.BracketRepository;
+import org.srang.madness.manager.model.repositories.GameRepository;
 import org.srang.madness.manager.model.repositories.TeamRepository;
 import org.srang.madness.manager.model.repositories.UserRepository;
 import org.srang.madness.manager.model.types.Region;
@@ -21,7 +22,7 @@ import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.toList;
 import static org.srang.madness.manager.model.types.Region.RegionType.*;
-import static org.srang.madness.manager.model.types.Round.SALACIOUS;
+import static org.srang.madness.manager.model.types.Round.*;
 
 /**
  * Created by srang on 12/17/16.
@@ -35,6 +36,8 @@ public class BracketService {
     UserRepository userRepository;
     @Autowired
     TeamRepository teamRepository;
+    @Autowired
+    GameRepository gameRepository;
     @Autowired
     TeamService teamService;
 
@@ -74,7 +77,11 @@ public class BracketService {
     }
 
     public List<Game> getRound(Bracket bracket, Round round) {
-        return null;
+        return gameRepository.findByBracketAndRound(bracket, round.id());
+    }
+
+    public List<Round> rounds() {
+        return Arrays.asList(SALACIOUS, TITILATING, SWEET, ELITE, FINAL, CHAMPIONSHIP, KING);
     }
 
     public Team getWinner(Game game) {

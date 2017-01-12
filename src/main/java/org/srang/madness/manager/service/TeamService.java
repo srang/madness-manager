@@ -3,6 +3,8 @@ package org.srang.madness.manager.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.srang.madness.manager.model.forms.CreateMasterBracketForm;
 import org.srang.madness.manager.model.types.Region;
 import org.srang.madness.manager.model.entities.Team;
 import org.srang.madness.manager.model.repositories.TeamRepository;
@@ -46,5 +48,16 @@ public class TeamService {
         team.setRank(rank);
         team.setRegion(Region.RegionType.valueOf(regionId).region());
         teamRepository.save(team);
+    }
+
+    @Transactional
+    public void saveTeamsRanks(CreateMasterBracketForm bracketForm) {
+        bracketForm.getRankedTeams().forEach((regionId, teams) -> {
+            teams.forEach((rank, teamId) -> {
+                if (teamId != null) {
+                    setTeamRegionRank(teamId, regionId, rank);
+                }
+            });
+        });
     }
 }

@@ -50,7 +50,7 @@
                                     </label>
                                     <input type="text" class="hide" th:field="*{rankedTeams[__${region.regionId}__][__${first}__]}" th:id="__${firstId}__-actual" />
                                     <select th:id="${firstId}" class="form-control master-input hide">
-                                        <option value=""></option>
+                                        <option description=""></option>
                                     </select>
                                 </div>
                             </div>
@@ -65,7 +65,7 @@
                                               th:text="${team.name}"></span>                                        </label>
                                     <input type="text" class="hide" th:field="*{rankedTeams[__${region.regionId}__][__${index}__]}" th:id="__${secondId}__-actual" />
                                     <select th:id="${secondId}" class="form-control master-input hide">
-                                        <option value=""></option>
+                                        <option description=""></option>
                                     </select>
                                 </div>
                             </div>

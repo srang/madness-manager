@@ -28,7 +28,7 @@
                             <label for='sender' class='col-md-3 col-md-offset-1 control-label'>Sender Email</label>
                             <div class='col-md-7'>
                                 <input type='email' name='sender' class='form-control' placeholder='you@youremail.com'
-                                        value='{{ !empty(old('sender'))?old('sender'):Auth::user()->email }}'>
+                                        description='{{ !empty(old('sender'))?old('sender'):Auth::user()->email }}'>
                             </div>
                         </div>
                         <div class='form-group'>

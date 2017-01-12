@@ -19,8 +19,8 @@
                         <button class="btn btn-danger" id="start-madness" data-toggle="tooltip" data-placement="bottom" title="Save and Open Submissions">
                             <i class="fa fa-btn fa-warning"></i> Start
                         </button>
-                        <input type="hidden" name="start_madness" value="false" id="madness-flag" >
-                        <input type="hidden" name="name" value="Master Bracket" >
+                        <input type="hidden" name="start_madness" description="false" id="madness-flag" >
+                        <input type="hidden" name="name" description="Master Bracket" >
                         <button type="submit" class="btn btn-success" id="save-button" data-toggle="tooltip" data-placement="bottom" title="Save Master Bracket">
                             <i class="fa fa-btn fa-save"></i> Save
                         </button>
@@ -43,13 +43,13 @@
 @if (!empty($old_val=old($firstname)))
                                         {{ $old_val }}
                                     </label>
-                                    <input type="text" name="{{ $firstname }}" id="{{ $firstid }}" class="form-control master-input hide" value="{{ $old_val }}">
+                                    <input type="text" name="{{ $firstname }}" id="{{ $firstid }}" class="form-control master-input hide" description="{{ $old_val }}">
 @elseif (!empty($team=$teamRepo->byRankRegion($first,$region->region)))
                                         <span class="team-name" style="background-color: #{{ $team->primary_color }}; color: #{{ $team->accent_color }};">
                                             {{ $team->name }}
                                         </span>
                                     </label>
-                                    <input type="text" name="{{ $firstname }}" id="{{ $firstid }}" class="form-control master-input hide" value="{{ $team->name }}">
+                                    <input type="text" name="{{ $firstname }}" id="{{ $firstid }}" class="form-control master-input hide" description="{{ $team->name }}">
 @else
                                         <span class="placeholder">{{ 'Team '.$first }}</span>
                                     </label>
@@ -64,17 +64,17 @@
 @if (!empty($old_val=old($secondname)))
                                         {{$old_val}}
                                     </label>
-                                    <input type="text" name="{{ $secondname }}" id="{{ $secondid }}" class="form-control master-input hide" value="{{ $old_val }}">
+                                    <input type="text" name="{{ $secondname }}" id="{{ $secondid }}" class="form-control master-input hide" description="{{ $old_val }}">
 @elseif (!empty($team=$teamRepo->byRankRegion(($region_size+1-$first),$region->region)))
                                         <span class="team-name" style="background-color: #{{ $team->primary_color }}; color: #{{ $team->accent_color }};">
                                             {{ $team->name }}
                                         </span>
                                     </label>
-                                    <input type="text" name="{{ $secondname }}" id="{{ $secondid }}" class="form-control master-input hide" value="{{ $team->name }}">
+                                    <input type="text" name="{{ $secondname }}" id="{{ $secondid }}" class="form-control master-input hide" description="{{ $team->name }}">
 @else
                                         <span class="placeholder">{{'Team '.($region_size+1-$first)}}</span>
                                     </label>
-                                    <input type="text" name="{{ $secondname }}" id="{{ $secondid }}" class="form-control master-input hide" value="">
+                                    <input type="text" name="{{ $secondname }}" id="{{ $secondid }}" class="form-control master-input hide" description="">
 @endif
                                 </div>
                             </div>
