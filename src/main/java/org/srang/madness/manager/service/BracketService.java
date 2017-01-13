@@ -101,7 +101,8 @@ public class BracketService {
             Region region = Region.RegionType.valueOf(r).region();
             IntStream.range(0, matchups.size()).forEach((index) -> {
                 int rank = matchups.get(index);
-                Integer gameIndex = 8 * (r - 1) + index;
+                // 1 based indexing
+                Integer gameIndex = 8 * (r - 1) + index + 1;
                 Game game = Game.builder()
                         .gameIndex(gameIndex)
                         .bracket(master)

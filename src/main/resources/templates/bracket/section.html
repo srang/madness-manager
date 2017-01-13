@@ -3,32 +3,39 @@
 <body>
 
 <div th:fragment="form(bracketForm)">
-    <div class="row" th:object="${bracketForm}">
-        <!-- Bracket Name -->
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="bracket-name" class="col-sm-3 control-label">Bracket Name</label>
-                <input type="text" th:field="*{name}" placeholder="Bracket Name" id="bracket-name" class="form-control" />
-            </div>
-        </div>
-        <div sec:authorize="hasRole('ROLE_ADMIN')" th:if="${mode == 'admin'}">
-            <div class="col-md-6">
-                <div class="form-group @if ($errors->has('user_id')) has-error @endif">
-                    <label for="bracket-owner" class="col-sm-3 control-label">Bracket Owner</label>
-                    <input type="text" th:field="*{user}" id="bracket-owner" />
+    <div th:object="${bracketForm}">
+        <div class="row">
+            <!-- Bracket Name -->
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="bracket-name" class="col-sm-3 control-label">Bracket Name</label>
+                    <input type="text" th:field="*{name}" placeholder="Bracket Name" id="bracket-name"
+                           class="form-control"/>
                 </div>
             </div>
+            <div sec:authorize="hasRole('ROLE_ADMIN')" th:if="${mode == 'admin'}">
+                <div class="col-md-6">
+                    <label class="col-sm-3 control-label">Bracket Owner</label>
+                    <input type="text" th:field="*{user}"/>
+                </div>
+            </div>
+            <div th:if="${mode == 'edit'}">
+                <input type="text" th:field="*{user}"/>
+            </div>
+            <div th:if="${mode == 'user'}">
+                <input type="text" th:field="*{user}"/>
+            </div>
         </div>
-        <div th:if="${mode == 'edit'}">
-            <input type="text" th:field="*{user}" id="bracket-owner" />
-        </div>
-        <div th:if="${mode == 'user'}">
-            <input type="text" th:field="*{user}" id="bracket-owner" />
-        </div>
-    </div>
 
-    <!-- Hidden fields for each game -->
-    <!--<div>-->
+        <div th:each="round : *{games.keySet()}">
+            <p th:text="${round.label()}"></p>
+            <div th:each="index : ${#numbers.sequence(1, round.games())}">
+                <input type="text" th:field="*{games[__${round}__][__${index}__].teamA}" placeholder="teamA" />
+                <input type="text" th:field="*{games[__${round}__][__${index}__].teamB}" placeholder="teamB" />
+            </div>
+        </div>
+        <!-- Hidden fields for each game -->
+        <!--<div>-->
         <!--@foreach($games as $round=>$round_games)-->
         <!--{{&#45;&#45;*/ $game_num = 1 /*&#45;&#45;}}-->
         <!--@foreach($round_games as $game)-->
@@ -37,15 +44,16 @@
         <!--{{&#45;&#45;*/ $gv = 'games.'.$round.'.'.$game_num.'.' /*&#45;&#45;}}-->
 
         <!--<input type="text" id="{{ $gi.'T1' }}" name="{{ $gn.'[T1]' }}"-->
-               <!--description="{{ !empty(old($gv.'T1'))?old($gv.'T1'):$teamRepo->byTeamId($game->team_a)->name }}">-->
+        <!--description="{{ !empty(old($gv.'T1'))?old($gv.'T1'):$teamRepo->byTeamId($game->team_a)->name }}">-->
         <!--<input type="text" id="{{ $gi.'T2' }}" name="{{ $gn.'[T2]' }}"-->
-               <!--description="{{ !empty(old($gv.'T2'))?old($gv.'T2'):$teamRepo->byTeamId($game->team_b)->name }}">-->
+        <!--description="{{ !empty(old($gv.'T2'))?old($gv.'T2'):$teamRepo->byTeamId($game->team_b)->name }}">-->
         <!--<input type="text" id="{{ $gi.'W' }}" name="{{ $gn.'[W]' }}"-->
-               <!--description="{{ !empty(old($gv.'W'))?old($gv.'W'):$teamRepo->byTeamId($game->winner)->name }}">-->
+        <!--description="{{ !empty(old($gv.'W'))?old($gv.'W'):$teamRepo->byTeamId($game->winner)->name }}">-->
         <!--{{&#45;&#45;*/ $game_num++ /*&#45;&#45;}}-->
         <!--@endforeach-->
         <!--@endforeach-->
-    <!--</div>-->
+        <!--</div>-->
+    </div>
 </div>
 </body>
 </html>

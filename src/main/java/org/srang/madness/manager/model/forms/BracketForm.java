@@ -8,10 +8,7 @@ import org.srang.madness.manager.model.entities.Game;
 import org.srang.madness.manager.model.types.Round;
 import org.srang.madness.manager.service.BracketService;
 
-import javax.validation.constraints.NotNull;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import static java.util.stream.Collectors.toMap;
@@ -42,12 +39,7 @@ public class BracketForm {
                 })
         ));
         service.rounds().stream().filter(round -> round != SALACIOUS)
-                .forEach();
-        Iterator<Round> roundIterator = rounds.iterator();
-        roundIterator.next();
-        roundIterator.forEachRemaining(round -> {
-            games.put(round, new HashMap<>());
-        });
+                .forEach(round -> games.put(round, new HashMap<>()));
     }
 
     public BracketForm(final BracketService service, Bracket existing) {
@@ -64,15 +56,6 @@ public class BracketForm {
                     })
             ));
         });
-    }
-
-    @Getter
-    @Setter
-    private class GameTouple {
-        @NotNull
-        Integer teamA;
-        @NotNull
-        Integer teamB;
     }
 
     // < round, < game_index,gametouple >
