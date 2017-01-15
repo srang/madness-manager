@@ -55,6 +55,8 @@ public class AdminController {
         model.addAttribute("backLink", "/app/admin/brackets");
         model.addAttribute("formLink", "/app/admin/brackets/master");
         model.addAttribute("mode", "master");
+        model.addAttribute("container", "game_button");
+        model.addAttribute("teams", teamService.getTeams());
         /*
         $games = BracketFactory::reverseBracket($bracket,new ReverseBaseBracketStrategy());
         $regions = Region::orderedRegions();

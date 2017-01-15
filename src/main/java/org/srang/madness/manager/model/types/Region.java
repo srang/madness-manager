@@ -30,10 +30,10 @@ public class Region implements Serializable {
     }
     public enum RegionType {
 
-        EAST(1, "East"),
-        WEST(2, "West"),
-        SOUTH(3, "South"),
-        MIDWEST(4, "Midwest"),
+        REGION_A(1, "East"),
+        REGION_B(2, "South"),
+        REGION_C(3, "West"),
+        REGION_D(4, "Midwest"),
         UNSPECIFIED(5, "");
         private int id;
 
@@ -52,7 +52,7 @@ public class Region implements Serializable {
             return Integer.valueOf(id);
         }
 
-        public String getValue() {
+        public String value() {
             return value;
         }
 

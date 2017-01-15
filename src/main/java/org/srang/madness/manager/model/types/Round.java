@@ -25,6 +25,8 @@ public enum Round {
         this.games = games;
     }
 
+    public static Round valueOf(Integer id) { return Round.values()[id]; }
+
     public Integer id() {
         return Integer.valueOf(id);
     }

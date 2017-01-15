@@ -1,82 +1,34 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <body>
-<div th:fragment="info" class="row">
-    <!-- Bracket Name -->
-    <div class="col-sm-6">
-        <div class="form-group">
-            <h4 th:text="${bracket.name}"></h4>
-        </div>
-    </div>
-</div>
-<div th:fragment="game_button" class="bracket-game">
-        {{-- $team_a = $teamRepo->byName(!empty(old('games.'.$game->round_id.'.'.$game_num.'.T1'))?old('games.'.$game->round_id.'.'.$game_num.'.T1'):$teamRepo->byTeamId($game->team_a)->name) --}}
-        {{-- $team_a = !empty(old('games.'.$game->round_id.'.'.$game_num.'.T2'))?$teamRepo->byName(old('games.'.$game->round_id.'.'.$game_num.'.T2')):$teamRepo->byTeamId($game->team_b) --}}
-        {{--*/ $team_a = !empty(old('games.'.$game->round_id.'.'.$game_num.'.T1'))?$teamRepo->byName(old('games.'.$game->round_id.'.'.$game_num.'.T1')):$teamRepo->byTeamId($game->team_a) /*--}}
-        {{--*/ $team_b = !empty(old('games.'.$game->round_id.'.'.$game_num.'.T2'))?$teamRepo->byName(old('games.'.$game->round_id.'.'.$game_num.'.T2')):$teamRepo->byTeamId($game->team_b) /*--}}
-        <button class="btn btn-team" id="R{{ $game->round_id }}G{{ $game_num }}T1B">
-            <span class="pull-left team-rank">#{{ $team_a->rank }}</span>
-            <span class="team-name">{{ $team_a->name }}</span>
+<div th:fragment="game_button(roundId, index)" class="bracket-game">
+        <!--{{&#45;&#45; $team_a = $teamRepo->byName(!empty(old('games.'.$game->round_id.'.'.$game_num.'.T1'))?old('games.'.$game->round_id.'.'.$game_num.'.T1'):$teamRepo->byTeamId($game->team_a)->name) &#45;&#45;}}-->
+        <!--{{&#45;&#45; $team_a = !empty(old('games.'.$game->round_id.'.'.$game_num.'.T2'))?$teamRepo->byName(old('games.'.$game->round_id.'.'.$game_num.'.T2')):$teamRepo->byTeamId($game->team_b) &#45;&#45;}}-->
+        <!--{{&#45;&#45;*/ $team_a = !empty(old('games.'.$game->round_id.'.'.$game_num.'.T1'))?$teamRepo->byName(old('games.'.$game->round_id.'.'.$game_num.'.T1')):$teamRepo->byTeamId($game->team_a) /*&#45;&#45;}}-->
+        <!--{{&#45;&#45;*/ $team_b = !empty(old('games.'.$game->round_id.'.'.$game_num.'.T2'))?$teamRepo->byName(old('games.'.$game->round_id.'.'.$game_num.'.T2')):$teamRepo->byTeamId($game->team_b) /*&#45;&#45;}}-->
+    <!--id="R{{ $game->round_id }}G{{ $game_num }}T1B"-->
+        <button class="btn btn-team" >
+            <span class="pull-left team-rank" th:id="|G-${roundId}-${index}-A-rank|"></span>
+            <span class="team-name" th:id="|G-${roundId}-${index}-A-name|"></span>
         </button>
-        <button class="btn btn-team" id="R{{ $game->round_id }}G{{ $game_num }}T2B">
-            <span class="pull-left team-rank">#{{ $team_b->rank }}</span>
-            <span class="team-name">{{ $team_b->name }}</span>
+    <!--id="R{{ $game->round_id }}G{{ $game_num }}T2B"-->
+        <button class="btn btn-team" >
+            <span class="pull-left team-rank" th:id="|G-${roundId}-${index}-B-rank|"></span>
+            <span class="team-name" th:id="|G-${roundId}-${index}-B-name|"></span>
         </button>
 </div>
-<div th:fragment="game_label" class="bracket-game">
-    {{--*/ $team_a = $teamRepo->byTeamId($game->team_a) /*--}}
-    {{--*/ $team_b = $teamRepo->byTeamId($game->team_b) /*--}}
-    <p class="game-label team-name" style="background-color: #{{ $team_a->primary_color }}; color: #{{ $team_a->accent_color }};">
-        <span class="team-rank">#{{ $team_a->rank }}</span>
-        <span class="team-name">{{ $team_a->name }}</span>
-    </p>
-    <p class="game-label team-name" style="background-color: #{{ $team_b->primary_color }}; color: #{{ $team_b->accent_color }};">
-        <span class="team-rank">#{{ $team_b->rank }}</span>
-        <span class="team-name">{{ $team_b->name }}</span>
-        </label>
-</div>
-<div th:fragment="list_item">
-    <td class="table-text">
-        <div>{{ $bracket->name }}</div>
-    </td>
-    <td class="table-text" >
-                <span class="text-center team-name" style="background-color: #{{ $bracket->root->victor->primary_color }}; color: #{{ $bracket->root->victor->accent_color }};">
-                    {{ $bracket->root->victor->name }}
-                </span>
-    </td>
-    <td class="table-text">
-        <div>{{ $bracket->score($ruleset_id) }}</div>
-    </td>
-    <td>
-        <div class="btn-group" role="group">
-            @if ($tourney_state->name == 'submission')
-            <form action="{{ url('brackets/'.$bracket->bracket_id) }}" method="POST">
-                {!! csrf_field() !!}
-                {!! method_field('DELETE') !!}
-                <button type="submit" class="btn btn-danger">
-                    <i class="fa fa-btn fa-trash"></i> Delete
-                </button>
-                <a class="btn btn-info" href="{{ url('brackets/'.$bracket->bracket_id) }}">
-                    <i class="fa fa-btn fa-pencil"></i> Edit
-                </a>
-                <a class="btn btn-primary" href="{{ url('brackets/'.$bracket->bracket_id.'/print') }}" target="_blank">
-                    <i class="fa fa-btn fa-print"></i> Print
-                </a>
-            </form>
-            @else
-            <a class="btn btn-info" href="{{ url('brackets/'.$bracket->bracket_id) }}">
-                <i class="fa fa-btn fa-pencil"></i> View
-            </a>
-            <a class="btn btn-primary" href="{{ url('brackets/'.$bracket->bracket_id.'/print') }}" target="_blank">
-                <i class="fa fa-btn fa-print"></i> Print
-            </a>
-            @endif
-        </div>
-    </td>
-</div>
-<div th:fragment="print_cell">
-    {{--*/ $team = $teamRepo->byTeamId($team_id) /*--}}
-    <span class="rank">{{ $team->rank.'. ' }}</span><span class="team">{{ $team->name }}</span>
+<div th:fragment="game_label()" class="bracket-game">
+    <p>game_label</p>
+    <!--{{&#45;&#45;*/ $team_a = $teamRepo->byTeamId($game->team_a) /*&#45;&#45;}}-->
+    <!--{{&#45;&#45;*/ $team_b = $teamRepo->byTeamId($game->team_b) /*&#45;&#45;}}-->
+    <!--<p class="game-label team-name" style="background-color: #{{ $team_a->primary_color }}; color: #{{ $team_a->accent_color }};">-->
+        <!--<span class="team-rank">#{{ $team_a->rank }}</span>-->
+        <!--<span class="team-name">{{ $team_a->name }}</span>-->
+    <!--</p>-->
+    <!--<p class="game-label team-name" style="background-color: #{{ $team_b->primary_color }}; color: #{{ $team_b->accent_color }};">-->
+        <!--<span class="team-rank">#{{ $team_b->rank }}</span>-->
+        <!--<span class="team-name">{{ $team_b->name }}</span>-->
+        <!--</label>-->
 </div>
 </body>
 </html>

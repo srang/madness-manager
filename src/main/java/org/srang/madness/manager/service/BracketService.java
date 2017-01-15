@@ -72,12 +72,18 @@ public class BracketService {
     }
 
     public List<Region> regions() {
-        return Arrays.asList(EAST, WEST, SOUTH, MIDWEST).stream()
+        return Arrays.asList(REGION_A, REGION_B, REGION_C, REGION_D).stream()
                 .map(Region.RegionType::region).collect(toList());
     }
 
     public List<Game> getRound(Bracket bracket, Round round) {
         return gameRepository.findByBracketAndRound(bracket, round.id());
+    }
+
+    public List<Integer> getRoundRegionGameIds(Round round, Region region) {
+
+//        return IntStream.range();
+        return null;
     }
 
     public List<Round> rounds() {

@@ -1,37 +1,46 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layouts/base">
-
 <th:block layout:fragment="content">
     <!-- Bracket Form -->
     <div class="row">
-        <!--<div th:include="bracket/section :: team_info()"></div>-->
-        <form th:action="@{__${formLink}__}" method="POST">
-            <div th:include="bracket/section :: form(${bracketForm})"></div>
-            <div th:replace="fragments/page_element :: back_button(@{__${backLink}__})"></div>
 
-            <!-- Save Bracket -->
-            <div class="form-group">
-                <div class="pull-right">
-                    <div class='btn-group'>
-                        <button type="submit" class="btn btn-success">
-                            <i class="fa fa-btn fa-pencil"></i> Save
-                        </button>
-                        <a class="btn btn-info" th:href="@{__${formLink}__}">
-                            <i class="fa fa-btn fa-refresh"></i> Reset
-                        </a>
-                        <!--@if(strpos($bracket_link,'new') === false)-->
-                        <!--<a class="btn btn-primary" href="{{ $bracket_link.'/print' }}" target="_blank">-->
-                        <!--<i class="fa fa-btn fa-print"></i> Print-->
-                        <!--</a>-->
-                        <!--@endif-->
-                    </div>
-                </div>
-            </div>
-        </form>
+        <!--<div th:include="bracket/section :: team_info()"></div>-->
+        <div th:replace="fragments/page_element :: back_button(${backLink})"></div>
+
+
+        <!-- Save Bracket -->
+        <div class='btn-group pull-right'>
+            <button class="btn btn-success">
+                <i class="fa fa-btn fa-pencil"></i> Save
+            </button>
+            <a class="btn btn-info" id="bracket-submit" th:href="@{__${formLink}__}">
+                <i class="fa fa-btn fa-refresh"></i> Reset
+            </a>
+
+        </div>
+        <div th:if="${mode == 'view'}">
+            <a class="btn btn-primary" th:href="@{__${bracketLink}__+'/print' }" target="_blank">
+                <i class="fa fa-btn fa-print"></i> Print
+            </a>
+        </div>
     </div>
-    <!--<div th:include="bracket/section :: body()"></div>-->
+    <div th:if="${mode != 'view'}">
+        <div th:replace="bracket/section :: form(${bracketForm}, ${bracketLink})"></div>
+        <div th:replace="bracket/body :: body(${bracketForm})"></div>
+    </div>
+    <!--<div th:if="${mode == 'view'}">-->
+        <!--<div th:replace="bracket/section :: info(${bracketForm})"></div>-->
+        <!--<div th:replace="bracket/body :: body(${bracketForm})"></div>-->
+    <!--</div>-->
+
 </th:block>
 <th:block layout:fragment="custom-js">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var teams = /*[[${teams}]]*/ '';
+        /*]]>*/
+    </script>
     <script th:if="${mode != 'view'}" th:src="@{/dist/js/bracket_select.min.js}"></script>
+
 </th:block>
 </html>

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <body>
 <div th:fragment="back_button(backLink)" class="pull-left">
-    <a class="btn btn-primary" th:href="${backLink}">
+    <a class="btn btn-primary" th:href="@{__${backLink}__}">
         <i class="fa fa-btn fa-arrow-left"></i> Back
     </a>
 </div>

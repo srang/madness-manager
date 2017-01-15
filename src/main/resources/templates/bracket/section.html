@@ -1,59 +1,104 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <body>
-
-<div th:fragment="form(bracketForm)">
-    <div th:object="${bracketForm}">
-        <div class="row">
-            <!-- Bracket Name -->
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <label for="bracket-name" class="col-sm-3 control-label">Bracket Name</label>
-                    <input type="text" th:field="*{name}" placeholder="Bracket Name" id="bracket-name"
-                           class="form-control"/>
+<div th:fragment="info(bracket)" class="row">
+    Bracket Name
+    <div class="col-sm-6">
+        <div class="form-group">
+            <h4 th:text="${bracket.name}"></h4>
+        </div>
+    </div>
+</div>
+<div th:fragment="first_rounds(regionLeft,regionRight)">
+    <div class="col-md-2 bracket-round round-one" th:with="round = ${T(org.srang.madness.manager.model.types.Round).SALACIOUS}">
+        <h4 class="bracket-round-title" th:text="|${round.label()} ${regionLeft.value()}|"></h4>
+        <!--@for($i=$r1c; $i < $r1c+8; $i++)-->
+        <!--@include($game_container,[ 'game' => $games->get('1')->shift(), 'game_num' => $i ])-->
+        <!--@endfor-->
+        <div th:each="index : ${@bracketService.getRoundRegionGameIds(__${round}__,__${regionLeft}__)}">
+            <div th:replace="bracket/element :: game_button(__${round.id()}__,__${index}__)"></div>
+        </div>
+    </div>
+    <!--<div class="col-md-2 bracket-round round-two">-->
+    <!--<h4 class="bracket-round-title">Round 2 {{ $regionl }}</h4>-->
+    <!--@for($i=$r2c; $i < $r2c+4; $i++)-->
+    <!--@include($game_container,[ 'game' => $games->get('2')->shift(), 'game_num' => $i ])-->
+    <!--<br>-->
+    <!--@endfor-->
+    <!--</div>&lt;!&ndash;-->
+    <!--&ndash;&gt;-->
+    <!--<div class="col-md-2 bracket-round round-three">-->
+    <!--<h4 class="bracket-round-title">Round 3 {{ $regionl }}</h4>-->
+    <!--@for($i=$r3c; $i < $r3c+2; $i++)-->
+    <!--@include($game_container,[ 'game' => $games->get('3')->shift(), 'game_num' => $i ])-->
+    <!--<br><br>-->
+    <!--@endfor-->
+    <!--</div>&lt;!&ndash;-->
+    <!--&ndash;&gt;-->
+    <!--<div class="col-md-2 bracket-round round-three">-->
+    <!--<h4 class="bracket-round-title">Round 3 {{ $regionr }}</h4>-->
+    <!--@for($i=$r3c+2; $i < $r3c+4; $i++)-->
+    <!--@include($game_container,[ 'game' => $games->get('3')->shift(), 'game_num' => $i ])-->
+    <!--<br><br>-->
+    <!--@endfor-->
+    <!--</div>&lt;!&ndash;-->
+    <!--&ndash;&gt;-->
+    <!--<div class="col-md-2 bracket-round round-two">-->
+    <!--<h4 class="bracket-round-title">Round 2 {{ $regionr }}</h4>-->
+    <!--@for($i=$r2c+4; $i < $r2c+8; $i++)-->
+    <!--@include($game_container,[ 'game' => $games->get('2')->shift(), 'game_num' => $i ])-->
+    <!--<br>-->
+    <!--@endfor-->
+    <!--</div>&lt;!&ndash;-->
+    <!--&ndash;&gt;-->
+    <!--<div class="col-md-2 bracket-round round-one">-->
+    <!--<h4 class="bracket-round-title">Round 1 {{ $regionr }}</h4>-->
+    <!--@for($i=$r1c+8; $i < $r1c+16; $i++)-->
+    <!--@include($game_container,[ 'game' => $games->get('1')->shift(), 'game_num' => $i ])-->
+    <!--@endfor-->
+    <div class="col-md-2 bracket-round round-one" th:with="round = ${T(org.srang.madness.manager.model.types.Round).SALACIOUS}">
+        <h4 class="bracket-round-title" th:text="|${round.label()} ${regionRight.value()}|"></h4>
+        <div th:each="index : ${@bracketService.getRoundRegionGameIds(__${round}__,__${regionRight}__)}">
+            <div th:replace="bracket/element :: game_button(__${round.id()}__,__${index}__)"></div>
+        </div>
+    </div>
+</div>
+<div th:fragment="form(bracketForm, bracketLink)">
+    <form th:action="@{__${bracketLink}__}" method="POST">
+        <div th:object="${bracketForm}">
+            <div class="row">
+                <!-- Bracket Name -->
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="bracket-name" class="col-sm-3 control-label">Bracket Name</label>
+                        <input type="text" th:field="*{name}" placeholder="Bracket Name" id="bracket-name"
+                               class="form-control"/>
+                    </div>
                 </div>
-            </div>
-            <div sec:authorize="hasRole('ROLE_ADMIN')" th:if="${mode == 'admin'}">
-                <div class="col-md-6">
-                    <label class="col-sm-3 control-label">Bracket Owner</label>
+                <div sec:authorize="hasRole('ROLE_ADMIN')" th:if="${mode == 'admin'}">
+                    <div class="col-md-6">
+                        <label class="col-sm-3 control-label">Bracket Owner</label>
+                        <input type="text" th:field="*{user}"/>
+                    </div>
+                </div>
+                <div th:if="${mode == 'edit'}">
+                    <input type="text" th:field="*{user}"/>
+                </div>
+                <div th:if="${mode == 'user'}">
                     <input type="text" th:field="*{user}"/>
                 </div>
             </div>
-            <div th:if="${mode == 'edit'}">
-                <input type="text" th:field="*{user}"/>
-            </div>
-            <div th:if="${mode == 'user'}">
-                <input type="text" th:field="*{user}"/>
+
+            <div th:each="round : ${@bracketService.rounds()}" class="hide">
+                <p th:text="${round.label()}"></p>
+                <div th:each="index : ${#numbers.sequence(1, round.games())}">
+                    <input type="text" th:field="*{games[__${round.id()}__][__${index}__].teamA}" th:id="|G-${round.id()}-${index}-A|" th:class="team-input" placeholder="teamA"/>
+                    <input type="text" th:field="*{games[__${round.id()}__][__${index}__].teamB}" th:id="|G-${round.id()}-${index}-B|" th:class="team-input" placeholder="teamB"/>
+                </div>
             </div>
         </div>
-
-        <div th:each="round : *{games.keySet()}">
-            <p th:text="${round.label()}"></p>
-            <div th:each="index : ${#numbers.sequence(1, round.games())}">
-                <input type="text" th:field="*{games[__${round}__][__${index}__].teamA}" placeholder="teamA" />
-                <input type="text" th:field="*{games[__${round}__][__${index}__].teamB}" placeholder="teamB" />
-            </div>
-        </div>
-        <!-- Hidden fields for each game -->
-        <!--<div>-->
-        <!--@foreach($games as $round=>$round_games)-->
-        <!--{{&#45;&#45;*/ $game_num = 1 /*&#45;&#45;}}-->
-        <!--@foreach($round_games as $game)-->
-        <!--{{&#45;&#45;*/ $gn = 'games['.$round.']['.$game_num.']' /*&#45;&#45;}}-->
-        <!--{{&#45;&#45;*/ $gi = 'R'.$round.'G'.$game_num /*&#45;&#45;}}-->
-        <!--{{&#45;&#45;*/ $gv = 'games.'.$round.'.'.$game_num.'.' /*&#45;&#45;}}-->
-
-        <!--<input type="text" id="{{ $gi.'T1' }}" name="{{ $gn.'[T1]' }}"-->
-        <!--description="{{ !empty(old($gv.'T1'))?old($gv.'T1'):$teamRepo->byTeamId($game->team_a)->name }}">-->
-        <!--<input type="text" id="{{ $gi.'T2' }}" name="{{ $gn.'[T2]' }}"-->
-        <!--description="{{ !empty(old($gv.'T2'))?old($gv.'T2'):$teamRepo->byTeamId($game->team_b)->name }}">-->
-        <!--<input type="text" id="{{ $gi.'W' }}" name="{{ $gn.'[W]' }}"-->
-        <!--description="{{ !empty(old($gv.'W'))?old($gv.'W'):$teamRepo->byTeamId($game->winner)->name }}">-->
-        <!--{{&#45;&#45;*/ $game_num++ /*&#45;&#45;}}-->
-        <!--@endforeach-->
-        <!--@endforeach-->
-        <!--</div>-->
-    </div>
+        <button type="submit" id="bracket-submit-actual" class="hide"></button>
+    </form>
 </div>
 </body>
 </html>

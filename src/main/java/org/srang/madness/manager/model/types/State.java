@@ -24,8 +24,20 @@ public class State implements Serializable {
     Integer stateId;
     @Column(name = "name")
     String name;
+    @ManyToOne
     @JoinColumn(name = "next_id")
     State nextId;
+    @ManyToOne
     @JoinColumn(name = "prev_id")
     State prevId;
+
+    @Override
+    public String toString() {
+        return "State{" +
+                "name=" + name +
+                ", next=" + nextId.getStateId() +
+                ", prev=" + prevId.getStateId() +
+                ", stateId=" + stateId +
+                '}';
+    }
 }

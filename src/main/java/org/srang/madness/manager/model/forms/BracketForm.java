@@ -5,7 +5,6 @@ import lombok.Setter;
 import lombok.extern.java.Log;
 import org.srang.madness.manager.model.entities.Bracket;
 import org.srang.madness.manager.model.entities.Game;
-import org.srang.madness.manager.model.types.Round;
 import org.srang.madness.manager.service.BracketService;
 
 import java.util.HashMap;
@@ -29,7 +28,7 @@ public class BracketForm {
     public BracketForm(final BracketService service) {
         Bracket master = service.getMaster();
         games = new HashMap<>();
-        games.put(SALACIOUS, service.getRound(master, SALACIOUS).stream().collect(toMap(
+        games.put(SALACIOUS.id(), service.getRound(master, SALACIOUS).stream().collect(toMap(
                 Game::getGameIndex,
                 game -> {
                     GameTouple touple = new GameTouple();
@@ -39,14 +38,14 @@ public class BracketForm {
                 })
         ));
         service.rounds().stream().filter(round -> round != SALACIOUS)
-                .forEach(round -> games.put(round, new HashMap<>()));
+                .forEach(round -> games.put(round.id(), new HashMap<>()));
     }
 
     public BracketForm(final BracketService service, Bracket existing) {
         // fill in bracket form from existing bracket
         games = new HashMap<>();
         service.rounds().forEach((round) -> {
-            games.put(round, service.getRound(existing, round).stream().collect(toMap(
+            games.put(round.id(), service.getRound(existing, round).stream().collect(toMap(
                     Game::getGameIndex,
                     game -> {
                         GameTouple touple = new GameTouple();
@@ -59,7 +58,7 @@ public class BracketForm {
     }
 
     // < round, < game_index,gametouple >
-    Map<Round, Map<Integer, GameTouple>> games;
+    Map<Integer, Map<Integer, GameTouple>> games;
     String name;
     Integer user;
 }
