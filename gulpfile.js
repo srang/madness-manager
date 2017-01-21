@@ -7,6 +7,7 @@ var gulp = require('gulp'),
     notify = require('gulp-notify'),
     iff = require('gulp-if'),
     LessAutoprefixer = require('less-plugin-autoprefix'),
+    qunit = require('gulp-qunit'),
     rename = require('gulp-rename'),
     replace = require('gulp-replace'),
     del = require('del');
@@ -36,6 +37,11 @@ gulp.task('css-setup',function () {
         .pipe(gulp.dest('src/main/resources/static/dist/css'));
 });
 
+gulp.task('test', function() {
+    return gulp.src('./src/test/resources/qunit/test-runner.html')
+        .pipe(qunit());
+});
+
 gulp.task('js-setup', function () {
     return gulp.src([
         'node_modules/bootstrap/dist/js/bootstrap.min.js',
@@ -52,7 +58,7 @@ gulp.task('js-setup', function () {
 
 gulp.task('custom-js', function () {
     return gulp.src('src/main/resources/static/js/*.js')
-        .pipe(uglify())
+        // .pipe(uglify())
         .pipe(rename({ suffix: '.min'}))
         .pipe(gulp.dest('src/main/resources/static/dist/js'));
 });

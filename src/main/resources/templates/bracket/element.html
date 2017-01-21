@@ -7,12 +7,12 @@
         <!--{{&#45;&#45;*/ $team_a = !empty(old('games.'.$game->round_id.'.'.$game_num.'.T1'))?$teamRepo->byName(old('games.'.$game->round_id.'.'.$game_num.'.T1')):$teamRepo->byTeamId($game->team_a) /*&#45;&#45;}}-->
         <!--{{&#45;&#45;*/ $team_b = !empty(old('games.'.$game->round_id.'.'.$game_num.'.T2'))?$teamRepo->byName(old('games.'.$game->round_id.'.'.$game_num.'.T2')):$teamRepo->byTeamId($game->team_b) /*&#45;&#45;}}-->
     <!--id="R{{ $game->round_id }}G{{ $game_num }}T1B"-->
-        <button class="btn btn-team" >
+        <button class="btn btn-team" th:attr="data-id=|G-${roundId}-${index}-A|">
             <span class="pull-left team-rank" th:id="|G-${roundId}-${index}-A-rank|"></span>
             <span class="team-name" th:id="|G-${roundId}-${index}-A-name|"></span>
         </button>
     <!--id="R{{ $game->round_id }}G{{ $game_num }}T2B"-->
-        <button class="btn btn-team" >
+        <button class="btn btn-team" th:attr="data-id=|G-${roundId}-${index}-B|">
             <span class="pull-left team-rank" th:id="|G-${roundId}-${index}-B-rank|"></span>
             <span class="team-name" th:id="|G-${roundId}-${index}-B-name|"></span>
         </button>
