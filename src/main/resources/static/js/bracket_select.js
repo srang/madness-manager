@@ -71,6 +71,7 @@ function _getGameInfo(game) {
 
 function _getTeamInfo(team) {
     var t = teams[team.data('teamid')];
+    if (!t) { return null; }
     // var t = $('#'+_teamEncode($('#'+team.attr('id').slice(0,-1)).val()));
     // find input for game, return winner.val
     var info = __parseGameId(team.data('id'));
@@ -97,21 +98,20 @@ function _updateGames(parent, winner, loser) {
     // set button text
     var winnerInfo = _getTeamInfo(winner);
     var loserInfo = _getTeamInfo(loser);
-    // winner.css('background-color', winnerInfo.primary);
-    // winner.css('color', winnerInfo.accent);
     __setButtonColors(winner, winnerInfo.primary, winnerInfo.accent);
-    parent['label'].text(winnerInfo.name);
-    parent['rank'].text(winnerInfo.rank);
-    // parent['button'].css('background-color', winnerInfo.primary);
-    // parent['button'].css('color', winnerInfo.accent);
-    __setButtonColors(parent['button'], winnerInfo.primary, winnerInfo.accent);
-    parent['button'].data('teamid', winnerInfo['teamid']);
-    // loser.css('background-color', _changeColorIntensity(loserInfo.primary, -0.6));
-    // loser.css('color', _changeColorIntensity(loserInfo.accent, -0.6));
-    __setButtonColors(loser,  _changeColorIntensity(loserInfo.primary, -0.6), _changeColorIntensity(loserInfo.accent, -0.6));
+    if (parent['button'][0]) {
+        parent['label'].text(winnerInfo.name);
+        parent['rank'].text(winnerInfo.rank);
+        __setButtonColors(parent['button'], winnerInfo.primary, winnerInfo.accent);
+        parent['button'].data('teamid', winnerInfo['teamid']);
+    }
+
+    if(loserInfo) {
+        __setButtonColors(loser, _changeColorIntensity(loserInfo.primary, -0.6), _changeColorIntensity(loserInfo.accent, -0.6));
+    }
 
     // update hidden input with winner
-    $('#' + parent['button'].data('id')).val(winnerInfo.teamid);
+    parent['input'].val(winnerInfo.teamid);
 }
 
 function _unsetWinner(game) {
@@ -134,12 +134,6 @@ $('.btn-team').on('click', function () {
     var loser = $(this).parent().find('.btn-team').not('*[data-id=' + $(this).data('id')+"]");
     var parent = _getParentGame($(this));
 
-    // update this game's winner
-    // _setWinner(gameInfo);
-    // get parent game button
-    // var parentGame = _getParentGame($(this));
-    // update parent->team(1|2)
-    // Needs to handle sub child changes (eg leaf game changed shouldn't break higher ups
     _updateGames(parent, $(this), loser);
 });
 
@@ -150,16 +144,12 @@ $('.team-input').each(function () {
     var teamId = $(this).val();
     if (teamId) {
         var team = teams[teamId];
-        console.log("found " + teamId + " " + id + " " + team.primaryColor);
         name.text(team.name);
         rank.text('#' + team.rank);
         var button = name.parent();
         button.data('teamid', teamId);
         __setButtonColors(button, team.primaryColor, team.accentColor);
-        // button.css('background-color', "#" + team.primaryColor);
-        // button.css('color', "#" + team.accentColor);
     } else {
-        console.log("no team found");
         name.text("TBD");
     }
 });
