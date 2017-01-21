@@ -80,10 +80,11 @@ public class BracketService {
         return gameRepository.findByBracketAndRound(bracket, round.id());
     }
 
-    public List<Integer> getRoundRegionGameIds(Round round, Region region) {
-
-//        return IntStream.range();
-        return null;
+    public List<Integer> getRoundRegionGameIds(Round round, Region.RegionType region) {
+        Integer regionRoundSize = round.games() / 4;
+        Integer start = 1 + (region.getId() - 1) * regionRoundSize;
+        Integer end = start + regionRoundSize;
+        return IntStream.range(start, end).boxed().collect(toList());
     }
 
     public List<Round> rounds() {

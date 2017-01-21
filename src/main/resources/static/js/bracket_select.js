@@ -134,14 +134,22 @@ $(function() {
     }
 
     $('.team-input').each(function () {
-        var teamId = $(this).val();
         var id = $(this).attr('id');
-        var button = $('#'+id+'-name');
-        var rank = $('#'+id+'-rank');
-        var team = teams[teamId];
-        button.text(team.name);
-        button.css('background-color',team.primary);
-        button.css('color',team.accent);
+        var name = $('#' + id + '-name');
+        var rank = $('#' + id + '-rank');
+        var teamId = $(this).val();
+        if(teamId) {
+            var team = teams[teamId];
+            console.log("found " + teamId + " " + id + " " + team.primaryColor);
+            name.text(team.name);
+            rank.text('#' + team.rank);
+            var button = name.parent();
+            button.css('background-color', "#" + team.primaryColor);
+            button.css('color', "#" + team.accentColor);
+        } else {
+            console.log("no team found");
+            name.text("TBD");
+        }
     });
 
     // $('.btn-team').each(function () {

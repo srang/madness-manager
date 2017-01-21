@@ -10,23 +10,21 @@
     </div>
 </div>
 <div th:fragment="first_rounds(regionLeft,regionRight)">
-    <div class="col-md-2 bracket-round round-one" th:with="round = ${T(org.srang.madness.manager.model.types.Round).SALACIOUS}">
+    <div class="col-md-2 bracket-round round-one"
+         th:with="round = ${T(org.srang.madness.manager.model.types.Round).SALACIOUS}">
         <h4 class="bracket-round-title" th:text="|${round.label()} ${regionLeft.value()}|"></h4>
-        <!--@for($i=$r1c; $i < $r1c+8; $i++)-->
-        <!--@include($game_container,[ 'game' => $games->get('1')->shift(), 'game_num' => $i ])-->
-        <!--@endfor-->
-        <div th:each="index : ${@bracketService.getRoundRegionGameIds(__${round}__,__${regionLeft}__)}">
+        <div th:each="index : ${@bracketService.getRoundRegionGameIds(round,regionLeft)}">
             <div th:replace="bracket/element :: game_button(__${round.id()}__,__${index}__)"></div>
         </div>
     </div>
-    <!--<div class="col-md-2 bracket-round round-two">-->
-    <!--<h4 class="bracket-round-title">Round 2 {{ $regionl }}</h4>-->
-    <!--@for($i=$r2c; $i < $r2c+4; $i++)-->
-    <!--@include($game_container,[ 'game' => $games->get('2')->shift(), 'game_num' => $i ])-->
-    <!--<br>-->
-    <!--@endfor-->
-    <!--</div>&lt;!&ndash;-->
-    <!--&ndash;&gt;-->
+    <div class="col-md-2 bracket-round round-two"
+            th:with="round = ${T(org.srang.madness.manager.model.types.Round).TITILATING}">
+        <h4 class="bracket-round-title" th:text="|${round.label()} ${regionLeft.value()}|"></h4>
+        <div th:each="index : ${@bracketService.getRoundRegionGameIds(round,regionLeft)}">
+            <div th:replace="bracket/element :: game_button(__${round.id()}__,__${index}__)"></div>
+            <br />
+        </div>
+    </div>
     <!--<div class="col-md-2 bracket-round round-three">-->
     <!--<h4 class="bracket-round-title">Round 3 {{ $regionl }}</h4>-->
     <!--@for($i=$r3c; $i < $r3c+2; $i++)-->
@@ -56,10 +54,20 @@
     <!--@for($i=$r1c+8; $i < $r1c+16; $i++)-->
     <!--@include($game_container,[ 'game' => $games->get('1')->shift(), 'game_num' => $i ])-->
     <!--@endfor-->
-    <div class="col-md-2 bracket-round round-one" th:with="round = ${T(org.srang.madness.manager.model.types.Round).SALACIOUS}">
+    <div class="col-md-2 bracket-round round-two"
+         th:with="round = ${T(org.srang.madness.manager.model.types.Round).TITILATING}">
         <h4 class="bracket-round-title" th:text="|${round.label()} ${regionRight.value()}|"></h4>
-        <div th:each="index : ${@bracketService.getRoundRegionGameIds(__${round}__,__${regionRight}__)}">
+        <div th:each="index : ${@bracketService.getRoundRegionGameIds(round,regionRight)}">
             <div th:replace="bracket/element :: game_button(__${round.id()}__,__${index}__)"></div>
+            <br />
+        </div>
+    </div>
+    <div class="col-md-2 bracket-round round-one"
+         th:with="round = ${T(org.srang.madness.manager.model.types.Round).SALACIOUS}">
+        <h4 class="bracket-round-title" th:text="|${round.label()} ${regionRight.value()}|"></h4>
+        <div th:each="index : ${@bracketService.getRoundRegionGameIds(round,regionRight)}">
+            <div th:replace="bracket/element :: game_button(__${round.id()}__,__${index}__)"></div>
+            <!--<p th:text="${index}"></p>-->
         </div>
     </div>
 </div>
@@ -92,8 +100,10 @@
             <div th:each="round : ${@bracketService.rounds()}" class="hide">
                 <p th:text="${round.label()}"></p>
                 <div th:each="index : ${#numbers.sequence(1, round.games())}">
-                    <input type="text" th:field="*{games[__${round.id()}__][__${index}__].teamA}" th:id="|G-${round.id()}-${index}-A|" th:class="team-input" placeholder="teamA"/>
-                    <input type="text" th:field="*{games[__${round.id()}__][__${index}__].teamB}" th:id="|G-${round.id()}-${index}-B|" th:class="team-input" placeholder="teamB"/>
+                    <input type="text" th:field="*{games[__${round.id()}__][__${index}__].teamA}"
+                           th:id="|G-${round.id()}-${index}-A|" th:class="team-input" placeholder="teamA"/>
+                    <input type="text" th:field="*{games[__${round.id()}__][__${index}__].teamB}"
+                           th:id="|G-${round.id()}-${index}-B|" th:class="team-input" placeholder="teamB"/>
                 </div>
             </div>
         </div>

@@ -90,6 +90,7 @@ public class AdminController {
 
     @RequestMapping(value = "/brackets/master/create", method = GET)
     public String createMaster(Model model) {
+        // TODO check if master exists
         setCreateMasterModel(model);
         model.addAttribute("bracketForm", new CreateMasterBracketForm(bracketService.regions(), teamService));
 
@@ -98,6 +99,7 @@ public class AdminController {
 
     @RequestMapping(value = "/brackets/master/create", method = POST)
     public ModelAndView createMaster(@Valid CreateMasterBracketForm bracketForm, BindingResult result, Model model, RedirectAttributes attributes) {
+        // TODO check if master exists
         if (result.hasErrors()) {
             setCreateMasterModel(model);
             model.addAttribute("bracketForm", bracketForm);

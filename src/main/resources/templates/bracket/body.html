@@ -4,8 +4,6 @@
 <div th:fragment="body(bracketForm)" class="bracket-body">
      <!--Top Half -->
     <div class="bracket-row">
-    <!--@include('brackets.first_rounds',[ 'regionl' => $regions->get(0)->region,'regionr' => $regions->get(1)->region,-->
-    <!--'r1c' => 1, 'r2c' => 1, 'r3c' => 1 ])-->
         <div th:replace="bracket/section :: first_rounds(,
         ${T(org.srang.madness.manager.model.types.Region.RegionType).REGION_A},
         ${T(org.srang.madness.manager.model.types.Region.RegionType).REGION_B})"></div>
@@ -47,7 +45,12 @@
     <!--</div>-->
     <!--</div>-->
 
-    <!--&lt;!&ndash; Bottom Half &ndash;&gt;-->
+    <!-- Bottom Half -->
+    <div class="bracket-row">
+        <div th:replace="bracket/section :: first_rounds(,
+        ${T(org.srang.madness.manager.model.types.Region.RegionType).REGION_C},
+        ${T(org.srang.madness.manager.model.types.Region.RegionType).REGION_D})"></div>
+    </div>
     <!--<div class="bracket-row">-->
     <!--@include('brackets.first_rounds',[ 'regionl' => $regions->get(2)->region,'regionr' => $regions->get(3)->region,-->
     <!--'r1c' => 17, 'r2c' => 9, 'r3c' => 5 ])-->
