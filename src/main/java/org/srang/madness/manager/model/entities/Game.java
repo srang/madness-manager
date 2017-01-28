@@ -31,28 +31,32 @@ public class Game implements Serializable {
     Integer scoreAlpha;
     @Column(name = "score_b")
     Integer scoreBravo;
-    @Column(name = "master", nullable = false)
-    Boolean isMaster;
-    @ManyToOne
-    @JoinColumn(name = "winner")
-    Team winner;
     @Column(name = "round_id", nullable = false)
     Integer round;
-    @JoinColumn(name = "child_game_a")
-    Game childGameAlpha;
-    @JoinColumn(name = "child_game_a")
-    Game childGameBravo;
+    @Column(name = "game_index", nullable = false)
+    Integer gameIndex;
+    @ManyToOne
+    @JoinColumn(name = "bracket_id", referencedColumnName = "bracket_id", nullable = false)
+    Bracket bracket;
 
     @Builder
-    public Game(Team teamAlpha, Team teamBravo, Integer scoreAlpha, Integer scoreBravo, Boolean isMaster, Team winner, Integer round, Game childGameAlpha, Game childGameBravo) {
+    public Game(Team teamAlpha, Team teamBravo, Integer scoreAlpha, Integer scoreBravo, Integer round, Integer gameIndex, Bracket bracket) {
         this.teamAlpha = teamAlpha;
         this.teamBravo = teamBravo;
         this.scoreAlpha = scoreAlpha;
         this.scoreBravo = scoreBravo;
-        this.isMaster = isMaster;
-        this.winner = winner;
         this.round = round;
-        this.childGameAlpha = childGameAlpha;
-        this.childGameBravo = childGameBravo;
+        this.gameIndex = gameIndex;
+        this.bracket = bracket;
+    }
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "teamAlpha=" + teamAlpha +
+                ", teamBravo=" + teamBravo +
+                ", round=" + round +
+                ", gameIndex=" + gameIndex +
+                '}';
     }
 }

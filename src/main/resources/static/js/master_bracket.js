@@ -1,66 +1,59 @@
-function searchTeams(query, sync_cb) {
-    var results = $.grep(teams,function(e){ return e.name.toLowerCase().indexOf(query.toLowerCase())>=0; });
-    sync_cb(results);
-}
+$(document).ready(function () {
+    var teamMap = $.map(teams, function (obj) {
+        obj.id = obj.teamId;
+        obj.text = obj.name;
+        return obj;
+    });
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
 
-// initialize all tooltips
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip();
-});
+    $('#start-madness').on('click', function () {
+        console.log("let the fun begin");
+        $('#madness-flag').val('true');
+        $('#save-button').click();
+    });
 
-$('#start-madness').on('click',function() {
-    console.log("let the fun begin");
-    $('#madness-flag').val('true');
-    $('#save-button').click();
-});
-
-$(window).keydown(function(event){
-    if(event.keyCode == 13) {
-        event.preventDefault();
-        return true;
-    }
-});
-
-$('label.master-label').on('click', function() {
-    $(this).addClass('hide');
-    var input = $('input.master-input[id='+$(this).attr('for')+']');
-    input.removeClass('hide');
-    input.typeahead({
-            minLength: 1,
-            highlight: true
-    },
-    {
-        name: 'team-dataset',
-        display: 'name',
-        source: searchTeams,
-        templates: {
-            empty: [
-                '<div class="typeahead-result">',
-                'No Results',
-                '</div>'
-                    ].join('\n'),
-            suggestion : function (val) {
-                        return '<p class="typeahead-result" data-value="' + val.team_id + '">' + val.name + '</p>';
-                    }
+    $(window).keydown(function (event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            return true;
         }
     });
-    input.on('typeahead:select', function(event, selection) {
-        $(this).typeahead('val',selection.name);
-        $(this).typeahead('destroy');
-        $(this).val(selection.name);
-        $(this).addClass('hide');
-        var label = $('label.master-label[for='+$(this).attr('id')+']');
-        label.text(selection.name);
+    function format(item) {
+        return item.name;
+    }
+    function clear(label, select) {
+        select.select2('destroy');
+        select.addClass('hide');
         label.removeClass('hide');
+    }
+
+    $('label.master-label').on('click', function () {
+        $(this).addClass('hide');
+        var label = $(this);
+        var input = $('select.master-input[id=' + $(this).attr('for') + ']');
+        var realInput = $('input[id=' + $(this).attr('for') + '-actual]');
+        input.removeClass('hide');
+        input.select2({
+            placeholder: "select a team",
+            data: teamMap,
+            formatSelection: format,
+            formatResult: format
+        });
+        input.select2('open');
+
+    });
+    $('select.master-input').on('select2:select', function(event) {
+        var label = $('label.master-label[for='+$(this).attr('id')+']');
+        var realInput = $('input[id=' + $(this).attr('id') + '-actual]');
+        label.text(event.params.data.name);
         label.addClass('unsaved');
+        realInput.val(event.params.data.id);
     });
 
-    input.on('blur', function() {
-        $(this).typeahead('val','');
-        $(this).typeahead('destroy');
-        $(this).addClass('hide');
+    $('select.master-input').on('select2:close', function(event){
         var label = $('label.master-label[for='+$(this).attr('id')+']');
-        label.removeClass('hide');
+        clear(label, $(this));
     });
 });
-

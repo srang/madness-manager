@@ -22,63 +22,45 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <flyway.schemas>madness</flyway.schemas>
         <frontend.mvn.plugin.version>1.3</frontend.mvn.plugin.version>
         <mysql.connector.version>5.1.29</mysql.connector.version>
+        <camel.version>2.18.0</camel.version>
     </properties>
     <profiles>
         <profile>
             <id>local</id>
             <properties>
+                <flyway.schemas>madness</flyway.schemas>
                 <flyway.user>madness</flyway.user>
                 <flyway.password>tourney</flyway.password>
                 <flyway.url>jdbc:mysql://localhost:3306</flyway.url>
             </properties>
         </profile>
-        <!--<profile>-->
-        <!--<id>other</id>-->
-        <!--<properties>-->
-        <!--<flyway.user>${env.DB_USER}</flyway.user>-->
-        <!--<flyway.password>${env.DB_PASS}</flyway.password>-->
-        <!--<flyway.url>${env.DB_URL}</flyway.url>-->
-        <!--</properties>-->
-        <!--</profile>-->
+        <profile>
+            <id>other</id>
+            <properties>
+                <flyway.schemas>tourney</flyway.schemas>
+                <flyway.user>${env.DB_USER}</flyway.user>
+                <flyway.password>${env.DB_PASS}</flyway.password>
+                <flyway.url>${env.DB_URL}</flyway.url>
+            </properties>
+        </profile>
     </profiles>
     <dependencies>
+
+        <!-- Boot starters -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>org.apache.camel</groupId>-->
-        <!--<artifactId>camel-spring-boot-starter</artifactId>-->
-        <!--<version>2.18.0</version>-->
-        <!--</dependency>-->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.thymeleaf.extras</groupId>
-            <artifactId>thymeleaf-extras-springsecurity4</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-el</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.connector.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -88,11 +70,64 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
+        <!-- camel -->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.camel</groupId>-->
+            <!--<artifactId>camel-spring-boot-starter</artifactId>-->
+            <!--<version>${camel.version}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.camel</groupId>-->
+            <!--<artifactId>camel-servlet</artifactId>-->
+            <!--<version>${camel.version}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.camel</groupId>-->
+            <!--<artifactId>camel-cxf</artifactId>-->
+            <!--<version>${camel.version}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.camel</groupId>-->
+            <!--<artifactId>camel-jackson</artifactId>-->
+            <!--<version>${camel.version}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>com.fasterxml.jackson.core</groupId>-->
+            <!--<artifactId>jackson-core</artifactId>-->
+            <!--<version>2.8.6</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>com.fasterxml.jackson.jaxrs</groupId>-->
+            <!--<artifactId>jackson-jaxrs-json-provider</artifactId>-->
+            <!--<version>2.8.6</version>-->
+        <!--</dependency>-->
+
+        <!-- Other dependencies -->
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-el</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.connector.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+
+        <!-- Test dependencies-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -109,7 +144,18 @@
             <version>0.11</version>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>1.5.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>2.45.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>

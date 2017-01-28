@@ -1,4 +1,4 @@
-package org.srang.madness.manager.model.entities;
+package org.srang.madness.manager.model.types;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,18 +14,14 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "states")
-public class State implements Serializable {
+@Table(name = "linktypes")
+public class LinkType implements Serializable {
     /* TODO define enum */
 
     @Id
     @GeneratedValue
-    @Column(name = "state_id", unique = true, nullable = false)
-    Integer stateId;
-    @Column(name = "name")
-    String name;
-    @JoinColumn(name = "next_id")
-    State nextId;
-    @JoinColumn(name = "prev_id")
-    State prevId;
+    @Column(name = "linktype_id", unique = true, nullable = false)
+    Integer linkTypeId;
+    @Column(name = "type", nullable = false)
+    String type;
 }

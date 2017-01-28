@@ -1,4 +1,4 @@
-package org.srang.madness.manager.controller;
+package org.srang.madness.manager.routing.controller;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

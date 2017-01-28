@@ -1,4 +1,4 @@
-package org.srang.madness.manager.model.entities;
+package org.srang.madness.manager.model.types;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -6,6 +6,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * Created by srang on 11/5/2016.
@@ -29,10 +30,10 @@ public class Region implements Serializable {
     }
     public enum RegionType {
 
-        EAST(1, "East"),
-        WEST(2, "West"),
-        SOUTH(3, "South"),
-        MIDWEST(4, "Midwest"),
+        REGION_A(1, "East"),
+        REGION_B(2, "South"),
+        REGION_C(3, "West"),
+        REGION_D(4, "Midwest"),
         UNSPECIFIED(5, "");
         private int id;
 
@@ -51,7 +52,7 @@ public class Region implements Serializable {
             return Integer.valueOf(id);
         }
 
-        public String getValue() {
+        public String value() {
             return value;
         }
 
@@ -61,6 +62,10 @@ public class Region implements Serializable {
 
         public boolean isEqual(Region Region) {
             return region().getRegionId().equals(this.getIntegerId());
+        }
+
+        public static RegionType valueOf(Integer id) {
+            return Arrays.stream(RegionType.values()).filter(r -> r.getIntegerId().equals(id)).findFirst().get();
         }
     }
 }

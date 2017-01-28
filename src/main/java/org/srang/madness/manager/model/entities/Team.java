@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.srang.madness.manager.model.types.Region;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -34,11 +35,12 @@ public class Team implements Serializable {
     String iconPath;
     @Column(name = "primary_color", nullable = false)
     String primaryColor;
-    @Column(name = "secondary_color", nullable = false)
+    @Column(name = "accent_color", nullable = false)
     String accentColor;
 
     @Builder
-    public Team(String name, Integer rank, Region region, String mascot, String iconPath, String primaryColor, String accentColor) {
+    public Team(Integer teamId, String name, Integer rank, Region region, String mascot, String iconPath, String primaryColor, String accentColor) {
+        this.teamId = teamId;
         this.name = name;
         this.rank = rank;
         this.region = region;
@@ -46,5 +48,25 @@ public class Team implements Serializable {
         this.iconPath = iconPath;
         this.primaryColor = primaryColor;
         this.accentColor = accentColor;
+    }
+
+    public Team clone() {
+        return Team.builder()
+                .name(this.name)
+                .rank(this.rank)
+                .region(this.region)
+                .mascot(this.mascot)
+                .primaryColor(this.primaryColor)
+                .accentColor(this.accentColor)
+                .build();
+    }
+
+    @Override
+    public String toString() {
+        return "Team{" +
+                "name='" + name + '\'' +
+                ", rank=" + rank +
+                ", region=" + region +
+                '}';
     }
 }

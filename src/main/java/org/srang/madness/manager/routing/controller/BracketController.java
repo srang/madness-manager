@@ -1,4 +1,4 @@
-package org.srang.madness.manager.controller;
+package org.srang.madness.manager.routing.controller;
 
 import groovy.util.logging.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -10,7 +10,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
  * Created by samuelrang on 11/5/2016.
  */
 @Controller
-@RequestMapping("/brackets")
+@RequestMapping("/app/brackets")
 @Slf4j
 public class BracketController {
     @RequestMapping("/")

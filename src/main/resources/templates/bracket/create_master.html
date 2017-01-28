@@ -1,0 +1,88 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/base">
+<th:block layout:fragment="custom-css">
+    <link rel="stylesheet" th:href="@{/dist/css/select2.min.css}" />
+</th:block>
+<th:block layout:fragment="content">
+    <div class="panel-body">
+        <!-- Master Bracket Create Form -->
+        <form th:action="@{/app/admin/brackets/master/create}" role="form" th:object="${bracketForm}" method="post">
+            <div th:if="${result != null}">
+                <div th:replace="fragments/page_element :: alert('danger',${result.getAllErrors().get(0).getDefaultMessage()})"></div>
+            </div>
+            <div th:replace="fragments/page_element :: form_errors"></div>
+            <div th:replace="fragments/page_element :: back_button(@{/app/admin/brackets})"></div>
+             <!--Submit Button -->
+            <div class="row">
+                <div class="form-group btn-group pull-right">
+                    <button class="btn btn-danger" id="start-madness" data-toggle="tooltip" data-placement="bottom" title="Save and Open Submissions">
+                        <i class="fa fa-btn fa-warning"></i> Start
+                    </button>
+                    <input type="hidden" th:field="*{madnessFlag}" id="madness-flag" />
+                    <input type="hidden" th:field="*{name}" />
+                    <button type="submit" class="btn btn-success" id="save-button" data-toggle="tooltip" data-placement="bottom" title="Save Master Bracket">
+                        <i class="fa fa-btn fa-save"></i> Save
+                    </button>
+                    <a class="btn btn-warning" th:href="@{/app/admin/brackets/master}" data-toggle="tooltip" data-placement="bottom" title="Clear Unsaved Changes">
+                        <i class="fa fa-btn fa-eraser"></i> Clear
+                     </a>
+                </div>
+            </div>
+            <div class="row master-bracket">
+                <div class="col-md-3" th:each="region : ${regions}">
+                    <h3 class="region-header" th:text="${region.name}"></h3>
+                    <div th:each="first : ${matchups}"
+                    th:with="
+                        index=${17-first},
+                        firstId='region-'+${region.regionId}+'-rank-'+${first},
+                        secondId='region-'+${region.regionId}+'-rank-'+${index}
+                            ">
+                        <div class="form-group">
+                            <div class="row">
+                                <span class="rank-info text-right col-md-3" th:text="${first} "></span>
+                                <div class="text-left col-md-9">
+
+                                    <label th:for="${firstId}" class="control-label master-label" th:with="tmp=*{rankedTeams[__${region.regionId}__][__${first}__]}">
+                                        <span class="placeholder" th:if="${tmp == null}" th:text="|Team ${first}|"></span>
+                                        <span class="team-name" th:unless="${tmp == null}" th:with="team=${teams[__${tmp}__]}"
+                                              th:style="|background-color: #${team.primaryColor};color: #${team.accentColor}|"
+                                              th:text="${team.name}"></span>
+                                    </label>
+                                    <input type="text" class="hide" th:field="*{rankedTeams[__${region.regionId}__][__${first}__]}" th:id="__${firstId}__-actual" />
+                                    <select th:id="${firstId}" class="form-control master-input hide">
+                                        <option description=""></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <span class="rank-info text-right col-md-3" th:text="${index}"></span>
+                                <div class="text-left col-md-9">
+                                    <label th:for="${secondId}" class="control-label master-label"  th:with="tmp=*{rankedTeams[__${region.regionId}__][__${index}__]}">
+
+                                        <span class="placeholder" th:if="${tmp == null}" th:text="|Team ${index}|"></span>
+                                        <span class="team-name" th:unless="${tmp == null}" th:with="team=${teams[__${tmp}__]}"
+                                              th:style="|background-color: #${team.primaryColor};color: #${team.accentColor}|"
+                                              th:text="${team.name}"></span>                                        </label>
+                                    <input type="text" class="hide" th:field="*{rankedTeams[__${region.regionId}__][__${index}__]}" th:id="__${secondId}__-actual" />
+                                    <select th:id="${secondId}" class="form-control master-input hide">
+                                        <option description=""></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</th:block>
+<th:block layout:fragment="custom-js">
+    <script th:src="@{/dist/js/select2.min.js}" />
+    <script th:src="@{/dist/js/master_bracket.min.js}" />
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var teams = /*[[${teams}]]*/ '';
+        /*]]>*/
+    </script>
+</th:block>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<body>
+<div th:fragment="body(bracketForm)" class="bracket-body">
+     <!--Top Half -->
+    <div class="bracket-row">
+        <div th:replace="bracket/section :: first_rounds(,
+        ${T(org.srang.madness.manager.model.types.Region.RegionType).REGION_A},
+        ${T(org.srang.madness.manager.model.types.Region.RegionType).REGION_B})"></div>
+    </div>
+
+    <!-- Middle -->
+    <div th:replace="bracket/section :: last_rounds"></div>
+
+    <!-- Bottom Half -->
+    <div class="bracket-row">
+        <div th:replace="bracket/section :: first_rounds(,
+        ${T(org.srang.madness.manager.model.types.Region.RegionType).REGION_C},
+        ${T(org.srang.madness.manager.model.types.Region.RegionType).REGION_D})"></div>
+    </div>
+</div>
+</body>
+</html>

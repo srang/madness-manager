@@ -4,10 +4,13 @@ package org.srang.madness.manager.model.entities;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Singular;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by srang on 11/5/2016.
@@ -25,19 +28,33 @@ public class Bracket implements Serializable {
     @ManyToOne
     @JoinColumn(name = "user_id")
     User user;
-    @ManyToOne
-    @JoinColumn(name = "root_game", nullable = false)
-    Game rootGame;
+    @OneToMany(mappedBy = "bracket", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Game> games;
     @Column(name = "name", nullable = false)
     String name;
     @Column(name = "master", nullable = false)
     Boolean isMaster;
 
     @Builder
-    public Bracket(User user, Game rootGame, String name, Boolean isMaster) {
+    public Bracket(User user, @Singular List<Game> games, String name, Boolean isMaster) {
         this.user = user;
-        this.rootGame = rootGame;
         this.name = name;
+        this.games = new ArrayList<>(games);
         this.isMaster = isMaster;
+    }
+
+    public final Bracket addGame(Game game) {
+        this.games.add(game);
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "Bracket{" +
+                "user=" + user +
+                ", games=" + games +
+                ", name='" + name + '\'' +
+                ", isMaster=" + isMaster +
+                '}';
     }
 }

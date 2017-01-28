@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<body>
+<div th:fragment="first_round">
+    <div class="col-md-2 bracket-round round-one">
+        <h4 class="bracket-round-title">Round 1 {{ $regionl }}</h4>
+        @for($i=$r1c; $i < $r1c+8; $i++)
+        @include($game_container,[ 'game' => $games->get('1')->shift(), 'game_num' => $i ])
+        @endfor
+    </div><!--
+        {{-- bootstrap bug requires no whitespace here --}}
+     -->
+    <div class="col-md-2 bracket-round round-two">
+        <h4 class="bracket-round-title">Round 2 {{ $regionl }}</h4>
+        @for($i=$r2c; $i < $r2c+4; $i++)
+        @include($game_container,[ 'game' => $games->get('2')->shift(), 'game_num' => $i ])
+        <br>
+        @endfor
+    </div><!--
+     -->
+    <div class="col-md-2 bracket-round round-three">
+        <h4 class="bracket-round-title">Round 3 {{ $regionl }}</h4>
+        @for($i=$r3c; $i < $r3c+2; $i++)
+        @include($game_container,[ 'game' => $games->get('3')->shift(), 'game_num' => $i ])
+        <br><br>
+        @endfor
+    </div><!--
+     -->
+    <div class="col-md-2 bracket-round round-three">
+        <h4 class="bracket-round-title">Round 3 {{ $regionr }}</h4>
+        @for($i=$r3c+2; $i < $r3c+4; $i++)
+        @include($game_container,[ 'game' => $games->get('3')->shift(), 'game_num' => $i ])
+        <br><br>
+        @endfor
+    </div><!--
+     -->
+    <div class="col-md-2 bracket-round round-two">
+        <h4 class="bracket-round-title">Round 2 {{ $regionr }}</h4>
+        @for($i=$r2c+4; $i < $r2c+8; $i++)
+        @include($game_container,[ 'game' => $games->get('2')->shift(), 'game_num' => $i ])
+        <br>
+        @endfor
+    </div><!--
+     -->
+    <div class="col-md-2 bracket-round round-one">
+        <h4 class="bracket-round-title">Round 1 {{ $regionr }}</h4>
+        @for($i=$r1c+8; $i < $r1c+16; $i++)
+        @include($game_container,[ 'game' => $games->get('1')->shift(), 'game_num' => $i ])
+        @endfor
+    </div>
+</div>
+<div th:fragment="game_button" class="bracket-game">
+    {{-- $team_a = $teamRepo->byName(!empty(old('games.'.$game->round_id.'.'.$game_num.'.T1'))?old('games.'.$game->round_id.'.'.$game_num.'.T1'):$teamRepo->byTeamId($game->team_a)->name) --}}
+    {{-- $team_a = !empty(old('games.'.$game->round_id.'.'.$game_num.'.T2'))?$teamRepo->byName(old('games.'.$game->round_id.'.'.$game_num.'.T2')):$teamRepo->byTeamId($game->team_b) --}}
+    {{--*/ $team_a = !empty(old('games.'.$game->round_id.'.'.$game_num.'.T1'))?$teamRepo->byName(old('games.'.$game->round_id.'.'.$game_num.'.T1')):$teamRepo->byTeamId($game->team_a) /*--}}
+    {{--*/ $team_b = !empty(old('games.'.$game->round_id.'.'.$game_num.'.T2'))?$teamRepo->byName(old('games.'.$game->round_id.'.'.$game_num.'.T2')):$teamRepo->byTeamId($game->team_b) /*--}}
+    <button class="btn btn-team" id="R{{ $game->round_id }}G{{ $game_num }}T1B">
+        <span class="pull-left team-rank">#{{ $team_a->rank }}</span>
+        <span class="team-name">{{ $team_a->name }}</span>
+    </button>
+    <button class="btn btn-team" id="R{{ $game->round_id }}G{{ $game_num }}T2B">
+        <span class="pull-left team-rank">#{{ $team_b->rank }}</span>
+        <span class="team-name">{{ $team_b->name }}</span>
+    </button>
+</div>
+<div th:fragment="team_info" class='hide'>
+    {{--*/ $round_games = $games[1]/*--}}
+    {{--*/ $game_num = 1 /*--}}
+    @foreach($round_games as $game)
+    {{--*/ $team_a = $teamRepo->byTeamId($game->team_a) /*--}}
+    {{--*/ $team_b = $teamRepo->byTeamId($game->team_b) /*--}}
+    <p id="{{ $team_a->encodeName() }}" data-name="{{ $team_a->name}}" data-rank="{{ $team_a->rank }}" data-bg="#{{ $team_a->primary_color }}" data-fg="#{{ $team_a->accent_color }}" >
+    <p id="{{ $team_b->encodeName() }}" data-name="{{ $team_b->name}}" data-rank="{{ $team_b->rank }}" data-bg="#{{ $team_b->primary_color }}" data-fg="#{{ $team_b->accent_color }}" >
+        {{--*/ $game_num++ /*--}}
+        @endforeach
+    <p id="tbd" data-name="TBD" data-rank="" data-bg="#AAA" data-fg="#000" >
+</div>
+</body>
+</html>

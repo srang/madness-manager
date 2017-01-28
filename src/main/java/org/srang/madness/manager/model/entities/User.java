@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Singular;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.srang.madness.manager.model.types.Status;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -42,6 +43,8 @@ public class User implements Serializable {
     String rememberToken;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     List<UserRole> userRoles;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Bracket> brackets;
 
     @Builder
     public User(String username,
@@ -73,5 +76,13 @@ public class User implements Serializable {
     public void addRole(String role) {
         UserRole userRole = new UserRole(this, role);
         this.userRoles.add(userRole);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                '}';
     }
 }

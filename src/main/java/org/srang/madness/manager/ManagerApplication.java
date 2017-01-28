@@ -14,11 +14,24 @@ public class ManagerApplication extends WebMvcConfigurerAdapter {
     public static void main(String[] args) {
         SpringApplication.run(ManagerApplication.class, args);
     }
+
+//
 //    @Bean
-//    public CommandLineRunner demo() {
+//    ServletRegistrationBean servletRegistrationBean() {
+//        ServletRegistrationBean servlet = new ServletRegistrationBean(
+//                new CamelHttpTransportServlet(), "/api/*", "/v2");
+//        servlet.setName("CamelServlet");
+//        return servlet;
+//    }
+//    @Bean
+//    JacksonJsonProvider jsonProvider() {
+//        return new JacksonJsonProvider();
+//    }
+
+//    @Bean
+//    public CommandLineRunner demo(BracketService service) {
 //                return (args) -> {
-//                    String cryptedPassword = new BCryptPasswordEncoder().encode("password");
-//                    log.warning(cryptedPassword);
+//                    log.warning(service.generateMatchups().toString());
 //                };
 //            }
 }

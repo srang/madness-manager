@@ -77,12 +77,12 @@
                                     <form action="{{ url('admin/team/'.$team->team_id) }}" method="POST">
                                         {!! csrf_field() !!}
                                         {!! method_field('PUT') !!}
-                                        <input type="hidden" name="name" value="{{ $team->name }}">
-                                        <input type="hidden" name="mascot" value="{{ $team->mascot }}">
-                                        <input type="hidden" name="rank" value="{{ $team->rank }}">
-                                        <input type="hidden" name="region" value="{{ $team->region->region }}">
-                                        <input type="hidden" name="primary_color" value="{{ $team->accent_color }}">
-                                        <input type="hidden" class="btn" name="accent_color" value="{{ $team->primary_color }}">
+                                        <input type="hidden" name="name" description="{{ $team->name }}">
+                                        <input type="hidden" name="mascot" description="{{ $team->mascot }}">
+                                        <input type="hidden" name="rank" description="{{ $team->rank }}">
+                                        <input type="hidden" name="region" description="{{ $team->region->region }}">
+                                        <input type="hidden" name="primary_color" description="{{ $team->accent_color }}">
+                                        <input type="hidden" class="btn" name="accent_color" description="{{ $team->primary_color }}">
                                         <button type="submit" class="btn btn-primary">
                                             <i class="fa fa-btn fa-refresh"></i> Swap Colors
                                         </button>
