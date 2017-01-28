@@ -23,6 +23,7 @@ public class BracketForm {
 
 
     public BracketForm() {
+        games = new FormMap<>(() -> new FormMap<Integer, GameTouple>(GameTouple.class));
     }
 
     public BracketForm(final BracketService service) {

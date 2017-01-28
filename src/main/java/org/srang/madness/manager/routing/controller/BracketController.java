@@ -1,4 +1,4 @@
-package org.srang.madness.manager.controller;
+package org.srang.madness.manager.routing.controller;
 
 import groovy.util.logging.Slf4j;
 import org.springframework.stereotype.Controller;

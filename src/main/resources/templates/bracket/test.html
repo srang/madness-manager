@@ -1,0 +1,12 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/base">
+<th:block layout:fragment="content">
+    <div class="row">
+        <form th:object="${testForm}" th:action="@{/app/admin/brackets/test}" role="form" method="post">
+            <input type="text" th:field="*{games[0][0].teamA}"/>
+            <button type="submit">asdf</button>
+        </form>
+    </div>
+
+</th:block>
+</html>

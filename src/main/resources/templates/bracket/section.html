@@ -104,8 +104,8 @@
 </div>
 <div th:fragment="form(bracketForm, bracketLink)">
     <!-- Bracket Form -->
-    <form th:action="@{__${bracketLink}__}" method="POST">
-        <div th:object="${bracketForm}">
+    <form th:object="${bracketForm}" th:action="@{__${bracketLink}__}"  role="form" method="post">
+        <div>
             <div class="row">
                 <!-- Bracket Name -->
                 <div class="col-sm-6">

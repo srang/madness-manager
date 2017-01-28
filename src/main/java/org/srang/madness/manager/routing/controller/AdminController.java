@@ -1,4 +1,4 @@
-package org.srang.madness.manager.controller;
+package org.srang.madness.manager.routing.controller;
 
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,7 @@ import org.srang.madness.manager.model.entities.Bracket;
 import org.srang.madness.manager.model.ephemeral.Alert;
 import org.srang.madness.manager.model.forms.BracketForm;
 import org.srang.madness.manager.model.forms.CreateMasterBracketForm;
+import org.srang.madness.manager.model.forms.TestForm;
 import org.srang.madness.manager.service.BracketService;
 import org.srang.madness.manager.service.TeamService;
 import org.srang.madness.manager.service.TournamentService;
@@ -54,33 +55,33 @@ public class AdminController {
         model.addAttribute("bracketForm", new BracketForm(bracketService));
         model.addAttribute("backLink", "/app/admin/brackets");
         model.addAttribute("formLink", "/app/admin/brackets/master");
+        model.addAttribute("bracketLink", "/app/admin/brackets/master");
+
         model.addAttribute("mode", "master");
         model.addAttribute("container", "game_button");
         model.addAttribute("teams", teamService.getTeams());
-        /*
-        $games = BracketFactory::reverseBracket($bracket,new ReverseBaseBracketStrategy());
-        $regions = Region::orderedRegions();
-        $rounds = count($games);
-        return view('brackets.bracket_display',[
-            'teamRepo' => $this->teamRepo,
-            'bracket' => $bracket,
-            'master' => true,
-            'games' => $games,
-            'regions' => $regions,
-            'game_container' => 'brackets.game_buttons',
-            'bracket_link' => url('admin/brackets/master'),
-            'back_link' => url('admin/brackets')
-        ]);
-         */
         return "bracket/display";
     }
 
 
     @RequestMapping(value = "/brackets/master", method = POST)
-    public String updateMaster(Object masterBracketForm, Model model, RedirectAttributes attributes) {
+    public String updateMaster(BracketForm masterBracketForm, Model model, RedirectAttributes attributes) {
 //        bracketService.saveMaster(masterBracketForm);
         log.info("testing here");
         return "redirect:/app/admin/brackets/master";
+    }
+
+    @RequestMapping(value = "/brackets/test", method = GET)
+    public String testGet(Model model) {
+        model.addAttribute("testForm", new TestForm());
+        return "bracket/test";
+    }
+
+    @RequestMapping(value = "/brackets/test", method = POST)
+    public String testForm(TestForm testForm, Model model) {
+//        bracketService.saveMaster(masterBracketForm);
+        log.info("testing here");
+        return "redirect:/app/admin/brackets/test";
     }
 
     private void setCreateMasterModel(Model model) {

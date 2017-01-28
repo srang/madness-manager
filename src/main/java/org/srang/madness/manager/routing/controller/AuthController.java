@@ -1,4 +1,4 @@
-package org.srang.madness.manager.controller;
+package org.srang.madness.manager.routing.controller;
 
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
