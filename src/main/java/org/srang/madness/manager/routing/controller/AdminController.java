@@ -14,7 +14,6 @@ import org.srang.madness.manager.model.entities.Bracket;
 import org.srang.madness.manager.model.ephemeral.Alert;
 import org.srang.madness.manager.model.forms.BracketForm;
 import org.srang.madness.manager.model.forms.CreateMasterBracketForm;
-import org.srang.madness.manager.model.forms.TestForm;
 import org.srang.madness.manager.service.BracketService;
 import org.srang.madness.manager.service.TeamService;
 import org.srang.madness.manager.service.TournamentService;
@@ -67,21 +66,8 @@ public class AdminController {
     @RequestMapping(value = "/brackets/master", method = POST)
     public String updateMaster(BracketForm masterBracketForm, Model model, RedirectAttributes attributes) {
 //        bracketService.saveMaster(masterBracketForm);
-        log.info("testing here");
+        attributes.addFlashAttribute("alerts", new Alert[]{new Alert("Master Bracket Saved", "success")});
         return "redirect:/app/admin/brackets/master";
-    }
-
-    @RequestMapping(value = "/brackets/test", method = GET)
-    public String testGet(Model model) {
-        model.addAttribute("testForm", new TestForm());
-        return "bracket/test";
-    }
-
-    @RequestMapping(value = "/brackets/test", method = POST)
-    public String testForm(TestForm testForm, Model model) {
-//        bracketService.saveMaster(masterBracketForm);
-        log.info("testing here");
-        return "redirect:/app/admin/brackets/test";
     }
 
     private void setCreateMasterModel(Model model) {
@@ -95,7 +81,6 @@ public class AdminController {
         // TODO check if master exists
         setCreateMasterModel(model);
         model.addAttribute("bracketForm", new CreateMasterBracketForm(bracketService.regions(), teamService));
-
         return "bracket/create_master";
     }
 

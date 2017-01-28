@@ -28,7 +28,7 @@ public class BracketForm {
 
     public BracketForm(final BracketService service) {
         Bracket master = service.getMaster();
-        games = new HashMap<>();
+        games = new FormMap<>(() -> new FormMap<Integer, GameTouple>(GameTouple.class));
         games.put(SALACIOUS.id(), service.getRound(master, SALACIOUS).stream().collect(toMap(
                 Game::getGameIndex,
                 game -> {
@@ -38,12 +38,6 @@ public class BracketForm {
                     return touple;
                 })
         ));
-        service.rounds().stream().filter(round -> round != SALACIOUS)
-                .forEach(round -> {
-                            Map<Integer, GameTouple> touples = new FormMap<>(GameTouple.class);
-                            games.put(round.id(), touples);
-                        }
-                );
 
     }
 
