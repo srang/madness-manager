@@ -1,12 +1,8 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layouts/base">
 <th:block layout:fragment="content">
-    <!-- Bracket Form -->
     <div class="row">
-
-        <!--<div th:include="bracket/section :: team_info()"></div>-->
         <div th:replace="fragments/page_element :: back_button(${backLink})"></div>
-
 
         <!-- Save Bracket -->
         <div class='btn-group pull-right'>

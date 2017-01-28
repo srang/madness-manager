@@ -77,8 +77,9 @@ public class AdminController {
 
 
     @RequestMapping(value = "/brackets/master", method = POST)
-    public String updateMaster(Model model) {
-        //save something
+    public String updateMaster(Object masterBracketForm, Model model, RedirectAttributes attributes) {
+//        bracketService.saveMaster(masterBracketForm);
+        log.info("testing here");
         return "redirect:/app/admin/brackets/master";
     }
 

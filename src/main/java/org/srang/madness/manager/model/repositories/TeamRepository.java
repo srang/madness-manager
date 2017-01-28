@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface TeamRepository extends CrudRepository<Team, Integer> {
 
-    @Query("SELECT t FROM Team t WHERE t.name != 'TBD'")
+    @Query("SELECT t FROM Team t WHERE t.name != 'TBasdfasdfD'")
     List<Team> getRealTeams();
 
     List<Team> findByRegion(Region region);

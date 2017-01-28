@@ -38,7 +38,12 @@ public class BracketForm {
                 })
         ));
         service.rounds().stream().filter(round -> round != SALACIOUS)
-                .forEach(round -> games.put(round.id(), new HashMap<>()));
+                .forEach(round -> {
+                            Map<Integer, GameTouple> touples = new FormMap<>(GameTouple.class);
+                            games.put(round.id(), touples);
+                        }
+                );
+
     }
 
     public BracketForm(final BracketService service, Bracket existing) {

@@ -58,7 +58,7 @@ gulp.task('js-setup', function () {
 
 gulp.task('custom-js', function () {
     return gulp.src('src/main/resources/static/js/*.js')
-        // .pipe(uglify())
+        .pipe(uglify())
         .pipe(rename({ suffix: '.min'}))
         .pipe(gulp.dest('src/main/resources/static/dist/js'));
 });

@@ -13,6 +13,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GameTouple {
-    Integer teamA;
-    Integer teamB;
+    public Integer teamA;
+    public Integer teamB;
 }

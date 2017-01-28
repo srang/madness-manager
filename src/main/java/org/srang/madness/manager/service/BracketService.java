@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.srang.madness.manager.model.entities.Bracket;
 import org.srang.madness.manager.model.entities.Game;
 import org.srang.madness.manager.model.entities.Team;
+import org.srang.madness.manager.model.forms.BracketForm;
 import org.srang.madness.manager.model.forms.CreateMasterBracketForm;
+import org.srang.madness.manager.model.forms.GameTouple;
 import org.srang.madness.manager.model.repositories.BracketRepository;
 import org.srang.madness.manager.model.repositories.GameRepository;
 import org.srang.madness.manager.model.repositories.TeamRepository;
@@ -122,5 +124,13 @@ public class BracketService {
         });
         bracketRepository.save(master);
         return master;
+    }
+
+    public void saveMaster(BracketForm bracketForm) {
+        saveBracket(bracketForm);
+    }
+
+    public void saveBracket(BracketForm bracketForm) {
+        Map<Integer, Map<Integer, GameTouple>> games = bracketForm.getGames();
     }
 }
