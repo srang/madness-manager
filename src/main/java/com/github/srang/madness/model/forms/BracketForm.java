@@ -45,14 +45,8 @@ public class BracketForm {
         // fill in bracket form from existing bracket
         games = new HashMap<>();
         service.rounds().forEach((round) -> {
-            games.put(round.id(), service.getRound(existing, round).stream().collect(toMap(
-                    Game::getGameIndex,
-                    game -> {
-                        GameTouple touple = new GameTouple();
-                        touple.setTeamA(game.getTeamAlpha().getTeamId());
-                        touple.setTeamB(game.getTeamBravo().getTeamId());
-                        return touple;
-                    })
+            games.put(round.id(), service.getRound(existing, round).stream().collect(
+                    toMap(Game::getGameIndex, game -> new GameTouple(game))
             ));
         });
     }
