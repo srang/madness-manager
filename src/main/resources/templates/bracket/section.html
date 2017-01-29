@@ -11,14 +11,14 @@
 </div>
 <div th:fragment="first_rounds(regionLeft,regionRight)">
     <div class="col-md-2 bracket-round round-one"
-         th:with="round = ${T(org.srang.madness.manager.model.types.Round).SALACIOUS}">
+         th:with="round = ${T(com.github.srang.madness.model.types.Round).SALACIOUS}">
         <h4 class="bracket-round-title" th:text="|${round.label()} ${regionLeft.value()}|"></h4>
         <div th:each="index : ${@bracketService.getRoundRegionGameIds(round,regionLeft)}">
             <div th:replace="bracket/element :: game_button(__${round.id()}__,__${index}__)"></div>
         </div>
     </div><!--
     --><div class="col-md-2 bracket-round round-two"
-         th:with="round = ${T(org.srang.madness.manager.model.types.Round).TITILATING}">
+         th:with="round = ${T(com.github.srang.madness.model.types.Round).TITILATING}">
         <h4 class="bracket-round-title" th:text="|${round.label()} ${regionLeft.value()}|"></h4>
         <div th:each="index : ${@bracketService.getRoundRegionGameIds(round,regionLeft)}">
             <div th:replace="bracket/element :: game_button(__${round.id()}__,__${index}__)"></div>
@@ -26,7 +26,7 @@
         </div>
     </div><!--
     --><div class="col-md-2 bracket-round round-three"
-         th:with="round = ${T(org.srang.madness.manager.model.types.Round).SWEET}">
+         th:with="round = ${T(com.github.srang.madness.model.types.Round).SWEET}">
         <h4 class="bracket-round-title" th:text="|${round.label()} ${regionLeft.value()}|"></h4>
         <div th:each="index : ${@bracketService.getRoundRegionGameIds(round,regionLeft)}">
             <div th:replace="bracket/element :: game_button(__${round.id()}__,__${index}__)"></div>
@@ -34,7 +34,7 @@
         </div>
     </div><!--
     --><div class="col-md-2 bracket-round round-three"
-         th:with="round = ${T(org.srang.madness.manager.model.types.Round).SWEET}">
+         th:with="round = ${T(com.github.srang.madness.model.types.Round).SWEET}">
         <h4 class="bracket-round-title" th:text="|${round.label()} ${regionRight.value()}|"></h4>
         <div th:each="index : ${@bracketService.getRoundRegionGameIds(round,regionRight)}">
             <div th:replace="bracket/element :: game_button(__${round.id()}__,__${index}__)"></div>
@@ -42,7 +42,7 @@
         </div>
     </div><!--
     --><div class="col-md-2 bracket-round round-two"
-         th:with="round = ${T(org.srang.madness.manager.model.types.Round).TITILATING}">
+         th:with="round = ${T(com.github.srang.madness.model.types.Round).TITILATING}">
         <h4 class="bracket-round-title" th:text="|${round.label()} ${regionRight.value()}|"></h4>
         <div th:each="index : ${@bracketService.getRoundRegionGameIds(round,regionRight)}">
             <div th:replace="bracket/element :: game_button(__${round.id()}__,__${index}__)"></div>
@@ -50,7 +50,7 @@
         </div>
     </div><!--
     --><div class="col-md-2 bracket-round round-one"
-         th:with="round = ${T(org.srang.madness.manager.model.types.Round).SALACIOUS}">
+         th:with="round = ${T(com.github.srang.madness.model.types.Round).SALACIOUS}">
         <h4 class="bracket-round-title" th:text="|${round.label()} ${regionRight.value()}|"></h4>
         <div th:each="index : ${@bracketService.getRoundRegionGameIds(round,regionRight)}">
             <div th:replace="bracket/element :: game_button(__${round.id()}__,__${index}__)"></div>
@@ -59,13 +59,13 @@
 </div>
 <div th:fragment="last_rounds">
     <div class="bracket-row" th:with="
-        regionA=${T(org.srang.madness.manager.model.types.Region.RegionType).REGION_A},
-        regionB=${T(org.srang.madness.manager.model.types.Region.RegionType).REGION_B},
-        regionC=${T(org.srang.madness.manager.model.types.Region.RegionType).REGION_C},
-        regionD=${T(org.srang.madness.manager.model.types.Region.RegionType).REGION_D},
+        regionA=${T(com.github.srang.madness.model.types.Region.RegionType).REGION_A},
+        regionB=${T(com.github.srang.madness.model.types.Region.RegionType).REGION_B},
+        regionC=${T(com.github.srang.madness.model.types.Region.RegionType).REGION_C},
+        regionD=${T(com.github.srang.madness.model.types.Region.RegionType).REGION_D},
         ">
         <div class="col-md-2 bracket-round"
-             th:with="round = ${T(org.srang.madness.manager.model.types.Round).ELITE}">
+             th:with="round = ${T(com.github.srang.madness.model.types.Round).ELITE}">
             <h4 class="bracket-round-title" th:text="|${regionA.value()} Finals|"></h4>
             <div th:replace="bracket/element :: game_button(__${round.id()}__,1)"></div>
 
@@ -75,24 +75,24 @@
         </div><!--
      --><div class="col-md-8 bracket-round">
             <div class="col-md-6 col-md-offset-3"
-                 th:with="round = ${T(org.srang.madness.manager.model.types.Round).FINAL}">
+                 th:with="round = ${T(com.github.srang.madness.model.types.Round).FINAL}">
                 <h4 class="bracket-round-title" th:text="${round.label()}"></h4>
                 <div th:replace="bracket/element :: game_button(__${round.id()}__,1)"></div>
             </div><!--
-         --><div th:with="round = ${T(org.srang.madness.manager.model.types.Round).CHAMPIONSHIP}">
+         --><div th:with="round = ${T(com.github.srang.madness.model.types.Round).CHAMPIONSHIP}">
                 <div class="col-md-8 col-md-offset-2">
                     <h4 class="bracket-round-title" th:text="${round.label()}"></h4>
                     <div th:replace="bracket/element :: game_button(__${round.id()}__,1)"></div>
                 </div>
             </div><!--
          --><div class="col-md-6 col-md-offset-3"
-                th:with="round = ${T(org.srang.madness.manager.model.types.Round).FINAL}">
+                th:with="round = ${T(com.github.srang.madness.model.types.Round).FINAL}">
                 <h4 class="bracket-round-title" th:text="${round.label()}"></h4>
                 <div th:replace="bracket/element :: game_button(__${round.id()}__,2)"></div>
             </div>
         </div><!--
     --><div class="col-md-2 bracket-round"
-             th:with="round = ${T(org.srang.madness.manager.model.types.Round).ELITE}">
+             th:with="round = ${T(com.github.srang.madness.model.types.Round).ELITE}">
             <h4 class="bracket-round-title" th:text="|${regionB.value()} Finals|"></h4>
             <div th:replace="bracket/element :: game_button(__${round.id()}__,2)"></div>
 
