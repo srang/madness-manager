@@ -135,13 +135,8 @@ public class BracketService {
     public void updateBracket(BracketForm bracketForm, Bracket bracket) {
         Map<Integer, Map<Integer, GameTouple>> formMap = bracketForm.getGames();
         List<Game> games = bracket.getGames();
-//        Map<Integer, Map<Integer, Game>> gameMap = classify(games);
         formMap.forEach((round, roundGames) -> {
             roundGames.forEach((gameIndex, gameTouple) -> {
-                // todo figure out better way to handle null safe gets in map
-//                Map<Integer, Game> asdf = gameMap.get(round);
-//                Game game = (asdf == null) ? null : asdf.get(gameIndex);
-
                 Game game = games.stream()
                         .filter(g -> g.getRound() == round && g.getGameIndex() == gameIndex).findAny()
                         .orElse(Game.builder()
@@ -155,11 +150,6 @@ public class BracketService {
             });
         });
         bracketRepository.save(bracket);
-        Bracket comp = bracketRepository.findOne(bracket.getBracketId());
-    }
-
-    protected Map classify(List<Game> games) {
-        return games.stream().collect(groupingBy(Game::getRound, toMap(Game::getGameIndex, game->game)));
     }
 
     public void updateBracket(BracketForm bracketForm, Integer bracketId) {

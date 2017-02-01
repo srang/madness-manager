@@ -1,6 +1,5 @@
 package com.github.srang.madness.service;
 
-import com.github.srang.madness.model.entities.Game;
 import com.github.srang.madness.model.forms.CreateMasterBracketForm;
 import com.github.srang.madness.model.repositories.BracketRepository;
 import com.github.srang.madness.model.types.Region;
@@ -13,13 +12,9 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.IntStream;
 
-import static java.util.stream.Collectors.toList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
@@ -57,21 +52,5 @@ public class BracketServiceTest {
         CreateMasterBracketForm form = new CreateMasterBracketForm();
         // TODO
         assertThat(true, is(true));
-    }
-
-    @Test
-    public void testGameListReduce() throws Exception {
-        List<Game> gameList = new ArrayList<>();
-        IntStream.range(0,7).forEach(i -> {
-            IntStream.range(1, 16/(i+1)+1).forEach(i1 -> {
-                Game g = new Game();
-                g.setRound(i);
-                g.setGameIndex(i1);
-                gameList.add(g);
-            });
-        });
-        Map<Integer, Map<Integer, Game>> gameMap = bracketService.classify(gameList);
-        assertThat(gameMap, not(nullValue()));
-        assertThat(gameMap.values().stream().flatMap(map -> map.values().stream()).collect(toList()).size(), equalTo(40));
     }
 }
