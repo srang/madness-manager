@@ -1,5 +1,6 @@
 package com.github.srang.madness.service;
 
+import com.github.srang.madness.model.dto.BracketInfo;
 import com.github.srang.madness.model.entities.Bracket;
 import com.github.srang.madness.model.entities.Game;
 import com.github.srang.madness.model.entities.Team;
@@ -21,9 +22,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
+import java.util.stream.StreamSupport;
 
 import static com.github.srang.madness.model.types.Round.*;
-import static java.util.stream.Collectors.*;
+import static java.util.stream.Collectors.toList;
 
 /**
  * Created by srang on 12/17/16.
@@ -94,8 +96,12 @@ public class BracketService {
         return Arrays.asList(SALACIOUS, TITILATING, SWEET, ELITE, FINAL, CHAMPIONSHIP, KING);
     }
 
-    public Team getWinner(Game game) {
-        return null;
+    public static Team getWinner(Bracket bracket) {
+        return bracket.getGames().stream()
+                .filter(game -> game.getRound().equals(KING))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Winner not found for bracket " + bracket.toString()))
+                .getTeamAlpha();
     }
 
     public Bracket createMaster(CreateMasterBracketForm form) {
@@ -160,5 +166,22 @@ public class BracketService {
         Bracket bracket = new Bracket();
         bracket = bracketRepository.save(bracket);
         this.updateBracket(bracketForm, bracket);
+    }
+
+    public static BracketInfo getInfo(Bracket bracket) {
+        return BracketInfo.builder()
+                .bracketId(bracket.getBracketId().toString())
+                .name(bracket.getName())
+                .ownerName(bracket.getUser().getFirstName() + " " + bracket.getUser().getLastName())
+                .winner(BracketService.getWinner(bracket))
+                .build();
+    }
+
+    public List<BracketInfo> getAllBracketInfo() {
+        Iterable<Bracket> brackets = bracketRepository.findAll();
+        return StreamSupport.stream(brackets.spliterator(), false)
+                .filter(bracket -> !bracket.getIsMaster())
+                .map(BracketService::getInfo)
+                .collect(toList());
     }
 }

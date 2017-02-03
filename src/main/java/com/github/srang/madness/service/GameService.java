@@ -34,4 +34,8 @@ public class GameService {
             return null;
         }
     }
+
+    public Team getWinner(Game game) {
+        return null;
+    }
 }

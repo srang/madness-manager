@@ -1,8 +1,12 @@
 package com.github.srang.madness.routing.controller;
 
+import com.github.srang.madness.model.dto.BracketInfo;
 import com.github.srang.madness.model.entities.Bracket;
+import com.github.srang.madness.model.ephemeral.Alert;
 import com.github.srang.madness.model.forms.BracketForm;
+import com.github.srang.madness.model.forms.CreateMasterBracketForm;
 import com.github.srang.madness.service.BracketService;
+import com.github.srang.madness.service.TeamService;
 import com.github.srang.madness.service.TournamentService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +18,9 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import com.github.srang.madness.model.ephemeral.Alert;
-import com.github.srang.madness.model.forms.CreateMasterBracketForm;
-import com.github.srang.madness.service.TeamService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -106,6 +108,14 @@ public class AdminController {
             log.warning("alert added");
         }
         return new ModelAndView(redirect, attributes.asMap());
+    }
+
+    @RequestMapping(value = "/brackets", method = GET)
+    public String listBrackets(Model model) {
+        List<BracketInfo> brackets = bracketService.getAllBracketInfo();
+        model.addAttribute("brackets", brackets);
+        model.addAttribute("backLink", "/app/admin");
+        return "admin/brackets";
     }
 
 }

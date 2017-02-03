@@ -40,4 +40,41 @@ public class State implements Serializable {
                 ", stateId=" + stateId +
                 '}';
     }
+
+    public StateType state() {
+        return StateType.valueOf(this.getName().toUpperCase());
+    }
+
+    public enum StateType {
+
+        SETUP(1, "setup"),
+        SUBMISSION(2, "submission"),
+        ACTIVE(3, "active"),
+        COMPLETE(4, "complete");
+
+        private int id;
+
+        private String value;
+
+        private StateType(int id, String value) {
+            this.id = id;
+            this.value = value;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public Integer getIntegerId() {
+            return Integer.valueOf(id);
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public boolean isEqual(State state) {
+            return state.getStateId().equals(this.getIntegerId());
+        }
+    }
 }

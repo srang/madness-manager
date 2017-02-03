@@ -5,26 +5,27 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">Admin Dashboard</div>
-
+                <div class="panel-heading">Super Admin Dashboard</div>
                 <div class="panel-body">
-                    <span sec:authentication="name"></span> is logged in as admin
-                    <br/>
+                    <span sec:authentication="name"></span> is logged in as superuser
+                    <br>
                     <div class="list-group">
                         <div class="list-group-item">
-                            <a th:href="@{/app/admin/teams}" href="/teams">Teams</a>: view and update teams with their colors,
-                            mascot, rank and region
+                            <a th:href="@{/app/super/reset}">Reset</a>: reset tournament
                         </div>
                         <div class="list-group-item">
-                            <a th:href="@{/app/admin/brackets}" href="/brackets">Brackets</a>: view and update user and master
-                            brackets
+                            <a th:href="@{/app/super/setup}">Setup</a>: set team ranks
                         </div>
                         <div class="list-group-item">
-                            <a th:href="@{/app/admin/users}" href="/users">Users</a>: view and update users
+                            <a th:href="@{/app/super/submit}">Submit</a>: open bracket submission
+                        </div>
+                        <div class="list-group-item">
+                            <a th:href="@{/app/super/activate}">Activate</a>: close bracket submission
                         </div>
                     </div>
                 </div>
             </div>
+            @include('common.back_button',[ 'back_link'=>url('/home')])
         </div>
     </div>
 </th:block>

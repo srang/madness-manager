@@ -32,16 +32,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         if (!isDebug) {
             http
-                    .authorizeRequests()
-                    .antMatchers("/dist/**", "/welcome", "/auth/register").permitAll()
-                    .anyRequest().authenticated()
-                    .and()
+                .authorizeRequests()
+                    .antMatchers("/dist/**", "/welcome", "/auth/register")
+                    .permitAll()
+                .anyRequest()
+                    .authenticated()
+                .and()
                     .formLogin()
                     .loginPage("/auth/login")
                     .defaultSuccessUrl("/app/home")
                     .permitAll()
                     .and()
-                    .logout()
+                .logout()
                     .logoutUrl("/auth/logout")
                     .logoutSuccessUrl("/welcome?logout=true")
                     .permitAll();
