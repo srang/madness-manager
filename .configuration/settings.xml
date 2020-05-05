@@ -20,9 +20,18 @@
                 <repository>
                     <id>github</id>
                     <name>GitHub OWNER Apache Maven Packages</name>
-                    <url>https://maven.pkg.github.com/OWNER/REPOSITORY</url>
+                    <url>https://maven.pkg.github.com/srang/data-factory</url>
+                    <releases><enabled>true</enabled></releases>
+                    <snapshots><enabled>true</enabled></snapshots>
                 </repository>
             </repositories>
         </profile>
     </profiles>
+    <servers>
+        <server>
+            <id>github</id>
+            <username>${env.GH_USERNAME}</username>
+            <password>${env.GH_TOKEN}</password>
+        </server>
+    </servers>
 </settings>

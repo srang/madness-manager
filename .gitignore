@@ -1,3 +1,5 @@
+.configuration/gh-secret.yaml
+
 target/
 !.mvn/wrapper/maven-wrapper.jar
 node/
