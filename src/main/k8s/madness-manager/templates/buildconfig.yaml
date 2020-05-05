@@ -26,6 +26,16 @@ spec:
   strategy:
     sourceStrategy:
       env:
+        - name: JAVA_APP_JAR
+          value: {{ include "madness-manager.fullname" . }}-0.0.1-SNAPSHOT-runner.jar
+        - name: MAVEN_S2I_ARTIFACT_DIRS
+          value: target
+        - name: S2I_SOURCE_DEPLOYMENTS_FILTER
+          value: '*-runner.jar lib'
+        - name: JAVA_OPTIONS
+          value: '-Dquarkus.http.host=0.0.0.0'
+        - name: AB_JOLOKIA_OFF
+          value: "true"
         - name: GH_USERNAME
           valueFrom:
             secretKeyRef:

@@ -1,0 +1,18 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    {{- include "madness-manager.labels" . | nindent 4 }}
+  name: {{ include "madness-manager.fullname" . }}
+spec:
+  host: madness-manager-srang-quarkus.apps.shared-rhpds.rhpds.openshift.opentlc.com
+  port:
+    targetPort: http
+  subdomain: ""
+  to:
+    kind: Service
+    name: madness-manager
+    weight: 100
+  wildcardPolicy: None
+status:
+  ingress: []
