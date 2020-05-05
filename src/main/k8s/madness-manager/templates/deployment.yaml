@@ -1,6 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"{{ include "madness-manager.fullname" . }}:{{ .Values.build.imageTag }}"},"fieldPath":"spec.template.spec.containers[?(@.name==\"{{ include "madness-manager.fullname" . }}\")].image"}]'
   name: {{ include "madness-manager.fullname" . }}
   labels:
     {{- include "madness-manager.labels" . | nindent 4 }}
@@ -29,9 +31,12 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
+{{/*          env:*/}}
+{{/*            - name: JAVA_APP_JAR*/}}
+{{/*              value: {{ include "madness-manager.fullname" . }}-0.0.1-SNAPSHOT-runner.jar*/}}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ include "madness-manager.fullname" . }}:{{ .Values.build.imageTag }}"
+          image: "srang-quarkus/{{ include "madness-manager.fullname" . }}:{{ .Values.build.imageTag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http

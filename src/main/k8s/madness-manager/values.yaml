@@ -5,10 +5,12 @@
 replicaCount: 1
 
 image:
-  repository: ubi-quarkus-native-s2i
+  repository: registry.access.redhat.com/openjdk/openjdk-11-rhel7
+  #  repository: ubi-quarkus-native-s2i
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart version.
-  tag: 20.0.0-java11
+  #  tag: 20.0.0-java11
+  tag: 1.1
 
 imagePullSecrets: []
 nameOverride: ""

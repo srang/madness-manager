@@ -37,7 +37,7 @@ spec:
               key: gh-token
               name: gh-pkg-secret
       from:
-        kind: ImageStreamTag
+        kind: DockerImage
         name: {{ .Values.image.repository }}:{{ .Values.image.tag }}
     type: Source
   successfulBuildsHistoryLimit: 5
