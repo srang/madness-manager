@@ -2,6 +2,7 @@ package com.github.srang.madness.manager.web;
 
 import com.github.srang.madness.manager.model.Team;
 
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.Collections;
@@ -15,13 +16,17 @@ public class TeamResource {
     private Set<Team> teams =
         Collections.newSetFromMap(Collections.synchronizedMap(new LinkedHashMap<>()));
 
+    public TeamResource() {
+        teams.add(new Team("Duke", "CCC", null));
+    }
+
     @GET
     public Set<Team> list() {
         return teams;
     }
 
     @POST
-    public Set<Team> add(Team team) {
+    public Set<Team> add(@Valid Team team) {
         teams.add(team);
         return teams;
     }
