@@ -5,19 +5,19 @@
     <title>Fruit REST service</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/wingcss/0.1.8/wing.min.css"/>
     <!-- Load AngularJS -->
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script type="text/javascript">
-        var app = angular.module("FruitManagement", []);
+        var app = angular.module("MadnessManagement", []);
 
         //Controller Part
-        app.controller("FruitManagementController", function ($scope, $http) {
+        app.controller("MadnessManagementController", function ($scope, $http) {
 
             //Initialize page with default data which is blank in this example
-            $scope.fruits = [];
+            $scope.teams = [];
 
             $scope.form = {
                 name: "",
-                description: ""
+                primaryColor: ""
             };
 
             //Now load the data from server
@@ -25,11 +25,11 @@
 
             //HTTP POST methods for add fruits
             $scope.add = function () {
-                var data = { "name": $scope.form.name, "description": $scope.form.description };
+                var data = { "name": $scope.form.name, "primaryColor": $scope.form.primaryColor };
 
                 $http({
                     method: "POST",
-                    url: '/fruits',
+                    url: '/api/teams',
                     data: angular.toJson(data),
                     headers: {
                         'Content-Type': 'application/json'
@@ -42,9 +42,9 @@
             function _refreshPageData() {
                 $http({
                     method: 'GET',
-                    url: '/fruits'
+                    url: '/api/teams'
                 }).then(function successCallback(response) {
-                    $scope.fruits = response.data;
+                    $scope.teams = response.data;
                 }, function errorCallback(response) {
                     console.log(response.statusText);
                 });
@@ -62,23 +62,23 @@
             //Clear the form
             function _clearForm() {
                 $scope.form.name = "";
-                $scope.form.description = "";
+                $scope.form.primaryColor = "";
             }
         });
     </script>
 </head>
-<body ng-app="FruitManagement" ng-controller="FruitManagementController">
+<body ng-app="MadnessManagement" ng-controller="MadnessManagementController">
 
 <div class="container">
-    <h1>REST Service - Fruit</h1>
+    <h1>REST Service - Teams</h1>
 
-    <h3>Add a fruit</h3>
+    <h3>Add a Team</h3>
     <form ng-submit="add()">
         <div class="row">
             <div class="col-6"><input type="text" placeholder="Name" ng-model="form.name" size="60"/></div>
         </div>
         <div class="row">
-            <div class="col-6"><input type="text" placeholder="Description" ng-model="form.description" size="60"/></div>
+            <div class="col-6"><input type="text" placeholder="Primary Color" ng-model="form.primaryColor" size="60"/></div>
         </div>
         <input type="submit" value="Save"/>
     </form>
@@ -86,11 +86,11 @@
     <h3>Fruit List</h3>
     <div class="row">
         <div class="col-4">Name</div>
-        <div class="col-8">Description</div>
+        <div class="col-8">Primary Color</div>
     </div>
-    <div class="row" ng-repeat="fruit in fruits">
-        <div class="col-4">{{ fruit.name }}</div>
-        <div class="col-8">{{ fruit.description }}</div>
+    <div class="row" ng-repeat="team in teams">
+        <div class="col-4">{{ team.name }}</div>
+        <div class="col-8">{{ team.primaryColor }}</div>
     </div>
 </div>
 
