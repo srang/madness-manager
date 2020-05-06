@@ -7,9 +7,9 @@ public class Team {
     @NotBlank
     private String name;
     @NotBlank
-    @Pattern(regexp = "[A-Fa-f0-9]{3,6}")
+    @Pattern(regexp = "([A-Fa-f0-9]{3}){1,2}")
     private String primaryColor;
-    @Pattern(regexp = "[A-Fa-f0-9]{3,6}")
+    @Pattern(regexp = "([A-Fa-f0-9]{3}){1,2}")
     private String secondaryColor;
 
     public Team(String name, String primaryColor, String secondaryColor) {

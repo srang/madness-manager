@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>Fruit REST service</title>
+    <title>Team REST service</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/wingcss/0.1.8/wing.min.css"/>
     <!-- Load AngularJS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
@@ -23,7 +23,7 @@
             //Now load the data from server
             _refreshPageData();
 
-            //HTTP POST methods for add fruits
+            //HTTP POST methods for add teams
             $scope.add = function () {
                 var data = { "name": $scope.form.name, "primaryColor": $scope.form.primaryColor };
 
@@ -38,7 +38,7 @@
             };
 
             /* Private Methods */
-            //HTTP GET- get all fruits collection
+            //HTTP GET- get all teams collection
             function _refreshPageData() {
                 $http({
                     method: 'GET',
@@ -69,30 +69,31 @@
 </head>
 <body ng-app="MadnessManagement" ng-controller="MadnessManagementController">
 
-<div class="container">
-    <h1>REST Service - Teams</h1>
-
-    <h3>Add a Team</h3>
-    <form ng-submit="add()">
+    <div class="container">
+        <h1>REST Service - Teams</h1>
         <div class="row">
-            <div class="col-6"><input type="text" placeholder="Name" ng-model="form.name" size="60"/></div>
+            <h3>Add a Team</h3>
+            <form ng-submit="add()">
+                <div class="row">
+                    <div class="col-6"><input type="text" placeholder="Name" ng-model="form.name" size="60"/></div>
+                </div>
+                <div class="row">
+                    <div class="col-6"><input type="text" placeholder="Primary Color" ng-model="form.primaryColor" size="60"/></div>
+                </div>
+                <input type="submit" value="Save"/>
+            </form>
         </div>
-        <div class="row">
-            <div class="col-6"><input type="text" placeholder="Primary Color" ng-model="form.primaryColor" size="60"/></div>
-        </div>
-        <input type="submit" value="Save"/>
-    </form>
 
-    <h3>Fruit List</h3>
-    <div class="row">
-        <div class="col-4">Name</div>
-        <div class="col-8">Primary Color</div>
+        <h3>Team List</h3>
+        <div class="row">
+            <div class="col-4">Name</div>
+            <div class="col-8">Primary Color</div>
+        </div>
+        <div class="row" ng-repeat="team in teams">
+            <div class="col-4">{{ team.name }}</div>
+            <div class="col-8">{{ team.primaryColor }}</div>
+        </div>
     </div>
-    <div class="row" ng-repeat="team in teams">
-        <div class="col-4">{{ team.name }}</div>
-        <div class="col-8">{{ team.primaryColor }}</div>
-    </div>
-</div>
 
 </body>
 </html>

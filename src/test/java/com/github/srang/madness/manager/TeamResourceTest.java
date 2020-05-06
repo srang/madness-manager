@@ -21,7 +21,7 @@ public class TeamResourceTest {
     @Test
     public void testGoodAddEndpoint() {
         given()
-            .body("{\"name\": \"UNC\", \"primaryColor\":\"FFF\"}")
+            .body("{\"name\": \"UNC\", \"primaryColor\":\"F9F\"}")
             .header("Content-Type", "application/json")
             .when().post("/api/teams")
             .then()
@@ -29,9 +29,41 @@ public class TeamResourceTest {
     }
 
     @Test
-    public void testBadAddEndpoint() {
+    public void testBadLettersAddEndpoint() {
         given()
             .body("{\"name\": \"UNC\", \"primaryColor\":\"QQQ\"}")
+            .header("Content-Type", "application/json")
+            .when().post("/api/teams")
+            .then()
+            .statusCode(400);
+    }
+
+    @Test
+    public void testBadLetterCountAddEndpoint() {
+        given()
+            .body("{\"name\": \"UNC\", \"primaryColor\":\"F1F2\"}")
+            .header("Content-Type", "application/json")
+            .when().post("/api/teams")
+            .then()
+            .statusCode(400);
+        given()
+            .body("{\"name\": \"UNC\", \"primaryColor\":\"F\"}")
+            .header("Content-Type", "application/json")
+            .when().post("/api/teams")
+            .then()
+            .statusCode(400);
+        given()
+            .body("{\"name\": \"UNC\", \"primaryColor\":\"FFFFFFFFF\"}")
+            .header("Content-Type", "application/json")
+            .when().post("/api/teams")
+            .then()
+            .statusCode(400);
+    }
+
+    @Test
+    public void testBadMissingFieldAddEndpoint() {
+        given()
+            .body("{\"name\": \"UNC\"}")
             .header("Content-Type", "application/json")
             .when().post("/api/teams")
             .then()
