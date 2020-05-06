@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-#mvn clean install
+mvn clean install
 
 oc get secret gh-pkg-secret &>/dev/null || oc apply -f ./.configuration/gh-secret.yaml
 

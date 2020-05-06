@@ -1,17 +1,10 @@
 package com.github.srang.madness.manager;
 
-import com.github.srang.madness.manager.model.Team;
 import io.quarkus.test.junit.QuarkusTest;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
-import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.arrayContaining;
 
 @QuarkusTest
 public class TeamResourceTest {
@@ -45,4 +38,12 @@ public class TeamResourceTest {
             .statusCode(400);
     }
 
+    @Test
+    public void testBadMediaAddEndpoint() {
+        given()
+            .body("{\"name\": \"UNC\", \"primaryColor\":\"QQQ\"}")
+            .when().post("/api/teams")
+            .then()
+            .statusCode(415);
+    }
 }
