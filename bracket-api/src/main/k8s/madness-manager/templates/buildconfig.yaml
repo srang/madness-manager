@@ -1,0 +1,57 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    {{- include "madness-manager.labels" . | nindent 4 }}
+  name: {{ include "madness-manager.fullname" . }}
+spec:
+  failedBuildsHistoryLimit: 5
+  nodeSelector: {}
+  output:
+    to:
+      kind: ImageStreamTag
+      name: {{ include "madness-manager.fullname" . }}:{{ .Values.build.imageTag }}
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    git:
+      ref: {{ .Values.build.branch }}
+      uri: {{ .Values.build.repo }}
+    type: Git
+    contextDir: {{ .Values.build.contextDir | quote }}
+    configMaps:
+      - configMap:
+          name: {{ include "madness-manager.fullname" . }}-mvn-settings
+        destinationDir: ".m2"
+  strategy:
+    sourceStrategy:
+      env:
+        - name: JAVA_APP_JAR
+          value: {{ include "madness-manager.fullname" . }}-0.0.1-SNAPSHOT-runner.jar
+        - name: MAVEN_S2I_ARTIFACT_DIRS
+          value: target
+        - name: S2I_SOURCE_DEPLOYMENTS_FILTER
+          value: '*-runner.jar lib'
+        - name: JAVA_OPTIONS
+          value: '-Dquarkus.http.host=0.0.0.0'
+        - name: AB_JOLOKIA_OFF
+          value: "true"
+        - name: GH_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: gh-username
+              name: gh-pkg-secret
+        - name: GH_TOKEN
+          valueFrom:
+            secretKeyRef:
+              key: gh-token
+              name: gh-pkg-secret
+      from:
+        kind: DockerImage
+        name: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+    type: Source
+  successfulBuildsHistoryLimit: 5
+  triggers: []
+status:
+  lastVersion: 0

@@ -1,0 +1,1 @@
+INSERT INTO team(id, name, primaryColor) values (1, 'Duke', 'CCC');
