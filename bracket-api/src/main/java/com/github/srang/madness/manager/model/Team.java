@@ -21,6 +21,13 @@ public class Team extends PanacheEntity {
         return team;
     }
 
+    public static Team mirrorFields(Team toMirror, Team mirroring) {
+        toMirror.name = mirroring.name;
+        toMirror.primaryColor = mirroring.primaryColor;
+        toMirror.secondaryColor = mirroring.secondaryColor;
+        return toMirror;
+    }
+
     @Column(unique = true)
     @NotBlank
     public String name;
