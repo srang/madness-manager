@@ -9,9 +9,10 @@ com.github.srang.madness:
       username: test
       password: test
       jdbc:
-        url: jdbc:h2:tcp://localhost/~/test
+        url: jdbc:h2:file:~/test;DB_CLOSE_ON_EXIT=FALSE;AUTO_RECONNECT=TRUE
     hibernate-orm:
-      sql-load-script: no-file
+      sql-load-script: import.sql
+      log.sql: true
       database:
         generation: none
 

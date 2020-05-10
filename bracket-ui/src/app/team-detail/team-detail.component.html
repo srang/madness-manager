@@ -1,0 +1,9 @@
+<div *ngIf="team">
+  <h2>{{team.name | uppercase}}</h2>
+  <div><span>id: </span>{{team.id}}</div>
+  <div>
+    <label>Primary Colosdfr:
+      <input [(ngModel)]="team.primaryColor" placeholder="color">
+    </label>
+  </div>
+</div>

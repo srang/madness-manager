@@ -1,0 +1,10 @@
+<h2>Teams</h2>
+<ul class="teams">
+  <li
+    [class.selected]="team === selectedTeam"
+    *ngFor="let team of teams"
+    (click)="onSelect(team)">
+    <span class="badge" [ngStyle]="{'background-color': '#'+team.primaryColor}"><strong>{{team.primaryColor}}</strong></span> {{team.name}}
+  </li>
+</ul>
+<app-team-detail [team]="selectedTeam"></app-team-detail>
