@@ -47,6 +47,23 @@ export class TeamService {
       );
   }
 
+  addTeam(team: Team): Observable<Team> {
+    return this.http.post(this.teamsUrl, team, this.httpOptions)
+      .pipe(
+        tap((newTeam: Team) => this.log(`creating team name=${newTeam.name} primaryColor=${newTeam.primaryColor}`)),
+        catchError(this.handleError<Team>('addTeam'))
+      );
+  }
+
+  deleteTeam(team: Team | number): Observable<Team> {
+    const id = typeof team === 'number' ? team : team.id;
+    return this.http.delete<Team>(`${this.teamsUrl}/id/${id}`, this.httpOptions)
+      .pipe(
+        tap(_ => this.log(`deleted team id=${id}`)),
+        catchError(this.handleError<Team>('deleteTeam'))
+      );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);

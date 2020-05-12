@@ -1,32 +1,38 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {NgModule} from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TeamsComponent } from './teams/teams.component';
-import { TeamDetailComponent } from './team-detail/team-detail.component';
-import { MessagesComponent } from './messages/messages.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import {HttpClientModule} from '@angular/common/http';
+import {FormsModule} from '@angular/forms';
+import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+import {AppComponent} from './app.component';
+import {AppMaterialModule} from './app-material.module';
+import {AppRoutingModule} from './app-routing.module';
+import { BracketNavComponent } from './bracket-nav/bracket-nav.component';
+import {DashboardComponent} from './dashboard/dashboard.component';
+import {MessagesComponent} from './messages/messages.component';
+import {TeamDetailComponent} from './team-detail/team-detail.component';
+import {TeamsComponent} from './teams/teams.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    DashboardComponent,
+    MessagesComponent,
     TeamsComponent,
     TeamDetailComponent,
-    MessagesComponent,
-    DashboardComponent
+    BracketNavComponent,
   ],
   imports: [
-    BrowserModule,
-    HttpClientModule,
-    FormsModule,
+    AppMaterialModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

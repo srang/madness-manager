@@ -5,6 +5,19 @@
       <span class="badge" [ngStyle]="{'background-color': '#'+team.primaryColor}">
         <strong>{{team.primaryColor}}</strong>
       </span> {{team.name}}
+      <button class="delete" title="delete team"
+              (click)="delete(team)">x</button>
     </a>
   </li>
 </ul>
+<div>
+  <label>Team Name:
+    <input #teamName />
+  </label>
+  <label>Primary Color:
+    <input #teamColor />
+  </label>
+  <button (click)="add(teamName.value, teamColor.value); teamName.value=''; teamColor.value=''">
+    add
+  </button>
+</div>

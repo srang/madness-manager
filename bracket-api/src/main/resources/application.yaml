@@ -14,7 +14,8 @@ com.github.srang.madness:
       sql-load-script: import.sql
       log.sql: true
       database:
-        generation: none
+        generation: drop-and-create
+        #generation: none
 
 
 
