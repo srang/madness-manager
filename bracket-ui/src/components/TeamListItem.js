@@ -5,6 +5,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import {Link as RouterLink} from 'react-router-dom';
 
 import {makeStyles} from "@material-ui/core/styles";
 
@@ -36,7 +37,7 @@ export default function TeamListItem(props) {
                     <Typography className={classes.title} color="textSecondary" gutterBottom>
                         {props.team.name.toUpperCase()}
                         <span><svg width="20" height="20">
-                            <rect x="9" y="9" width="10" height="10" stroke="black" fill={'#'+props.team.primaryColor} stroke-width="0"/>
+                            <rect x="9" y="9" width="10" height="10" stroke="black" fill={`#${props.team.primaryColor}`} strokeWidth="0"/>
                         </svg></span>
                     </Typography>
                     <Typography variant="h5" component="h2">
@@ -47,7 +48,7 @@ export default function TeamListItem(props) {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small">Details</Button>
+                    <Button size="small" component={RouterLink} to={`/team/${props.team.id}/detail`} href={`/team/${props.team.id}/detail`}>Details</Button>
                 </CardActions>
             </Card>
         </Grid>

@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from "clsx";
 import {makeStyles, useTheme} from '@material-ui/core/styles';
-import {BrowserRouter as Router, Link as RouterLink, Route, Switch} from "react-router-dom";
+import {Link as RouterLink, Redirect, Route, Switch} from "react-router-dom";
 import {
     AppBar,
     CssBaseline,
@@ -19,6 +19,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import MenuIcon from '@material-ui/icons/Menu';
 import Splash from "../components/Splash";
 import TeamList from "../components/TeamList";
+import TeamDetail from "../components/TeamDetail";
 
 const drawerWidth = 240;
 
@@ -95,74 +96,77 @@ export default function BaseLayout() {
         setOpen(false);
     };
 
-
     return (
         <div className={classes.root}>
-            <Router>
-                <CssBaseline/>
+            <CssBaseline/>
 
-                <AppBar position="fixed"
-                        className={clsx(classes.appBar, {
-                            [classes.appBarShift]: open,
-                        })}
-                >
-                    <Toolbar>
-                        <Typography variant="h6" noWrap className={classes.title}>
-                            Bracket UI
-                        </Typography>
-                        <IconButton
-                            color="inherit"
-                            aria-label="open drawer"
-                            edge="end"
-                            onClick={handleDrawerOpen}
-                            className={clsx(open && classes.hide)}
-                        >
-                            <MenuIcon/>
-                        </IconButton>
-                    </Toolbar>
-                </AppBar>
-                <main className={clsx(classes.content, {
-                    [classes.contentShift]: open,
-                })}
-                >
-                    <div className={classes.drawerHeader}/>
-                    <Switch>
-                        <Route path="/teams">
-                            <TeamList/>
-                        </Route>
-                        <Route path="/">
-                            <Splash/>
-                        </Route>
-                    </Switch>
-                </main>
+            <AppBar position="fixed"
+                    className={clsx(classes.appBar, {
+                        [classes.appBarShift]: open,
+                    })}
+            >
+                <Toolbar>
+                    <Typography variant="h6" noWrap className={classes.title}>
+                        Bracket UI
+                    </Typography>
+                    <IconButton
+                        color="inherit"
+                        aria-label="open drawer"
+                        edge="end"
+                        onClick={handleDrawerOpen}
+                        className={clsx(open && classes.hide)}
+                    >
+                        <MenuIcon/>
+                    </IconButton>
+                </Toolbar>
+            </AppBar>
+            <main className={clsx(classes.content, {
+                [classes.contentShift]: open,
+            })}
+            >
+                <div className={classes.drawerHeader}/>
+                <Switch>
+                    <Route path="/teams">
+                        <TeamList/>
+                    </Route>
+                    <Route path="/team/:teamId/detail">
+                        <TeamDetail />
+                    </Route>
+                    <Route path="/home">
+                        <Splash />
+                    </Route>
+                    <Route path="/">
+                        <Redirect to="/home" />
+                    </Route>
+                </Switch>
+            </main>
 
-                <Drawer
-                    className={classes.drawer}
-                    variant="persistent"
-                    anchor="right"
-                    open={open}
-                    classes={{
-                        paper: classes.drawerPaper,
-                    }}
-                >
-                    <div className={classes.drawerHeader}>
-                        <IconButton onClick={handleDrawerClose}>
-                            {theme.direction === 'rtl' ? <ChevronLeftIcon/> : <ChevronRightIcon/>}
-                        </IconButton>
-                    </div>
-                    <Divider/>
-                    <List>
-                        {[
-                            {text: 'Home', path: '/'},
-                            {text: 'Teams', path: '/teams'},
-                        ].map((item, index) => (
-                            <ListItem button key={item.text} component={RouterLink} to={item.path}>
-                                <ListItemText primary={item.text}/>
-                            </ListItem>
-                        ))}
-                    </List>
-                </Drawer>
-            </Router>
+            <Drawer
+                className={classes.drawer}
+                variant="persistent"
+                anchor="right"
+                open={open}
+                classes={{
+                    paper: classes.drawerPaper,
+                }}
+            >
+                <div className={classes.drawerHeader}>
+                    <IconButton onClick={handleDrawerClose}>
+                        {theme.direction === 'rtl' ? <ChevronLeftIcon/> : <ChevronRightIcon/>}
+                    </IconButton>
+                </div>
+                <Divider/>
+                <List>
+                    {[
+                        {text: 'Home', path: '/'},
+                        {text: 'Teams', path: '/teams'},
+                    ].map((item, index) => (
+                        <ListItem button key={item.text} component={RouterLink} to={item.path}>
+                            <ListItemText primary={item.text}/>
+                        </ListItem>
+                    ))}
+                </List>
+            </Drawer>
         </div>
     );
 }

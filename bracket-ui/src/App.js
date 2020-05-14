@@ -1,12 +1,14 @@
 import React from 'react';
 import BaseLayout from "./layouts/BaseLayout";
-import TestLayout from "./layouts/TestLayout";
+import {BrowserRouter} from "react-router-dom";
 
 function App() {
     return (
         <div>
-            {/*<TestLayout/>*/}
-            <BaseLayout/>
+            <BrowserRouter>
+                {/*<TestLayout/>*/}
+                <BaseLayout/>
+            </BrowserRouter>
         </div>
     );
 }
