@@ -1,15 +1,12 @@
 import React from 'react';
-import logo from './logo.svg';
-import Button from '@material-ui/core/Button';
+import Base from "./layouts/Base";
 
 function App() {
-  return (
-    <div>
-      <Button variant="contained" color="primary">
-        Hello
-      </Button>
-    </div>
-  );
+    return (
+        <div>
+            <Base/>
+        </div>
+    );
 }
 
 export default App;
