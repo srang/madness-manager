@@ -1,10 +1,12 @@
 import React from 'react';
-import Base from "./layouts/Base";
+import BaseLayout from "./layouts/BaseLayout";
+import TestLayout from "./layouts/TestLayout";
 
 function App() {
     return (
         <div>
-            <Base/>
+            {/*<TestLayout/>*/}
+            <BaseLayout/>
         </div>
     );
 }

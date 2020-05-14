@@ -17,7 +17,7 @@ export default function TeamList(props) {
     });
 
     return (
-        <Container maxWidth="md">
+        <Container>
             <Grid container spacing={3}>
                 {rows}
             </Grid>
