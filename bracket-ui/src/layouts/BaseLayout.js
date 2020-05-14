@@ -121,28 +121,21 @@ export default function BaseLayout() {
                         </IconButton>
                     </Toolbar>
                 </AppBar>
+                <main className={clsx(classes.content, {
+                    [classes.contentShift]: open,
+                })}
+                >
+                    <div className={classes.drawerHeader}/>
+                    <Switch>
+                        <Route path="/teams">
+                            <TeamList/>
+                        </Route>
+                        <Route path="/">
+                            <Splash/>
+                        </Route>
+                    </Switch>
+                </main>
 
-                <Switch>
-                    <Route path="/teams">
-                        <main className={clsx(classes.content, {
-                            [classes.contentShift]: open,
-                        })}
-                        >
-                            <div className={classes.drawerHeader}/>
-
-                            <TeamList />
-                        </main>
-                    </Route>
-                    <Route path="/">
-                        <main className={clsx(classes.content, {
-                            [classes.contentShift]: open,
-                        })}
-                        >
-                            <div className={classes.drawerHeader}/>
-                            <Splash />
-                        </main>
-                    </Route>
-                </Switch>
                 <Drawer
                     className={classes.drawer}
                     variant="persistent"
