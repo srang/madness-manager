@@ -1,14 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {Form, Formik} from "formik";
 import axios from 'axios';
 import {useParams} from 'react-router-dom';
 import {makeStyles} from "@material-ui/core/styles";
-import {TextField} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
 import TeamCardTitle from "./TeamCardTitle";
 import TeamForm from "./TeamForm";
 
@@ -34,7 +30,9 @@ export default function TeamDetail(props) {
             url: `/api/teams/id/${teamId}`,
         };
         // Artificial API delay
-        setTimeout(() => {axios(axiosOptions).then(res => setTeam(res.data))}, 1000);
+        setTimeout(() => {
+            axios(axiosOptions).then(res => setTeam(res.data))
+        }, 1000);
 
     }, []);
 
@@ -45,7 +43,7 @@ export default function TeamDetail(props) {
                 <Card>
                     {team.name && (
                         <CardContent>
-                            <TeamCardTitle team={team} />
+                            <TeamCardTitle team={team}/>
                             <TeamForm team={team}/>
                         </CardContent>
                     )}

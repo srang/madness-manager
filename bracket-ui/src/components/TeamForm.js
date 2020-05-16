@@ -2,6 +2,7 @@ import {Form, Formik} from "formik";
 import {TextField} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import React from "react";
+import * as Yup from 'yup';
 import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -17,6 +18,17 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+const TeamSchema = Yup.object().shape({
+    team: Yup.object().shape({
+        name: Yup.string()
+            .matches(/^[A-Z0-9 ']+$/i, 'Invalid team name')
+            .required('Required'),
+        primaryColor: Yup.string()
+            .matches(/^([A-F0-9]{3}){1,2}$/i, 'Invalid color')
+            .required('Required')
+    })
+});
+
 
 export default function TeamForm(props) {
     const classes = useStyles();
@@ -26,29 +38,9 @@ export default function TeamForm(props) {
                     onSubmit={(values, {setSubmitting}) => {
                         alert(JSON.stringify(values, null, 2));
                     }}
-            // validate: {(values) => {
-            //     const errors = {};
-            //     if (!values.email) {
-            //         errors.email = 'Required';
-            //     } else if (
-            //         !/^[A-Z0-9 ']+$/i.test(values.teamName)
-            //     ) {
-            //         errors.teamName = 'Invalid team name';
-            //     }
-            //     return errors;
-            // }}
-        >{(props) => {
-            const {
-                values,
-                touched,
-                errors,
-                dirty,
-                isSubmitting,
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                handleReset,
-            } = props;
+                    validationSchema={TeamSchema}
+        >{({values, errors, touched, handleChange, handleBlur}) => {
+
             return (
                 <Form>
                     <div className={classes.input}>
@@ -58,7 +50,7 @@ export default function TeamForm(props) {
                             value={values.team.name}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            helperText={(errors.team?.name && touched.team.name) && errors.team.name}
+                            helperText={(errors.team?.name && touched.team?.name) && errors.team.name}
                         />
                     </div>
                     <div className={classes.input}>
@@ -68,7 +60,7 @@ export default function TeamForm(props) {
                             value={values.team.primaryColor}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            helperText={(errors.team?.primaryColor && touched.team.primaryColor) && errors.team.primaryColor}
+                            helperText={(errors.team?.primaryColor && touched.team?.primaryColor) && errors.team.primaryColor}
                         />
                     </div>
                     <Button type="submit">Submit</Button>
