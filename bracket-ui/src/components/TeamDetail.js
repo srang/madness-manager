@@ -32,8 +32,10 @@ export default function TeamDetail(props) {
         const axiosOptions = {
             method: 'get',
             url: `/api/teams/id/${teamId}`,
-        }
-        axios(axiosOptions).then(res => setTeam(res.data));
+        };
+        // Artificial API delay
+        setTimeout(() => {axios(axiosOptions).then(res => setTeam(res.data))}, 1000);
+
     }, []);
 
 
@@ -44,35 +46,7 @@ export default function TeamDetail(props) {
                     {team.name && (
                         <CardContent>
                             <TeamCardTitle team={team} />
-                            <Formik enableReinitialize={true}
-                                    initialValues={{team: {name: team.name, primaryColor: team.primaryColor}}}
-                                    onSubmit={(values, {setSubmitting}) => {
-                                        alert(JSON.stringify(values, null, 2));
-                                    }}
-                                // validate: {(values) => {
-                                //     const errors = {};
-                                //     if (!values.email) {
-                                //         errors.email = 'Required';
-                                //     } else if (
-                                //         !/^[A-Z0-9 ']+$/i.test(values.teamName)
-                                //     ) {
-                                //         errors.teamName = 'Invalid team name';
-                                //     }
-                                //     return errors;
-                                // }}
-                            >{(props)=> <TeamForm
-                                values={props.values}
-                                touched={props.touched}
-                                errors={props.errors}
-                                dirty={props.dirty}
-                                isSubmitting={props.isSubmitting}
-                                handleChange={props.handleChange}
-                                handleBlur={props.handleBlur}
-                                handleSubmit={props.handleSubmit}
-                                handleReset={props.handleReset}
-                            />}
-                            </Formik>
-
+                            <TeamForm team={team}/>
                         </CardContent>
                     )}
                 </Card>
