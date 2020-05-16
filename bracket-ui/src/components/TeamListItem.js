@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import {Link as RouterLink} from 'react-router-dom';
 
 import {makeStyles} from "@material-ui/core/styles";
+import TeamCardTitle from "./TeamCardTitle";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -34,12 +35,7 @@ export default function TeamListItem(props) {
         <Grid item xs={3} className={classes.root}>
             <Card>
                 <CardContent>
-                    <Typography className={classes.title} color="textSecondary" gutterBottom>
-                        {props.team.name.toUpperCase()}
-                        <span><svg width="20" height="20">
-                            <rect x="9" y="9" width="10" height="10" stroke="black" fill={`#${props.team.primaryColor}`} strokeWidth="0"/>
-                        </svg></span>
-                    </Typography>
+                    <TeamCardTitle team={props.team}/>
                     <Typography variant="h5" component="h2">
                         {props.team.name}
                     </Typography>
