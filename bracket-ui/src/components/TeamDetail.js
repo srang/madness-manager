@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import axios from 'axios';
-import {useParams} from 'react-router-dom';
+import {useParams, useHistory} from 'react-router-dom';
 import {makeStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
@@ -18,9 +18,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+
 export default function TeamDetail(props) {
     const classes = useStyles();
     let {teamId} = useParams();
+    let history = useHistory();
     const [team, setTeam] = useState({id: '', name: '', primaryColor: ''});
 
 
@@ -29,13 +31,28 @@ export default function TeamDetail(props) {
             method: 'get',
             url: `/api/teams/id/${teamId}`,
         };
-        // Artificial API delay
-        setTimeout(() => {
-            axios(axiosOptions).then(res => setTeam(res.data))
-        }, 1000);
-
+        axios(axiosOptions).then(res => setTeam(res.data))
     }, []);
-
+    const handleTeamFormSubmit = (values, actions) => {
+        const axiosOptions = {
+            method: 'put',
+            data: {
+                id: teamId,
+                name: values.team.name,
+                primaryColor: values.team.primaryColor,
+            },
+            url: `/api/teams/id/${teamId}`,
+        };
+        axios(axiosOptions)
+            .then(response => {
+                actions.setSubmitting(false);
+                history.push('/teams');
+            })
+            .catch(error => {
+                actions.setSubmitting(false);
+                alert(error);
+            });
+    }
 
     return (
         <Grid container className={classes.root} justify="center">
@@ -44,7 +61,7 @@ export default function TeamDetail(props) {
                     {team.name && (
                         <CardContent>
                             <TeamCardTitle team={team}/>
-                            <TeamForm team={team}/>
+                            <TeamForm team={team} handleSubmit={handleTeamFormSubmit}/>
                         </CardContent>
                     )}
                 </Card>

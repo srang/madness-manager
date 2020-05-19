@@ -35,38 +35,44 @@ export default function TeamForm(props) {
 
     return (<Formik enableReinitialize={true}
                     initialValues={{team: {name: props.team.name, primaryColor: props.team.primaryColor}}}
-                    onSubmit={(values, {setSubmitting}) => {
-                        alert(JSON.stringify(values, null, 2));
-                    }}
-                    validationSchema={TeamSchema}
-        >{({values, errors, touched, handleChange, handleBlur}) => {
+                    onSubmit={props.handleSubmit}
+                    validationSchema={TeamSchema}>
+            {({
+                  values,
+                  errors,
+                  touched,
+                  handleChange,
+                  handleBlur
+              }) => {
 
-            return (
-                <Form>
-                    <div className={classes.input}>
-                        <TextField
-                            label="Team Name"
-                            name="team.name"
-                            value={values.team.name}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            helperText={(errors.team?.name && touched.team?.name) && errors.team.name}
-                        />
-                    </div>
-                    <div className={classes.input}>
-                        <TextField
-                            label="Primary Color"
-                            name="team.primaryColor"
-                            value={values.team.primaryColor}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            helperText={(errors.team?.primaryColor && touched.team?.primaryColor) && errors.team.primaryColor}
-                        />
-                    </div>
-                    <Button type="submit">Submit</Button>
-                </Form>
-            );
-        }}
+                return (
+                    <Form>
+                        <div className={classes.input}>
+                            <TextField
+                                error={errors.team?.name && touched.team?.name}
+                                label="Team Name"
+                                name="team.name"
+                                value={values.team.name}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                helperText={(errors.team?.name && touched.team?.name) && errors.team.name}
+                            />
+                        </div>
+                        <div className={classes.input}>
+                            <TextField
+                                error={errors.team?.primaryColor && touched.team?.primaryColor}
+                                label="Primary Color"
+                                name="team.primaryColor"
+                                value={values.team.primaryColor.toUpperCase()}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                helperText={(errors.team?.primaryColor && touched.team?.primaryColor) && errors.team.primaryColor}
+                            />
+                        </div>
+                        <Button type="submit">Submit</Button>
+                    </Form>
+                );
+            }}
         </Formik>
     );
 }

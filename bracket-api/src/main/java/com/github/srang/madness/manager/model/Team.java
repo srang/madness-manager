@@ -41,13 +41,16 @@ public class Team extends PanacheEntity {
     @Pattern(regexp = "([A-Fa-f0-9]{3}){1,2}")
     public String secondaryColor;
 
+    @Column
+    public String mascot;
+
     @Override
     public String toString() {
         return "Team{" +
             "name='" + name + '\'' +
             ", primaryColor='" + primaryColor + '\'' +
             ", secondaryColor='" + secondaryColor + '\'' +
-            ", id=" + id +
+            ", mascot='" + mascot + '\'' +
             '}';
     }
 }
