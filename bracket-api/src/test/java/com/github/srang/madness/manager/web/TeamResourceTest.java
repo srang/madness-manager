@@ -1,6 +1,8 @@
-package com.github.srang.madness.manager;
+package com.github.srang.madness.manager.web;
 
+import com.github.srang.madness.manager.model.Team;
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.response.ResponseBody;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -14,19 +16,62 @@ public class TeamResourceTest {
             .when().get("/api/teams")
             .then()
                 .statusCode(200)
-                .body("$.size()", is(1),
-                    "[0].name", is("Duke"));
+                .body("$.size()", is(91));
     }
 
     @Test
     public void testGoodAddEndpoint() {
         given()
-            .body("{\"name\": \"UNC\", \"primaryColor\":\"F9F\"}")
+            .body("{\"name\": \"Oklahoma\", \"primaryColor\":\"000000\"}")
             .header("Content-Type", "application/json")
             .when().post("/api/teams")
             .then()
-                .statusCode(200);
+                .statusCode(201);
     }
+
+    @Test
+    public void testGoodUpdateEndpoint() {
+        Team duke = given()
+            .when().get("/api/teams/name/Duke")
+            .getBody().as(Team.class);
+        given()
+            .body("{\"name\": \"DOOK\"}")
+            .header("Content-Type", "application/json")
+            .when().put("/api/teams/id/"+duke.id)
+            .then()
+            .statusCode(201);
+    }
+
+    @Test
+    public void testUniqueNamePostEndpoint() {
+        given()
+            .when().get("/api/teams/name/Duke")
+            .then().statusCode(200);
+
+        given()
+            .body("{\"name\": \"Duke\", \"primaryColor\":\"000000\"}")
+            .header("Content-Type", "application/json")
+            .when().put("/api/teams")
+            .then()
+            .statusCode(400);
+    }
+
+    @Test
+    public void testUniqueNamePutEndpoint() {
+        Team duke = given()
+            .when().get("/api/teams/name/Duke")
+            .getBody().as(Team.class);
+        given()
+            .when().get("/api/teams/name/UAB")
+            .then().statusCode(200);
+        given()
+            .body("{\"name\": \"UAB\", \"primaryColor\":\"000000\"}")
+            .header("Content-Type", "application/json")
+            .when().put("/api/teams/id/"+duke.id)
+            .then()
+            .statusCode(400);
+    }
+
 
     @Test
     public void testBadLettersAddEndpoint() {

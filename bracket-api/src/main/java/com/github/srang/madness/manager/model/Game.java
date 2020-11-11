@@ -4,6 +4,7 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
@@ -16,13 +17,21 @@ public class Game extends PanacheEntity{
     @Column
     public Integer round;
 
+    @NotBlank
     @ManyToOne
     @JoinColumn(name = "left_team")
     public Team teamLeft;
 
+    @NotBlank
     @ManyToOne
     @JoinColumn(name = "right_team")
     public Team teamRight;
+
+    @Column
+    public Integer scoreLeft;
+
+    @Column
+    public Integer scoreRight;
 
     @JsonbTransient
     @ManyToOne(cascade = CascadeType.ALL)

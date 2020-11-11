@@ -3,7 +3,6 @@
 INSERT INTO
     team (id, name, mascot, primaryColor, secondaryColor)
 VALUES
-    (nextval('hibernate_sequence'),'Oklahoma','Sooners','000000','FFFFFF'),
     (nextval('hibernate_sequence'),'Oregon','Ducks','008000','FFFF00'),
     (nextval('hibernate_sequence'),'Villanova','Wildcats','000085','FFFFFF'),
     (nextval('hibernate_sequence'),'Kansas','Jayhawks','0000FF','FF0000'),
